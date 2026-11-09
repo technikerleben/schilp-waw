@@ -23,3 +23,19 @@ an der Heinrich-Böll-Gesamtschule Dortmund (Jahrgänge 7–10).
 - `planung/` – Planungsstände und Entscheidungen
 - `quellen/` – interne Ausgangsdokumente (nicht öffentlich eingecheckt)
 - Ziel: interaktives HTML-Dokument mit Kompetenzrastern (SRL), Bezügen zu Berufsorientierung, BNE und MKR
+
+## Arbeitsversion (index.html)
+
+`index.html` ist eine eigenständige Seite (keine Abhängigkeiten) und wird über Vercel ausgeliefert.
+Sie wird aus `src/` gebaut:
+
+```
+python3 tools/build.py
+```
+
+- `src/data.js` – alle Inhalte (Technik-Vorhaben, HW-Planung, Diskussionspunkte, Leistungsbewertung)
+- `src/app.js` – Darstellung, Navigation, Hervorhebungsfilter, Notizen
+- `src/style.css` – HBG-SRL-Farbschema
+
+Notizen und Bearbeitungsstände werden nur lokal im Browser gespeichert (localStorage)
+und lassen sich als Markdown oder JSON exportieren bzw. importieren.

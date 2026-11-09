@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wirtschaft und Arbeitswelt – SchiLP Arbeitsversion</title>
+<meta name="robots" content="noindex">
+<style>
+:root {
+  --slate-dark:#2C3D4C; --slate-base:#3E5668; --slate-mid:#6A8599; --slate-pale:#D0DCE6; --slate-ghost:#EEF3F7;
+  --rust-dark:#9E4E22; --rust-base:#D97A4A; --rust-mid:#EBA882; --rust-pale:#F5DDD1; --rust-ghost:#FBF0EB;
+  --sage-dark:#4D8B3F; --sage-base:#7DBB6F; --sage-mid:#A8D49D; --sage-pale:#DDF0D8; --sage-ghost:#F0FAF0;
+  --color-warning:#C17B00; --color-error:#C0392B;
+  --bg:#F5F4F1; --text:#1E2A35; --text-muted:#5A6A78; --white:#fff;
+  /* Fachfarben */
+  --tc:#3E5668; --tc-pale:#D0DCE6; --hw:#4D8B3F; --hw-pale:#DDF0D8; --wi:#9E4E22; --wi-pale:#F5DDD1;
+  /* Querschnitt-Markierungen */
+  --bo:#7B5EA7; --bo-pale:#ECE5F5; --bne:#2E8B7A; --bne-pale:#DDF2EE; --mkr:#2F6FA8; --mkr-pale:#DDEAF6; --srl:#C17B00; --srl-pale:#FBF0D9;
+  --radius:12px; --shadow:0 1px 3px rgba(30,42,53,.08),0 4px 14px rgba(30,42,53,.06);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;font-size:15px}
+a{color:var(--slate-base)}
+h1,h2,h3,h4{line-height:1.25;margin:0 0 .5em}
+h2{font-size:1.45rem;color:var(--slate-dark)}
+h3{font-size:1.1rem;color:var(--slate-dark)}
+h4{font-size:.95rem;color:var(--slate-dark);text-transform:uppercase;letter-spacing:.04em}
+p{margin:.3em 0 .7em}
+ul{margin:.2em 0 .6em;padding-left:1.2em}
+li{margin:.15em 0}
+small,.muted{color:var(--text-muted)}
+
+/* ---------- Header ---------- */
+.topbar{background:var(--slate-dark);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.topbar .brand{display:flex;flex-direction:column}
+.topbar .brand b{font-size:1.15rem;letter-spacing:.01em}
+.topbar .brand span{font-size:.82rem;opacity:.8}
+.topbar{row-gap:8px}
+.topbar button{white-space:nowrap}
+.topbar .badge-draft{background:var(--rust-base);color:#fff;border-radius:999px;padding:3px 10px;font-size:.75rem;font-weight:600}
+.topbar .spacer{flex:1}
+.topbar button,.btn{font:inherit;font-size:.85rem;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;padding:6px 12px;border-radius:8px;cursor:pointer}
+.topbar button:hover{background:rgba(255,255,255,.12)}
+.btn{border-color:var(--slate-mid);color:var(--slate-base);background:#fff}
+.btn:hover{background:var(--slate-ghost)}
+.btn.primary{background:var(--rust-base);border-color:var(--rust-base);color:#fff}
+.btn.primary:hover{background:var(--rust-dark)}
+
+/* ---------- Navigation ---------- */
+nav.tabs{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--slate-pale);box-shadow:0 2px 6px rgba(0,0,0,.04)}
+nav.tabs .inner{display:flex;gap:2px;overflow-x:auto;padding:0 16px}
+nav.tabs a{display:block;padding:12px 14px;text-decoration:none;color:var(--text-muted);font-weight:600;font-size:.9rem;border-bottom:3px solid transparent;white-space:nowrap}
+nav.tabs a:hover{color:var(--slate-dark)}
+nav.tabs a.active{color:var(--slate-dark);border-bottom-color:var(--rust-base)}
+.filterbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 24px;background:var(--slate-ghost);border-bottom:1px solid var(--slate-pale);font-size:.85rem}
+.filterbar .lbl{color:var(--text-muted);margin-right:4px}
+.fchip{border:1.5px solid currentColor;background:#fff;border-radius:999px;padding:3px 11px;font:inherit;font-size:.8rem;font-weight:600;cursor:pointer}
+.fchip[data-f=bo]{color:var(--bo)} .fchip[data-f=bne]{color:var(--bne)} .fchip[data-f=mkr]{color:var(--mkr)} .fchip[data-f=wi]{color:var(--wi)} .fchip[data-f=srl]{color:var(--srl)}
+.fchip.on{color:#fff!important}
+.fchip.on[data-f=bo]{background:var(--bo);border-color:var(--bo)} .fchip.on[data-f=bne]{background:var(--bne);border-color:var(--bne)} .fchip.on[data-f=mkr]{background:var(--mkr);border-color:var(--mkr)} .fchip.on[data-f=wi]{background:var(--wi);border-color:var(--wi)} .fchip.on[data-f=srl]{background:var(--srl);border-color:var(--srl)}
+
+main{max-width:1280px;margin:0 auto;padding:24px}
+section.view{display:none}
+section.view.active{display:block}
+
+/* ---------- Karten ---------- */
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 22px;margin-bottom:18px}
+.card.tight{padding:14px 16px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.box{border-radius:10px;padding:14px 16px;background:var(--slate-ghost);border-left:4px solid var(--slate-mid)}
+.box h4{margin-bottom:.4em}
+.box.tc{background:var(--slate-ghost);border-color:var(--tc)}
+.box.hw{background:var(--sage-ghost);border-color:var(--hw)}
+.box.wi{background:var(--rust-ghost);border-color:var(--wi)}
+.box.bo{background:var(--bo-pale);border-color:var(--bo)}
+.box.bne{background:var(--bne-pale);border-color:var(--bne)}
+.box.mkr{background:var(--mkr-pale);border-color:var(--mkr)}
+.box.srl{background:var(--srl-pale);border-color:var(--srl)}
+.box.warn{background:var(--rust-ghost);border-color:var(--color-warning)}
+
+/* ---------- Chips ---------- */
+.chip{display:inline-block;border-radius:999px;padding:1px 9px;font-size:.75rem;font-weight:600;margin:1px 2px 1px 0;white-space:nowrap;vertical-align:middle}
+.chip.tc{background:var(--tc-pale);color:var(--slate-dark)}
+.chip.hw{background:var(--hw-pale);color:var(--sage-dark)}
+.chip.wi{background:var(--wi-pale);color:var(--wi)}
+.chip.bo{background:var(--bo-pale);color:var(--bo)}
+.chip.bne{background:var(--bne-pale);color:var(--bne)}
+.chip.mkr{background:var(--mkr-pale);color:var(--mkr)}
+.chip.srl{background:var(--srl-pale);color:var(--srl)}
+.chip.code{background:#fff;border:1px solid var(--slate-pale);color:var(--slate-base);cursor:help}
+.chip.time{background:var(--slate-dark);color:#fff}
+.chip.time.es{background:var(--wi)}
+
+/* ---------- Hero ---------- */
+.hero{display:flex;gap:18px;align-items:flex-start}
+.hero .jg{flex:0 0 auto;width:74px;height:74px;border-radius:16px;background:var(--tc);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700}
+.hero .jg small{color:#fff;opacity:.8;font-size:.7rem;font-weight:600}
+.hero .jg b{font-size:1.8rem;line-height:1}
+.hero.hwh .jg{background:var(--hw)}
+.hero .ttl{flex:1}
+.hero .ttl h2{margin-bottom:2px}
+.hero .ttl .sub{color:var(--text-muted);font-weight:600;margin-bottom:8px}
+.leitfrage{font-style:italic;background:var(--rust-ghost);border-left:4px solid var(--rust-base);padding:8px 12px;border-radius:8px;margin:8px 0}
+.status{font:inherit;font-size:.82rem;padding:5px 8px;border-radius:8px;border:1px solid var(--slate-pale);background:#fff}
+.status[data-v=diskutiert]{background:var(--rust-ghost);border-color:var(--rust-mid)}
+.status[data-v=beschlossen]{background:var(--sage-pale);border-color:var(--sage-base)}
+.status[data-v=zurückgestellt]{background:#eee}
+
+/* ---------- Tabellen ---------- */
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--slate-pale);vertical-align:top;text-align:left}
+th{background:var(--slate-ghost);color:var(--slate-dark);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.03em}
+tr:last-child td{border-bottom:none}
+.tablewrap{overflow-x:auto}
+.seq td:first-child{font-weight:700;color:var(--slate-dark);width:22%}
+.seq .h{font-weight:700;font-size:.78rem;display:block;margin-bottom:2px}
+.seq td.wi{background:var(--rust-ghost)}
+.seq tfoot td{font-weight:700;background:var(--slate-ghost)}
+.raster th.m{background:var(--slate-pale)} .raster th.r{background:var(--rust-pale)} .raster th.e{background:var(--sage-pale)}
+.raster td.b{font-weight:700;width:18%}
+.raster td.b small{display:block;font-weight:600}
+.raster tr.wi td.b{color:var(--wi)} .raster tr.bo td.b{color:var(--bo)} .raster tr.bne td.b{color:var(--bne)}
+.matrix td,.matrix th{text-align:center} .matrix td:first-child,.matrix th:first-child{text-align:left}
+.dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--tc)}
+.dot.q{background:transparent;border:2px solid var(--tc)}
+.zero{color:var(--color-error);font-weight:700}
+
+/* ---------- Übersicht ---------- */
+.modell{display:grid;grid-template-columns:90px repeat(2,minmax(0,1fr));gap:8px;align-items:stretch}
+.modell .jgl{display:flex;align-items:center;font-weight:700;color:var(--slate-dark)}
+.hj{border-radius:10px;padding:8px 12px;font-size:.85rem;display:flex;flex-direction:column;gap:4px}
+.hj.tc{background:var(--tc-pale)} .hj.hw{background:var(--hw-pale)}
+.hj .row{display:flex;gap:6px;align-items:center}
+.hj .bar{border-radius:6px;padding:2px 8px;color:#fff;font-weight:600;font-size:.75rem}
+.hj .bar.ds.tc{background:var(--tc)} .hj .bar.ds.hw{background:var(--hw)} .hj .bar.es{background:var(--wi)}
+.ov td{width:40%} .ov td:first-child{width:8%;font-weight:700;font-size:1.1rem;color:var(--slate-dark)}
+.ov .t{font-weight:700;color:var(--slate-dark);text-decoration:none;display:block}
+.ov .t:hover{text-decoration:underline}
+.ov .hwitem{margin-bottom:6px}
+
+/* ---------- HW-Details ---------- */
+details.hwuv{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:12px;border-left:5px solid var(--hw)}
+details.hwuv summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--slate-dark);list-style:none;display:flex;gap:10px;align-items:baseline}
+details.hwuv summary::-webkit-details-marker{display:none}
+details.hwuv summary:before{content:"▸";color:var(--hw);transition:transform .2s}
+details.hwuv[open] summary:before{transform:rotate(90deg)}
+details.hwuv .body{padding:0 18px 16px}
+
+/* ---------- Notizen ---------- */
+.note{margin-top:14px;border:1.5px dashed var(--slate-mid);border-radius:10px;padding:10px 12px;background:#FFFDF7}
+.note label{display:flex;justify-content:space-between;font-size:.8rem;font-weight:700;color:var(--slate-base);margin-bottom:4px}
+.note label .saved{font-weight:500;color:var(--sage-dark);opacity:0;transition:opacity .3s}
+.note label .saved.show{opacity:1}
+.note textarea{width:100%;min-height:70px;font:inherit;font-size:.9rem;border:none;background:transparent;resize:vertical;outline:none;color:var(--text)}
+.note.has{border-style:solid;border-color:var(--rust-base);background:var(--rust-ghost)}
+.notelist .item{border-bottom:1px solid var(--slate-pale);padding:10px 0}
+.notelist .item b{color:var(--slate-dark)}
+.notelist pre{white-space:pre-wrap;font:inherit;margin:4px 0 0}
+
+/* ---------- Diskussion ---------- */
+.disc{display:grid;grid-template-columns:1fr auto;gap:8px 16px;align-items:start}
+.disc .tagline{grid-column:1/-1}
+
+/* ---------- Highlight-Filter ---------- */
+.t-bo,.t-bne,.t-mkr,.t-wi,.t-srl{transition:box-shadow .2s,outline .2s}
+body.hl-bo .t-bo{outline:3px solid var(--bo);outline-offset:2px;border-radius:8px}
+body.hl-bne .t-bne{outline:3px solid var(--bne);outline-offset:2px;border-radius:8px}
+body.hl-mkr .t-mkr{outline:3px solid var(--mkr);outline-offset:2px;border-radius:8px}
+body.hl-wi .t-wi{outline:3px solid var(--wi);outline-offset:2px;border-radius:8px}
+body.hl-srl .t-srl{outline:3px solid var(--srl);outline-offset:2px;border-radius:8px}
+
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--text-muted)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--slate-dark);color:#fff;padding:10px 16px;border-radius:10px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);transition:all .3s;z-index:50;font-size:.9rem}
+.toast.show{opacity:1;transform:none}
+.foot{text-align:center;color:var(--text-muted);font-size:.8rem;padding:20px}
+
+/* ---------- Druck ---------- */
+@media print{
+  body{background:#fff;font-size:10.5pt}
+  .topbar,nav.tabs,.filterbar,.noprint,.toast{display:none!important}
+  main{padding:0;max-width:none}
+  .card,details.hwuv{box-shadow:none;border:1px solid #ccc;break-inside:avoid-page}
+  section.view{display:none} section.view.active{display:block}
+  body.printall section.view{display:block;break-before:page}
+  details.hwuv .body{display:block!important}
+  .note textarea{min-height:0}
+  .note:not(.has){display:none}
+  table{font-size:9pt} tr{break-inside:avoid}
+  a{text-decoration:none;color:inherit}
+}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* =========================================================================
+   SchiLP WP Wirtschaft und Arbeitswelt – HBG Dortmund
+   Datenbasis der Arbeitsversion (Technik-Entwurf + HW-Planung)
+   Hier werden Inhalte gepflegt; app.js rendert daraus die Seite.
+   ========================================================================= */
+
+const META = {
+  titel: "Wirtschaft und Arbeitswelt (WP)",
+  untertitel: "Schulinterner Lehrplan · Arbeitsversion zur Planung",
+  schule: "Heinrich-Böll-Gesamtschule Dortmund",
+  stand: "09.11.2026",
+  version: "Entwurf 0.1 – Gesprächsgrundlage Fachkonferenz",
+  lehrwerkTC: "Blickpunkt Technik SI, Westermann 2025 (ISBN 978-3-14-188512-5)",
+  lehrwerkWI: "starkeSeiten Wahlpflicht Wirtschaft und Arbeitswelt – Wirtschaft, NRW, Klett",
+  lehrwerkHW: "starkeSeiten Hauswirtschaft / WP-Arbeitslehre Hauswirtschaft/Wirtschaft, Klett",
+};
+
+/* ---------- Kernlehrplan: Technik-Kompetenzen (Kurzfassung, Wortlaut s. KLP) ---------- */
+const KLP_TC = {
+  SK1: "Sachverhalte unter Verwendung zentraler Fachbegriffe bildungssprachlich korrekt darstellen",
+  SK2: "Elemente und Funktionen technischer Systeme beschreiben",
+  SK3: "technische Prozesse und Strukturen analysieren, auch mit digitalen Werkzeugen",
+  SK4: "technische Sachverhalte in übergreifende Zusammenhänge einordnen",
+  SK5: "technische Berufe beschreiben",
+  MK1: "Einzelmaterialien Informationen entnehmen, gliedern und in Beziehung setzen",
+  MK2: "Recherchen mit digitalen Medien durchführen",
+  MK3: "Daten durch Beobachtung, Erkundung und Messverfahren erheben",
+  MK4: "Eigenschaften von Materialien und technischen Systemen identifizieren",
+  MK5: "technische Darstellungen, Schaltpläne und Diagramme interpretieren",
+  MK6: "Fragestellungen/Hypothesen durch Experimente, Erkundungen und Analysen überprüfen",
+  MK7: "Kriterien für die Qualität von Werkstücken, Systemen und Verfahren entwickeln",
+  MK8: "technische Skizzen, Zeichnungen und Dokumentationen – auch digital – erstellen",
+  MK9: "Arbeitsergebnisse adressatengerecht nach Kriterien präsentieren",
+  UK1: "technische Sachverhalte, Systeme und Verfahren kriteriengeleitet beurteilen",
+  UK2: "einen eigenen Standpunkt unter Berücksichtigung soziotechnischer Aspekte begründen",
+  UK3: "Möglichkeiten, Grenzen und Folgen technischen Handelns erörtern",
+  UK4: "Konsumentscheidungen hinsichtlich Motiven, Bedürfnissen und Interessen analysieren",
+  UK5: "in technischen Handlungssituationen eigenständig entscheiden und begründen",
+  UK6: "technische Berufe auch im Hinblick auf Digitalisierung analysieren",
+  HK1: "Werkstoffe nach vorgegebenen Verfahren verarbeiten",
+  HK2: "Werkzeuge, Messgeräte und Maschinen sachgerecht und sicher bedienen",
+  HK3: "Lösungen und Lösungswege (u. a. algorithmische Sequenzen) entwickeln",
+  HK4: "Werkstücke, technische Systeme oder Teilsysteme erstellen",
+  HK5: "Hard- und Software bedienen und konfigurieren",
+  HK6: "Arbeitsabläufe technischer Berufe simulieren",
+};
+
+/* ---------- HW-Kompetenzcodes (Wortlaut aus SchiLP Hauswirtschaft) ---------- */
+const KLP_HW = {
+  SK1: "stellen fachbezogene Sachverhalte unter Verwendung zentraler Fachbegriffe bildungssprachlich korrekt dar",
+  SK2: "beschreiben Elemente und Funktionen von Haushaltssystemen",
+  SK4: "ordnen fachbezogene Sachverhalte in übergreifende Zusammenhänge ein",
+  MK1: "entnehmen Einzelmaterialien thematisch relevante Informationen, gliedern und setzen sie in Beziehung",
+  MK2: "führen Recherchen auch mit digitalen Medien durch",
+  MK3: "erheben Daten u. a. durch Beobachtungen, Erkundungen und Umfragen",
+  MK6: "interpretieren diskontinuierliche Texte wie Grafiken, Rezepte, Bilder und Diagramme",
+  MK7: "überprüfen Fragestellungen und Hypothesen durch Testverfahren, Experimente, Erkundungen, Befragungen",
+  MK8: "identifizieren unterschiedliche Standpunkte und analysieren diese anhand von Fallbeispielen",
+  MK10: "erstellen und gestalten fachbezogene Medienprodukte nach vorgegebenen Kriterien",
+  MK11: "präsentieren Arbeitsergebnisse auch digital nach formulierten Kriterien",
+  UK1: "beurteilen kriteriengeleitet fachbezogene Sachverhalte, Systeme und Verfahren",
+  UK2: "begründen einen eigenen Standpunkt unter Berücksichtigung fachbezogener Aspekte",
+  UK3: "erörtern Möglichkeiten, Grenzen und Folgen haushaltsbezogenen Handelns",
+  UK4: "analysieren Konsumentscheidungen hinsichtlich Motiven, Bedürfnissen und Interessen",
+  HK1: "verarbeiten Lebensmittel nach vorgegebenen Verfahren",
+  HK3: "entwickeln Lösungen und Lösungswege, auch algorithmische Sequenzen",
+  HK5: "planen und realisieren fachbezogene Vorhaben anhand vorgegebener Kriterien",
+};
+
+/* ---------- Inhaltsfelder ---------- */
+const IF_TC = {
+  1: { name: "Zukunftsgestaltung durch Technik", sp: ["Energieeffizienz und regenerative Energieträger", "kreislauforientierte Wertschöpfung", "Technik im Alltag"], hinweis: "wird mit den Inhaltsfeldern 2–4 kombiniert (Querschnitt)" },
+  2: { name: "Maschinen und Roboter in der Arbeitswelt", sp: ["Eingabe – Verarbeitung – Ausgabe", "sichere Nutzung von Maschinen und Robotern", "Antriebe und Kraftübertragung", "Wartung"] },
+  3: { name: "Gebäudetechnik", sp: ["Stoff-, Energie- und Informationsflüsse in Gebäuden", "Stromkreise und Schutzeinrichtungen", "automatisierte Gebäudetechnik"] },
+  4: { name: "Produktionsprozessgestaltung", sp: ["klassische und moderne Fertigungsverfahren", "Produktentwicklung mit digitalen Werkzeugen", "Einzel- und Serienfertigung"] },
+};
+const IF_WI = {
+  1: { name: "Grundprinzipien, Funktionen und Versagen von Märkten", kurz: "Märkte" },
+  2: { name: "Wirtschaftliches Handeln in Unternehmen", kurz: "Unternehmen" },
+  3: { name: "Wandel in der Arbeitswelt", kurz: "Arbeitswelt" },
+  4: { name: "Verantwortliches finanzielles Handeln als Verbraucherinnen und Verbraucher", kurz: "Finanzen/Verbraucher" },
+  5: { name: "Nachhaltiges wirtschaftliches Handeln in der Region", kurz: "Region" },
+};
+const IF_HW = {
+  1: "Haushaltsmanagement",
+  2: "Leben im Haushalt",
+  3: "Haushalt und Globalisierung",
+  4: "Gesundheit und Ernährung",
+  5: "Konsum und Verantwortung",
+};
+
+/* ---------- Medienkompetenzrahmen NRW ---------- */
+const MKR = {
+  "1": "Bedienen und Anwenden", "1.1": "Medienausstattung", "1.2": "Digitale Werkzeuge", "1.3": "Datenorganisation", "1.4": "Datenschutz und Informationssicherheit",
+  "2": "Informieren und Recherchieren", "2.1": "Informationsrecherche", "2.2": "Informationsauswertung", "2.3": "Informationsbewertung", "2.4": "Informationskritik",
+  "3": "Kommunizieren und Kooperieren", "3.1": "Kommunikations- und Kooperationsprozesse", "3.2": "Kommunikations- und Kooperationsregeln", "3.3": "Kommunikation und Kooperation in der Gesellschaft", "3.4": "Cybergewalt und -kriminalität",
+  "4": "Produzieren und Präsentieren", "4.1": "Medienproduktion und Präsentation", "4.2": "Gestaltungsmittel", "4.3": "Quellendokumentation", "4.4": "Rechtliche Grundlagen",
+  "5": "Analysieren und Reflektieren", "5.1": "Medienanalyse", "5.2": "Meinungsbildung", "5.3": "Identitätsbildung", "5.4": "Selbstregulierte Mediennutzung",
+  "6": "Problemlösen und Modellieren", "6.1": "Prinzipien der digitalen Welt", "6.2": "Algorithmen erkennen", "6.3": "Modellieren und Programmieren", "6.4": "Bedeutung von Algorithmen",
+};
+
+const SDG = {
+  2: "Kein Hunger", 3: "Gesundheit und Wohlergehen", 4: "Hochwertige Bildung", 5: "Geschlechtergleichheit", 6: "Sauberes Wasser und Sanitäreinrichtungen", 7: "Bezahlbare und saubere Energie", 8: "Menschenwürdige Arbeit und Wirtschaftswachstum",
+  9: "Industrie, Innovation und Infrastruktur", 11: "Nachhaltige Städte und Gemeinden", 12: "Nachhaltiger Konsum und Produktion",
+  13: "Maßnahmen zum Klimaschutz", 14: "Leben unter Wasser", 15: "Leben an Land",
+};
+
+/* =========================================================================
+   TECHNIK – ein Schwerpunkthalbjahr pro Jahrgang
+   Zeitrahmen: ca. 36 Std. Doppelstunde (Technik) + ca. 18 Std. Einzelstunde (Wirtschaft)
+   BP = Blickpunkt Technik SI (Westermann 2025) · SS = starkeSeiten WAW Wirtschaft (Klett, Seiten laut HW-Plan)
+   ========================================================================= */
+const TC = [
+  {
+    jg: 7, id: "tc7",
+    titel: "Vom Baum zum Möbelstück",
+    untertitel: "Einzelfertigung im Handwerk",
+    leitfrage: "Wie wird aus einem Baum ein Möbelstück – und was kostet das?",
+    tcIF: [4, 1], wiIF: [2, 5],
+    tcSP: ["klassische Fertigungsverfahren (Trennen, Fügen, Oberflächen)", "Einzelfertigung nach eigenem Plan", "kreislauforientierte Wertschöpfung: Holz als nachwachsender Rohstoff"],
+    wiSP: ["Kleine und mittlere Unternehmen und Handwerk", "Grundentscheidungen eines Betriebs (Material, Personal, Preis)", "regionale Betriebe und Produkte"],
+    kompetenzen: ["SK1", "SK2", "SK5", "MK4", "MK5", "MK7", "MK8", "UK1", "UK5", "HK1", "HK2", "HK4"],
+    wiKompetenzen: [
+      "beschreiben Aufbau und Aufgaben eines Handwerksbetriebs in der Region (SK)",
+      "erläutern, wie sich der Preis eines Produkts aus Material-, Arbeits- und Gemeinkosten sowie Gewinn zusammensetzt (SK)",
+      "beurteilen Einzelfertigung im Handwerk und Massenfertigung im Möbelhandel aus Sicht von Kundschaft und Betrieb (UK)",
+    ],
+    sequenzen: [
+      { titel: "Sicher starten im Technikraum", ds: 4, es: 2,
+        praxis: ["Werkraumregeln, Einrichtung des Technikraums", "Lehrgang Tischbohrmaschine („Bohrmaschinenschein“)"],
+        wirtschaft: ["Was ist ein Betrieb? Handwerk in unserer Umgebung (Mindmap, Branchen)"],
+        bp: "S. 8–11, 40–43", ss: "" },
+      { titel: "Vom Baum zum Brett", ds: 6, es: 4,
+        praxis: ["Rohstoff Holz, Baumarten, Tropenholz", "Werkstoff Holz und Handelsformen (Baumscheibe-App)"],
+        wirtschaft: ["Wertschöpfungskette Forst – Sägewerk – Tischlerei: Wer verdient am Holz?", "Siegel FSC/PEFC, regionale Holzwirtschaft"],
+        bp: "S. 12–19", ss: "S. 58–59 „Gut für die Region“" },
+      { titel: "Planen wie Profis", ds: 6, es: 4,
+        praxis: ["Skizze, technische Zeichnung, räumliche Darstellung", "Stückliste und Fertigungsplan, Schnittplan-Simulator"],
+        wirtschaft: ["Was kostet mein Möbelstück? Material- und Arbeitskosten, Stundensatz, Preis", "Geht es nur um Gewinn? Ziele eines Betriebs"],
+        bp: "S. 64–67, 70–76", ss: "S. 52–53 „Geht es nur um Gewinn?“" },
+      { titel: "Möbelbau-Projekt", ds: 20, es: 6,
+        praxis: ["Weg A: Modellbau (Eisstiele) · Weg B: Originalmöbel (Dachlatte)", "Holz trennen und fügen, Messen und Anreißen, Oberflächenschutz", "buchbare Kurz-Lehrgänge als Voraussetzung für Maschinen"],
+        wirtschaft: ["Ein Handwerksbetrieb von innen: Betriebserkundung oder Expertenbesuch Tischlerei", "Berufe rund um Holz und Konstruieren (Steckbriefe)", "Ein Unternehmen gründen? Was braucht eine Tischlerei?"],
+        bp: "S. 30–39, 48–55, 77, 87", ss: "S. 50–51 „Ein Unternehmen gründen?“" },
+      { titel: "Ausstellung und Reflexion", ds: 0, es: 2,
+        praxis: ["Beurteilungsbogen, Abgleich mit dem Kompetenzraster"],
+        wirtschaft: ["Preisschild für das eigene Werkstück: Kalkulation präsentieren"],
+        bp: "S. 67", ss: "" },
+    ],
+    produkte: ["Werkstück (Modell oder Originalmöbel)", "digitale Projektdokumentation (TaskCards: Skizze, Lehrgänge, Protokoll)", "Lernerfolgskontrolle Holz (Open Book, 30 Min.)", "Kalkulation des eigenen Werkstücks"],
+    leistung: "Werkstück + Dokumentation als Projektarbeit (bisherige Praxis: 60 % Werkstück / 40 % Dokumentation) und eine schriftliche Lernerfolgskontrolle.",
+    bo: { berufe: ["Tischler/in", "Holzmechaniker/in", "Forstwirt/in", "Technische/r Produktdesigner/in"], elemente: ["Betriebserkundung oder Expertenbesuch Tischlerei", "Berufesteckbriefe (BP S. 77)", "Arbeitsplanung wie im Handwerk (Fertigungsplan)"] },
+    bne: { sdg: [12, 15], punkte: ["Holz als nachwachsender Rohstoff, Tropenholz-Problematik", "Zertifikate FSC/PEFC beurteilen", "Verschnitt minimieren (Schnittplan), Reste sinnvoll nutzen"] },
+    mkr: [
+      { code: "1.2", text: "digitale Werkzeuge: Baumscheibe-App, Schnittplan-Simulator" },
+      { code: "1.3", text: "Datenorganisation: eigene Projektliste in TaskCards führen" },
+      { code: "4.1", text: "Arbeitsprozess mit Fotos und Kurztexten dokumentieren" },
+    ],
+    srl: {
+      planung: ["Selbsteinschätzung im Kompetenzraster zu Beginn", "Projektwahl: Weg A (Modell) oder Weg B (Original), allein oder im Team (max. 3)", "Stückliste und Fertigungsplan als eigener Plan"],
+      durchfuehrung: ["Arbeitspakete im eigenen Tempo", "buchbare Kurz-Lehrgänge bei der Lehrkraft", "Lösungsleiter bei Problemen", "Stundenprotokoll in TaskCards"],
+      reflexion: ["Beurteilungsbogen (BP S. 67)", "erneute Selbsteinschätzung im Kompetenzraster", "kurzes Lerngespräch zum Werkstück"],
+    },
+    raster: [
+      { bereich: "Werkstoff Holz", codes: "SK1 · MK4",
+        m: "Ich kann Laub- und Nadelholz unterscheiden und drei Handelsformen nennen.",
+        r: "Ich kann Eigenschaften von Holzarten beschreiben und begründet ein Holz für mein Werkstück auswählen.",
+        e: "Ich kann Holzwerkstoffe vergleichen und meine Wahl unter Nachhaltigkeitsaspekten (Tropenholz, Siegel) beurteilen." },
+      { bereich: "Planen und Zeichnen", codes: "MK5 · MK8",
+        m: "Ich kann eine beschriftete Skizze meines Werkstücks anfertigen.",
+        r: "Ich kann eine Stückliste und einen Fertigungsplan erstellen.",
+        e: "Ich kann eine maßstäbliche technische Zeichnung erstellen und den Verschnitt optimieren." },
+      { bereich: "Sicher arbeiten", codes: "HK2",
+        m: "Ich halte die Werkraumregeln ein und nutze Handwerkzeuge unter Anleitung.",
+        r: "Ich bediene Werkzeuge und die Tischbohrmaschine nach dem Lehrgang selbstständig und sicher.",
+        e: "Ich erkenne Gefahren selbst und kann anderen die sichere Bedienung erklären." },
+      { bereich: "Fertigen", codes: "HK1 · HK4",
+        m: "Ich kann Holz nach Anleitung sägen, feilen und verbinden.",
+        r: "Ich fertige mein Werkstück nach eigenem Plan maßgenau.",
+        e: "Ich erkenne Fertigungsfehler, korrigiere sie und verbessere mein Vorgehen." },
+      { bereich: "Qualität beurteilen", codes: "MK7 · UK1 · UK5",
+        m: "Ich bewerte mein Werkstück mit dem Beurteilungsbogen.",
+        r: "Ich stelle Qualitätskriterien selbst auf und wende sie begründet an.",
+        e: "Ich leite aus meiner Bewertung Verbesserungen für eine zweite Fertigung ab." },
+      { bereich: "Wirtschaft: Betrieb und Preis", codes: "Wi IF 2 · IF 5", wi: true,
+        m: "Ich kann die Materialkosten meines Werkstücks berechnen.",
+        r: "Ich kann einen Verkaufspreis aus Material-, Arbeitskosten und Gewinn kalkulieren.",
+        e: "Ich kann erklären, warum ein Handwerksbetrieb andere Preise verlangen muss als ein Möbelhaus." },
+      { bereich: "Berufe", codes: "SK5", bo: true,
+        m: "Ich kann zwei Berufe rund um Holz nennen.",
+        r: "Ich kann Tätigkeiten und Anforderungen dieser Berufe beschreiben.",
+        e: "Ich kann die Anforderungen mit meinen eigenen Stärken vergleichen." },
+    ],
+    lernorte: ["Tischlerei/Schreinerei in Lütgendortmund und Umgebung", "Revierförsterei / Stadtwald", "ggf. Freilichtmuseum Hagen (bisherige Kooperation)"],
+    hwBezug: "HW 7.I (Wohnen, Wohnraumgestaltung, Standortfaktoren) und HW 7.II (Preise, Bezahlung): Kalkulation im Technik-Halbjahr baut nicht auf HW auf, ergänzt sie aber.",
+    bisher: "Ersetzt WP 7 „Werkstofftechnik I: Holz“; bestehende SRL-Reihe „Vom Baum zum fertigen Möbelstück“ (Repo wp7ur1-holz) wird übernommen und um die Wirtschafts-Einzelstunde ergänzt.",
+  },
+
+  {
+    jg: 8, id: "tc8",
+    titel: "Von der Idee zum Produkt",
+    untertitel: "Kunststoff, CAD und Kleinserie",
+    leitfrage: "Wie wird aus einer Idee ein Produkt, das wir in Serie herstellen und verkaufen können?",
+    tcIF: [4, 1], wiIF: [2, 1],
+    tcSP: ["Produktentwicklung mit digitalen Werkzeugen (CAD, 3D-Druck)", "Einzel- und Serienfertigung, Vorrichtungsbau", "moderne Fertigungsverfahren (Warmumformen, Spritzguss, Rapid Prototyping)", "kreislauforientierte Wertschöpfung: Produktlebenszyklus, Kunststoffrecycling"],
+    wiSP: ["Unternehmensziele und Grundentscheidungen (Idee, Produktion, Marketing)", "Businessplan (vereinfacht)", "Markt: Angebot, Nachfrage, Preisbildung", "nachhaltiges Wirtschaften in Unternehmen"],
+    kompetenzen: ["SK3", "SK4", "MK2", "MK6", "MK8", "MK9", "UK3", "UK4", "HK3", "HK4", "HK5"],
+    wiKompetenzen: [
+      "beschreiben Grundentscheidungen bei der Gründung eines (Schüler-)Unternehmens (SK)",
+      "erläutern den Zusammenhang von Fixkosten, variablen Kosten, Stückzahl und Preis (SK)",
+      "erklären die Preisbildung durch Angebot und Nachfrage an einem selbst erlebten Beispiel (SK)",
+      "beurteilen eine Geschäftsidee unter ökonomischen und ökologischen Kriterien (UK)",
+    ],
+    sequenzen: [
+      { titel: "Kunststoffe – Alleskönner mit Folgen", ds: 6, es: 4,
+        praxis: ["Kunststoffarten durch Versuche unterscheiden (Thermoplast, Duroplast, Elastomer)", "Recyclingcodes, Kunststoffe recyceln"],
+        wirtschaft: ["Wirtschaftskreisläufe und Produktlebenszyklus", "Nachhaltig wirtschaften: Was tun Unternehmen gegen Plastikmüll?"],
+        bp: "S. 26–29, 90–93", ss: "S. 60–61 „Nachhaltig wirtschaften“" },
+      { titel: "Vom Entwurf zum Prototyp", ds: 10, es: 4,
+        praxis: ["räumliche Darstellung", "CAD-Lernpfad (z. B. Tinkercad) mit drei Niveaus", "3D-Druck und Rapid Prototyping: Prototyp drucken und testen"],
+        wirtschaft: ["Geschäftsidee und Zielgruppe finden", "Businessplan light: Produkt, Kundschaft, Kosten, Preis"],
+        bp: "S. 74–76, 80–83, 95", ss: "S. 50–51, 54–55 „Businessplan entwickeln“" },
+      { titel: "Wir fertigen in Serie", ds: 16, es: 6,
+        praxis: ["Einzel- und Mehrfachfertigung vergleichen", "Vorrichtung bauen (vgl. Projekt Sägevorrichtung)", "Acrylglas warmumformen (vgl. Projekt Gewächshaus), Spritzguss als Industrieverfahren", "arbeitsteilige Kleinserie mit Qualitätskontrolle"],
+        wirtschaft: ["Was kostet ein Stück? Fixe und variable Kosten, Stückkosten bei steigender Menge", "Am Markt treffen Angebot und Nachfrage aufeinander – Preisfindung für unser Produkt"],
+        bp: "S. 68, 84–86, 94, 98–99", ss: "S. 10–13 (Markt, Preise)" },
+      { titel: "Markttag und Auswertung", ds: 4, es: 4,
+        praxis: ["Qualitätsprüfung der Serie", "Produktpräsentation (Pitch)"],
+        wirtschaft: ["Verkauf am Markttag/Schulfest", "Auswertung: Gewinn? Nachhaltig? Was würden wir ändern?"],
+        bp: "S. 88–89", ss: "S. 52–53" },
+    ],
+    produkte: ["CAD-Modell und 3D-gedruckter Prototyp", "Kleinserie eines Gruppenprodukts", "Produktsteckbrief / Businessplan light", "Klassenarbeit: Kunststoffe und Fertigungsverfahren"],
+    leistung: "Eine Klassenarbeit (Kunststoffe, Fertigungsverfahren, Stückkosten) und eine Projektarbeit (Prototyp + Serienanteil + Produktsteckbrief).",
+    bo: { berufe: ["Verfahrensmechaniker/in für Kunststoff- und Kautschuktechnik", "Technische/r Produktdesigner/in", "Industriekaufmann/-frau", "Mediengestalter/in"], elemente: ["Bezug zur KAoA-Berufsfelderkundung in Jg. 8", "Rollen in der Serienfertigung (Planung, Fertigung, Qualität, Vertrieb)", "Berufe im Wandel der Zeit (BP S. 88)"] },
+    bne: { sdg: [12, 14], punkte: ["Plastikmüll und Meere", "Produktlebenszyklus und Design for Recycling", "Ressourcenverbrauch Einzel- vs. Serienfertigung"] },
+    mkr: [
+      { code: "6.3", text: "Modellieren: Bauteile im CAD konstruieren" },
+      { code: "1.2", text: "Slicer-Software und 3D-Drucker bedienen" },
+      { code: "4.2", text: "Produktflyer/Pitch gestalten" },
+      { code: "4.4", text: "Lizenzen fremder 3D-Modelle (Creative Commons) beachten" },
+    ],
+    srl: {
+      planung: ["Anforderungsliste für das eigene Produkt", "CAD-Lernpfad mit Niveauwahl (Mindest-, Regel-, Expertenpfad)", "Rollenverteilung für die Serie"],
+      durchfuehrung: ["Arbeitspakete mit Checkpunkten", "Lösungsleiter für CAD-Probleme", "Qualitätsprüfung im Team nach selbst aufgestellten Kriterien"],
+      reflexion: ["Stückzeiten messen und Ablauf optimieren", "Team-Rückblick nach dem Markttag", "Selbsteinschätzung im Kompetenzraster"],
+    },
+    raster: [
+      { bereich: "Werkstoff Kunststoff", codes: "SK1 · MK6",
+        m: "Ich erkenne Kunststoffe im Alltag und nenne zwei Eigenschaften.",
+        r: "Ich unterscheide Thermoplaste, Duroplaste und Elastomere durch Versuche.",
+        e: "Ich bewerte Recyclingwege und schlage Alternativen vor." },
+      { bereich: "Digitale Produktentwicklung", codes: "MK8 · HK5",
+        m: "Ich erstelle ein einfaches Objekt im CAD aus Grundkörpern.",
+        r: "Ich konstruiere ein maßgenaues Bauteil und bereite es für den 3D-Druck vor.",
+        e: "Ich verbessere meinen Entwurf nach Tests und wähle Druckeinstellungen begründet." },
+      { bereich: "Einzel- und Serienfertigung", codes: "SK3 · SK4",
+        m: "Ich kann Einzel- und Serienfertigung unterscheiden.",
+        r: "Ich beschreibe Vor- und Nachteile und nutze eine Vorrichtung für die Serie.",
+        e: "Ich analysiere einen Fertigungsablauf und optimiere ihn nach Zeit und Qualität." },
+      { bereich: "Fertigen im Team", codes: "HK3 · HK4",
+        m: "Ich führe einen Arbeitsschritt der Serie nach Anleitung aus.",
+        r: "Ich führe meinen Arbeitsschritt in gleichbleibender Qualität aus und prüfe ihn.",
+        e: "Ich koordiniere den Ablauf und löse Qualitätsprobleme." },
+      { bereich: "Wirtschaft: Kosten und Preis", codes: "Wi IF 2 · IF 1", wi: true,
+        m: "Ich liste die Kosten für ein Produkt auf.",
+        r: "Ich berechne Stückkosten und begründe einen Verkaufspreis.",
+        e: "Ich erkläre, wie Angebot, Nachfrage und Stückzahl den Preis beeinflussen." },
+      { bereich: "Nachhaltigkeit beurteilen", codes: "UK3 · UK4", bne: true,
+        m: "Ich kann sagen, was mit einem Produkt am Ende passiert.",
+        r: "Ich beschreibe und bewerte den Lebenszyklus unseres Produkts.",
+        e: "Ich verbessere unser Produkt nach Kriterien der Kreislaufwirtschaft." },
+      { bereich: "Präsentieren", codes: "MK9",
+        m: "Ich stelle unser Produkt mit Hilfe eines Steckbriefs vor.",
+        r: "Ich präsentiere Produkt, Kosten und Preis nach Kriterien.",
+        e: "Ich überzeuge im Pitch adressatengerecht und reagiere auf Rückfragen." },
+    ],
+    lernorte: ["kunststoffverarbeitender Betrieb in der Region", "FabLab / Makerspace", "Schulfest oder Weihnachtsmarkt als Markttag"],
+    hwBezug: "HW 8.I behandelt ebenfalls Wirtschaft IF 2 (Unternehmensziele, Marketing, Werbung). Absprache: Technik = Produktion, Kosten, Preis; HW = Marketing, Werbung, Verbraucherschutz.",
+    bisher: "Ersetzt WP 8 „Werkstofftechnik II: Kunststoff“; Elemente aus „Fertigungstechnik III“ (Projektarbeit) und 3D-Druck-Arbeitsbereich.",
+  },
+
+  {
+    jg: 9, id: "tc9",
+    titel: "Maschinen und Roboter in der Arbeitswelt",
+    untertitel: "Antriebe, Metall, Sensoren und Programme",
+    leitfrage: "Wie verändern Maschinen und Roboter die Arbeit – und welchen Platz haben wir Menschen darin?",
+    tcIF: [2, 1], wiIF: [3],
+    tcSP: ["Eingabe – Verarbeitung – Ausgabe, Sensoren und Aktoren", "Antriebe, Getriebe und Kraftübertragung", "sichere Nutzung von Maschinen und Robotern, Wartung", "Technik im Alltag: Reparieren und Instandhalten"],
+    wiSP: ["Arbeits- und Erwerbsformen in der digitalen Wirtschaft", "Arbeitszeitmodelle, mobiles Arbeiten", "Chancen und Herausforderungen flexibler Arbeit, Work-Life-Balance"],
+    kompetenzen: ["SK2", "SK3", "SK5", "MK3", "MK5", "MK6", "UK2", "UK6", "HK2", "HK3", "HK5", "HK6"],
+    wiKompetenzen: [
+      "unterscheiden Erwerbsarbeit, Hausarbeit und ehrenamtliche Arbeit (SK)",
+      "erläutern Veränderungen der Arbeitswelt durch Automatisierung und Digitalisierung (SK)",
+      "beschreiben Arbeitszeitmodelle und Formen mobiler Arbeit (SK)",
+      "beurteilen Chancen und Risiken der Automatisierung für Beschäftigte, auch am Beispiel des eigenen Praktikumsbetriebs (UK)",
+    ],
+    sequenzen: [
+      { titel: "Was steckt in einer Maschine?", ds: 8, es: 4,
+        praxis: ["Maschinenbegriff, Demontieren und Remontieren (z. B. Akkuschrauber, Handrührgerät)", "Getriebe und Übersetzung, Riemenantrieb", "Funktionsmodell eines Getriebes"],
+        wirtschaft: ["Arbeit ist nicht gleich Arbeit: Erwerbsarbeit, Hausarbeit, Ehrenamt"],
+        bp: "S. 106–115", ss: "S. 78–79 „Arbeit ist nicht gleich Arbeit“" },
+      { titel: "Metall bearbeiten – ein Bauteil für unsere Maschine", ds: 10, es: 4,
+        praxis: ["Werkstoff Metall, Metalle recyceln", "Anreißen, Sägen, Feilen, Bohren, Gewinde; Messschieber", "Metallschutz, Entsorgung von Problemstoffen", "Werkstück: Bauteil/Halterung für das Getriebe oder Schlüsselanhänger"],
+        wirtschaft: ["Die Arbeitswelt der Zukunft: Digitalisierung verändert", "Industrie 4.0"],
+        bp: "S. 20–25, 33, 56–63, 100–101, 305", ss: "S. 80–83" },
+      { titel: "Maschinen lernen fühlen: Sensoren, Aktoren, Programme", ds: 14, es: 6,
+        praxis: ["Regelkreise, EVA-Prinzip, Sensor-Aktor-Systeme", "Roboter in der Arbeitswelt", "Calliope mini / Open Roberta: Steuerung programmieren (z. B. Förderband mit Lichtschranke, Greifer)", "ergänzend: SPS-Werkstatt"],
+        wirtschaft: ["Mensch und Roboter: Wer macht welche Arbeit?", "New Work, Arbeitszeitmodelle, Schichtarbeit", "Praktikum: Erkundungsauftrag „Automatisierung in meinem Betrieb“"],
+        bp: "S. 244–273", ss: "S. 84–85 „New Work“" },
+      { titel: "Sicher und gerecht arbeiten", ds: 4, es: 4,
+        praxis: ["Arbeitsschutz an Maschinen, Wartung und Instandhaltung", "ergonomische und gendergerechte Arbeitsplätze"],
+        wirtschaft: ["Berufe im Wandel: Steckbrief zum Praktikumsberuf", "Präsentation der Praktikumserkundung"],
+        bp: "S. 10–11, 88–89", ss: "" },
+    ],
+    produkte: ["Getriebemodell mit selbst gefertigtem Metallbauteil", "programmiertes Sensor-Aktor-System", "Steckbrief „Mein Praktikumsberuf und die Automatisierung“", "Klassenarbeit: Maschinen, Getriebe, EVA"],
+    leistung: "Eine Klassenarbeit (Maschinen, Getriebe, EVA, Wandel der Arbeit) und eine Projektarbeit (Metallbauteil + programmiertes System mit Dokumentation).",
+    bo: { berufe: ["Mechatroniker/in", "Industriemechaniker/in", "Elektroniker/in für Automatisierungstechnik", "Fachkraft für Lagerlogistik"], elemente: ["Vor- und Nachbereitung des dreiwöchigen Betriebspraktikums", "Erkundungsauftrag Automatisierung im Praktikumsbetrieb", "DASA-Besuch (Arbeitswelt-Ausstellung)"] },
+    bne: { sdg: [8, 9], punkte: ["menschenwürdige Arbeit, Arbeitsschutz", "Reparieren und Warten statt Wegwerfen", "Metallrecycling"] },
+    mkr: [
+      { code: "6.2", text: "Algorithmen in Steuerungen erkennen und als Ablaufplan darstellen" },
+      { code: "6.3", text: "Calliope/Open Roberta programmieren" },
+      { code: "6.4", text: "Bedeutung von Algorithmen und Automatisierung für Arbeit beurteilen" },
+      { code: "2.3", text: "Prognosen zur „Zukunft der Arbeit“ bewerten" },
+    ],
+    srl: {
+      planung: ["Programmier-Lernpfad mit Niveauwahl", "Erkundungsauftrag für das Praktikum selbst planen", "Fertigungsplan für das Metallbauteil"],
+      durchfuehrung: ["Stationen Demontage/Getriebe", "Code-Challenges mit Lösungsleiter", "Lehrgänge Metallbearbeitung"],
+      reflexion: ["Praktikumsreflexion mit Bezug zum Wandel der Arbeit", "Selbsteinschätzung im Kompetenzraster", "Lerngespräch zur Berufswahl"],
+    },
+    raster: [
+      { bereich: "Aufbau von Maschinen", codes: "SK2",
+        m: "Ich kann Bauteile einer Maschine benennen.",
+        r: "Ich beschreibe das Zusammenwirken von Antrieb, Getriebe und Arbeitsteil.",
+        e: "Ich berechne Übersetzungen und wähle ein passendes Getriebe für eine Aufgabe." },
+      { bereich: "Metall bearbeiten", codes: "HK2 · MK3",
+        m: "Ich kann Metall nach Anleitung anreißen, sägen und feilen.",
+        r: "Ich fertige ein Bauteil mit dem Messschieber maßgenau (± 0,5 mm).",
+        e: "Ich wähle Fertigungsverfahren begründet und schütze Oberflächen fachgerecht." },
+      { bereich: "EVA und Sensoren", codes: "SK3 · MK5",
+        m: "Ich zeige Eingabe, Verarbeitung und Ausgabe an einem Beispiel.",
+        r: "Ich beschreibe ein Sensor-Aktor-System und stelle es als Ablaufplan dar.",
+        e: "Ich unterscheide Steuerung und Regelung und erkläre einen Regelkreis." },
+      { bereich: "Programmieren", codes: "HK3 · HK5 · MK6",
+        m: "Ich übertrage ein vorgegebenes Programm und verändere es.",
+        r: "Ich schreibe mit Verzweigungen und Variablen ein Programm für eine Steuerung.",
+        e: "Ich plane, programmiere und teste ein eigenes automatisiertes System." },
+      { bereich: "Wirtschaft: Wandel der Arbeit", codes: "Wi IF 3 · UK6", wi: true,
+        m: "Ich nenne Beispiele, wo Maschinen und Roboter Arbeit übernehmen.",
+        r: "Ich beschreibe Chancen und Risiken der Automatisierung für Beschäftigte.",
+        e: "Ich beurteile die Zukunft eines Berufs unter dem Aspekt der Digitalisierung." },
+      { bereich: "Sicher und gerecht arbeiten", codes: "UK2 · HK6",
+        m: "Ich nenne Schutzvorrichtungen an Maschinen.",
+        r: "Ich beurteile einen Arbeitsplatz nach Sicherheit und Ergonomie.",
+        e: "Ich schlage Verbesserungen für einen sicheren, gendergerechten Arbeitsplatz vor." },
+      { bereich: "Berufe", codes: "SK5", bo: true,
+        m: "Ich nenne Berufe, in denen mit Maschinen gearbeitet wird.",
+        r: "Ich beschreibe Tätigkeiten meines Praktikumsberufs und den Einsatz von Technik.",
+        e: "Ich vergleiche Anforderungen verschiedener technischer Berufe mit meinen Stärken." },
+    ],
+    lernorte: ["DASA Arbeitswelt Ausstellung Dortmund", "Industriebetrieb (z. B. bisherige Kooperation wilo)", "Praktikumsbetriebe"],
+    hwBezug: "HW 9.I behandelt Wirtschaft IF 3 am Beispiel Gesundheits- und Ernährungsberufe. Gemeinsame Praktikumsreflexion möglich; Technik-Perspektive: Automatisierung und Industrie.",
+    bisher: "Ersetzt WP 9 „Werkstofftechnik III: Metall“ und „Fahrzeugtechnik“; nimmt Teile aus WP 10 „Digitaltechnik“ auf. Fahrzeugantriebe (BP S. 116–131) ggf. als Expertenmodul.",
+  },
+
+  {
+    jg: 10, id: "tc10",
+    titel: "Smart und effizient wohnen",
+    untertitel: "Gebäudetechnik und Energiewende",
+    leitfrage: "Wie planen und steuern wir Gebäude, die wenig Energie brauchen – und was bedeutet die Energiewende für unsere Region?",
+    tcIF: [3, 1], wiIF: [5, 1],
+    tcSP: ["Stoff-, Energie- und Informationsflüsse in Gebäuden", "Stromkreise und Schutzeinrichtungen, Elektroinstallation", "automatisierte Gebäudetechnik (Smart Home)", "Energieeffizienz, regenerative Energieträger und Speicher"],
+    wiSP: ["Strukturwandel und nachhaltige Entwicklung im Ruhrgebiet", "regionale Wirtschaftsförderung und Unternehmen der Energiewende", "Marktversagen: externe Effekte, CO₂-Preis, Rolle des Staates"],
+    kompetenzen: ["SK1", "SK4", "SK5", "MK1", "MK2", "MK3", "MK9", "UK1", "UK2", "UK3", "UK4", "HK3", "HK4", "HK5"],
+    wiKompetenzen: [
+      "beschreiben den Strukturwandel im Ruhrgebiet vom Kohlebergbau zur Energiewende (SK)",
+      "erläutern, wie regionale Unternehmen und Arbeitsplätze von der Energiewende betroffen sind (SK)",
+      "erklären Umweltbelastungen als Marktversagen und staatliche Eingriffe wie CO₂-Preis und Förderprogramme (SK)",
+      "beurteilen die Wirtschaftlichkeit einer Energiesparmaßnahme für einen Haushalt (UK)",
+    ],
+    sequenzen: [
+      { titel: "Was ein Haus zum Leben braucht", ds: 6, es: 4,
+        praxis: ["Phasen des Hausbaus, Anschlüsse am Haus", "Zentralheizung, Wärmepumpe, Energieeffizienz von Häusern", "Wärmeverluste messen (Temperaturlogger, Wärmebild)"],
+        wirtschaft: ["Vom Kohlenpott zur Energiewende: Strukturwandel im Ruhrgebiet", "Wo wohnst du? Standortfaktoren"],
+        bp: "S. 192–217", ss: "S. 124–127, 130–131" },
+      { titel: "Strom im Haus – sicher installieren", ds: 10, es: 4,
+        praxis: ["Stromkreis, Spannung, Stromstärke, Widerstand, Leistung", "Schaltpläne lesen, Aus-, Wechsel- und Kreuzschaltung", "Schutzeinrichtungen, Elektroinstallation am Hausmodell (Kleinspannung)"],
+        wirtschaft: ["Was kostet Energie? Strompreis im Haushalt", "Wenn Märkte versagen: Wer zahlt für CO₂?"],
+        bp: "S. 136–161, 232–235, 238–239", ss: "S. 16–17 „Wenn Märkte versagen“" },
+      { titel: "Energie von morgen", ds: 8, es: 4,
+        praxis: ["Energiespeicherung, Kraftwerke, fossile und nachhaltige Energie", "Experimente und Schaltung mit Solarzellen", "Wasser- und Windkraft"],
+        wirtschaft: ["Gute Aussichten für meine Region? Unternehmen der Energiewende", "Förderung der heimischen Wirtschaft, Standorte untersuchen"],
+        bp: "S. 218–237", ss: "S. 128–129, 134–137" },
+      { titel: "Smart Home: Das Haus denkt mit", ds: 12, es: 6,
+        praxis: ["Sensoren, Internet of Things", "Hausmodell automatisieren: Licht, Lüftung, Heizung mit Calliope", "Datenschutz im Smart Home"],
+        wirtschaft: ["Projekt Energieberatung: Wir beraten einen Haushalt (Kosten, Einsparung, Amortisation)", "Berufe der Energie- und Gebäudetechnik"],
+        bp: "S. 161, 172–173, 246–249, 270–273, 304", ss: "" },
+    ],
+    produkte: ["Hausmodell mit Elektroinstallation (inkl. Wechselschaltung) und Smart-Home-Steuerung", "Präsentation „Energieberatung“", "Klassenarbeit: Elektro- und Energietechnik"],
+    leistung: "Eine Klassenarbeit (Stromkreise, Schutzeinrichtungen, Energie) und eine Projektarbeit (Hausmodell + Energieberatung mit Präsentation).",
+    bo: { berufe: ["Elektroniker/in für Energie- und Gebäudetechnik", "Anlagenmechaniker/in SHK", "Gebäudeenergieberater/in", "Bauzeichner/in"], elemente: ["Anschlussperspektiven nach Klasse 10 (Ausbildung, Berufskolleg)", "Expertenbesuch Elektro-/SHK-Handwerk", "Berufe rund um den Strom (BP S. 161)"] },
+    bne: { sdg: [7, 11, 13], punkte: ["Energiewende im Gebäudesektor", "Energiesparen und Suffizienz im Haushalt", "fossile und erneuerbare Energieträger abwägen"] },
+    mkr: [
+      { code: "6.1", text: "Prinzipien vernetzter Systeme (IoT, Smart Home) verstehen" },
+      { code: "6.3", text: "Gebäudesteuerung programmieren" },
+      { code: "1.4", text: "Datenschutz und Informationssicherheit im Smart Home" },
+      { code: "2.3", text: "Energiedaten und Interessen von Quellen bewerten" },
+      { code: "4.1", text: "Energieberatung präsentieren" },
+    ],
+    srl: {
+      planung: ["Projektauftrag Energieberatung mit Zeitplan und Rollen", "Auswahl der Smart-Home-Funktionen nach Niveau", "Selbsteinschätzung im Kompetenzraster"],
+      durchfuehrung: ["Lehrgänge Elektroinstallation", "Experimentierstationen Solar/Speicher", "Lösungsleiter bei Schaltungsfehlern (BP S. 187)"],
+      reflexion: ["Peer-Feedback zur Präsentation", "Abschlussreflexion: Was nehme ich aus vier Technik-Halbjahren mit?", "Blick auf die eigene Anschlussperspektive"],
+    },
+    raster: [
+      { bereich: "Gebäude und Versorgung", codes: "SK1 · SK4",
+        m: "Ich nenne die Anschlüsse eines Hauses.",
+        r: "Ich beschreibe Energieflüsse in einem Haus und erkläre Wärmeverluste.",
+        e: "Ich vergleiche Maßnahmen zur Energieeffizienz und empfehle sie begründet." },
+      { bereich: "Elektroinstallation", codes: "HK4 · MK1",
+        m: "Ich baue einen einfachen Stromkreis nach Schaltplan auf.",
+        r: "Ich plane und baue eine Wechselschaltung und erkläre Schutzeinrichtungen.",
+        e: "Ich finde Fehler in Schaltungen systematisch und behebe sie." },
+      { bereich: "Messen und Experimentieren", codes: "MK3",
+        m: "Ich messe Spannung und Stromstärke mit dem Multimeter.",
+        r: "Ich führe Experimente zu Solarzellen durch und werte sie aus.",
+        e: "Ich prüfe eigene Fragestellungen experimentell und diskutiere die Ergebnisse." },
+      { bereich: "Gebäudeautomation", codes: "HK3 · HK5",
+        m: "Ich programmiere ein sensorgesteuertes Licht.",
+        r: "Ich automatisiere mehrere Funktionen am Hausmodell.",
+        e: "Ich entwickle ein Smart-Home-Konzept und bewerte Datenschutzfragen." },
+      { bereich: "Wirtschaft: Region und Energiewende", codes: "Wi IF 5 · IF 1", wi: true,
+        m: "Ich nenne Beispiele für den Strukturwandel im Ruhrgebiet.",
+        r: "Ich erkläre, wie die Energiewende Unternehmen und Arbeitsplätze in der Region verändert.",
+        e: "Ich beurteile, warum der Staat mit Preisen und Förderung in den Energiemarkt eingreift." },
+      { bereich: "Beurteilen und präsentieren", codes: "UK1 · UK2 · UK3 · MK9", bne: true,
+        m: "Ich nenne Vor- und Nachteile einer Energieform.",
+        r: "Ich präsentiere eine Energieberatung kriteriengeleitet.",
+        e: "Ich wäge ökologische, ökonomische und soziale Folgen ab und vertrete einen begründeten Standpunkt." },
+      { bereich: "Berufe", codes: "SK5", bo: true,
+        m: "Ich nenne Berufe der Energie- und Gebäudetechnik.",
+        r: "Ich beschreibe Ausbildungswege in diesen Berufen.",
+        e: "Ich prüfe, ob ein solcher Beruf zu meiner Anschlussplanung passt." },
+    ],
+    lernorte: ["LWL-Museum Zeche Zollern (Strukturwandel)", "Stadtwerke / Energieberatung der Verbraucherzentrale", "Elektro- oder SHK-Handwerksbetrieb", "DASA"],
+    hwBezug: "HW 10.III (Leben und Wohnen, neu gedacht; Wi IF 5) und HW 10.I (Marktversagen, Wi IF 1). Absprache: Technik = Energie und Gebäude; HW = Ernährungssysteme, Wohnkonzepte.",
+    bisher: "Ersetzt WP 10 „Digitaltechnik“ (teilweise) und nimmt Energietechnik (WP 8) sowie Haustechnik (Jg. 10.2) auf. Statik ggf. als Expertenaufgabe (Papierbrücke, BP S. 69, 202).",
+  },
+];
+
+/* =========================================================================
+   HAUSWIRTSCHAFT – Planung der Fachschaft HW (SchiLP, Stand 31.08.2026)
+   ========================================================================= */
+const HW = [
+  { jg: 7, nr: "I", id: "hw7-1", titel: "Leben in den eigenen vier Wänden – Vom Wohlfühlen in der eigenen Wohnung bis zur Aufgabenverteilung im eigenen Haushalt",
+    hwIF: [1, 2], wiIF: [5], zeit: "ca. 40 Std.",
+    kompetenzen: ["SK2", "MK1", "MK6", "MK8", "UK1", "UK3"],
+    wi: ["beschreiben Veränderungen im Bereich Wohnen und Haushaltsführung im Kontext gesellschaftlicher und technologischer Entwicklungen (SK)", "erläutern Ansätze nachhaltiger Entwicklung im privaten Haushalt, z. B. Energieeinsparung und Ressourcenschonung (SK)", "beurteilen Wohn- und Haushaltsformen im Hinblick auf ökologische und ökonomische Auswirkungen (UK)"],
+    inhalteHW: ["Haushaltsführung: Aufgaben zur Bewältigung des Alltags", "Lebensgestaltung der Mitglieder im privaten Haushalt", "Lebensqualität und Wohnen"],
+    inhalteWi: ["Strukturwandel und nachhaltige Entwicklung: Wirtschaftssektoren, Beschäftigungsstruktur, Infrastruktur"],
+    mkrText: ["Erklärvideo „Richtig lüften“", "Erklärvideo zum Einsatz von Haushaltsgeräten"], mkr: ["4.1", "4.2"],
+    sequenzen: [{ titel: "Zuhause ist’s am schönsten! Wohlfühlen in den eigenen vier Wänden", std: "16–20" }, { titel: "Haushalt leicht gemacht! Arten und Verteilung von Haushaltsaufgaben", std: "18–22" }],
+    bo: "Berufsbilder rund um Haushalt, Dienstleistung und Care-Arbeit", bne: "Energieeinsparung und Ressourcenschonung im Haushalt", sdg: [11, 12] },
+  { jg: 7, nr: "II", id: "hw7-2", titel: "Schlauer shoppen, so werde ich zum Einkaufsprofi!",
+    hwIF: [5], wiIF: [4], zeit: "ca. 40 Std.",
+    kompetenzen: ["SK1", "SK4", "MK1", "MK3", "MK6", "MK7", "MK11", "UK1", "UK4", "HK5"],
+    wi: ["beschreiben Formen der Bezahlung (bar, bargeldlos, digital) (SK)", "erläutern Zusammenhänge zwischen Konsumentscheidungen und verfügbaren finanziellen Mitteln (SK)", "analysieren Kaufentscheidungen unter finanziellen Rahmenbedingungen (UK)", "beurteilen einen verantwortungsvollen und nachhaltigen Umgang mit Geld (UK)"],
+    inhalteHW: ["Individuelle und gemeinschaftliche Konsumentscheidungen", "Zielgruppenorientiertes Marketing für Lebensmittel und Artikel des täglichen Bedarfs"],
+    inhalteWi: ["Formen der Bezahlung", "Girokonto als Grundlage des Zahlungsverkehrs", "Konsum, Bedürfnisse und finanzielle Möglichkeiten", "Sparen, Ausgaben planen"],
+    mkrText: ["Apps als elektronische Einkaufszettel erproben", "Supermarkterkundung digital auswerten"], mkr: ["1.2", "2.2"],
+    sequenzen: [{ titel: "Einkaufsprofi werden!", std: "10–15" }, { titel: "Lebensmittelverpackungen unter der Lupe!", std: "10–12" }, { titel: "Wir gehen in den Supermarkt! Eine Erkundung durchführen", std: "10–15" }],
+    bo: "Erkundung Verbrauchermarkt (Einzelhandel)", bne: "nachhaltiger Umgang mit Geld, Verpackungen", sdg: [12] },
+  { jg: 8, nr: "I", id: "hw8-1", titel: "Zum Essen und Kauf verführt? Einflussfaktoren auf das Ess- und Konsumverhalten",
+    hwIF: [5, 3], wiIF: [2], zeit: "ca. 40 Std.",
+    kompetenzen: ["SK1", "MK1", "MK6", "MK10", "MK11", "UK4", "HK5"],
+    wi: ["stellen Zielsetzungen unternehmerischen Handelns dar (SK)", "erläutern, wie Unternehmen durch Produktgestaltung, Werbung und Marketing Kaufentscheidungen beeinflussen (SK)", "beurteilen unternehmerische Entscheidungen zwischen Gewinn, Verbraucherinteressen und Nachhaltigkeit (UK)"],
+    inhalteHW: ["Konsumentscheidungen im privaten Haushalt", "Zielgruppenorientiertes Marketing", "Verbraucherschutz und Datensicherheit", "Gütesiegel", "Lebensmittelsicherheit und -qualität"],
+    inhalteWi: ["Unternehmerische Zielsetzungen und Marketingentscheidungen", "Produktgestaltung und Zielgruppenorientierung", "Werbung", "Nachhaltiges Handeln in Unternehmen", "Verantwortung von Unternehmen"],
+    mkrText: ["Werbespot zu einem Produkt gestalten", "Internetrecherche zu Lebensmittelsiegeln, Warnungen und Rückrufen"], mkr: ["4.1", "4.2", "2.1", "2.3"],
+    sequenzen: [{ titel: "Wer oder was hat Einfluss auf mein Essverhalten?", std: "8–10" }, { titel: "Zum Kauf verführt durch Werbung?", std: "16–18" }, { titel: "Lebensmittelqualität und Durchblick im Siegel-Dschungel", std: "12–14" }],
+    bo: "Berufe in Marketing und Lebensmittelproduktion (implizit)", bne: "Gütesiegel, nachhaltiges Handeln in Unternehmen", sdg: [12] },
+  { jg: 8, nr: "II", id: "hw8-2", titel: "Gesund & fit – Die Bedeutung von Lebensmitteln und Bewegung für unseren Körper",
+    hwIF: [4], wiIF: [], zeit: "ca. 40 Std.",
+    kompetenzen: ["SK1", "MK1", "MK6", "UK2"],
+    wi: [],
+    inhalteHW: ["Gesundheitsförderliche Lebensweise", "Lebensmittel und ihre Inhaltsstoffe", "Energiebedarf und Bewegung", "Ernährungsempfehlungen und -modelle", "Qualitätsstandards für Schulverpflegung"],
+    inhalteWi: [],
+    mkrText: ["Internetrecherche „Qualitätsstandards für die Schulverpflegung“"], mkr: ["2.1"],
+    sequenzen: [{ titel: "Was ist Gesundheit und wie halte ich mich gesund?", std: "10–15" }, { titel: "Was steckt in unserer Nahrung? Lebensmittel und ihre Inhaltsstoffe", std: "20" }, { titel: "Ohne Energie geht nichts! Energiebedarf und Ernährung", std: "5–10" }],
+    bo: "", bne: "Gesundheit und Wohlergehen", sdg: [3] },
+  { jg: 9, nr: "I", id: "hw9-1", titel: "Das Zusammenspiel von Ernährung und Gesundheit",
+    hwIF: [4], wiIF: [3], zeit: "ca. 40 Std.",
+    kompetenzen: ["SK1", "MK1", "MK2", "MK6", "MK11", "UK2"],
+    wi: ["beschreiben Berufsfelder im Bereich Gesundheit, Ernährung und Pflege (SK)", "erläutern Veränderungen der Arbeitswelt in diesem Bereich, auch durch Digitalisierung (SK)", "beurteilen Anforderungen und Entwicklungsmöglichkeiten ausgewählter Berufe (UK)"],
+    inhalteHW: ["Gesundheitsförderliche Lebensweise", "Lebensmittel und ihre Inhaltsstoffe", "Ernährungsmitbedingte Krankheiten und Essstörungen", "Ernährung in unterschiedlichen Lebenssituationen", "Berufe im Bereich Gesundheit und Ernährung"],
+    inhalteWi: ["Wandel der Arbeitswelt im Gesundheits- und Ernährungsbereich", "Berufsbilder, Tätigkeiten, Anforderungen", "Digitalisierung und veränderte Arbeitsprozesse", "Vereinbarkeit von Arbeit, Gesundheit und Lebensgestaltung"],
+    mkrText: ["Online-Recherche zu Ernährungstrends, Erkrankungen, Berufen in der Rehaklinik", "digitale Präsentation", "Meinungsbildung „Gesundheit per App“", "digitale Pinnwand zu Essstörungen"], mkr: ["2.1", "4.1", "5.2", "3.1"],
+    sequenzen: [{ titel: "Jeder Mensch is(st) anders", std: "10–15" }, { titel: "Ernährungsmitbedingte Krankheiten und Essstörungen", std: "15–20" }, { titel: "Berufe im Bereich Gesundheit und Ernährung", std: "5–10" }],
+    bo: "Berufe in Gesundheit, Ernährung und Pflege (Rehaklinik)", bne: "Gesundheit und Wohlergehen", sdg: [3, 8] },
+  { jg: 9, nr: "II", id: "hw9-2", titel: "Nachhaltiger Konsum – Wie können wir klima- und umweltfreundlich handeln?",
+    hwIF: [3, 5], wiIF: [5, 2], zeit: "ca. 25–30 Std.",
+    kompetenzen: ["SK1", "MK1", "MK2", "MK3", "MK6", "MK7", "UK1", "HK1"],
+    wi: ["beschreiben Merkmale nachhaltigen wirtschaftlichen Handelns in der Region (SK)", "erläutern Zusammenhänge zwischen regionalen Produkten, Direktvermarktung, globalen Lieferketten und nachhaltigem Konsum (SK)", "stellen Ziele und Handlungsmöglichkeiten von Unternehmen bei nachhaltiger Produktion dar (SK)", "beurteilen nachhaltige Konsum- und Unternehmensentscheidungen (UK)"],
+    inhalteHW: ["Ernährungssysteme und planetare Grenzen", "Nachhaltige Ernährung", "Gütesiegel", "Nachhaltiges Handeln in privaten Haushalten", "Fairer Handel und globale Ernährungswelten", "Ernährung außer Haus"],
+    inhalteWi: ["Nachhaltiges wirtschaftliches Handeln in der Region", "Regionale Produkte und Direktvermarktung", "Globale Lieferketten und fairer Handel", "Nachhaltiges Handeln in Unternehmen"],
+    mkrText: ["Internetrecherche zu Fair-Trade-Produkten", "digitale Informationen zu regionalen und globalen Lebensmitteln vergleichen", "Erkundung (Wochenmarkt) dokumentieren und präsentieren"], mkr: ["2.1", "2.3", "4.1"],
+    sequenzen: [{ titel: "Nachhaltigkeit – Was bedeutet der Begriff und welche Ziele werden verfolgt?", std: "2–5" }, { titel: "So geht’s nachhaltig! Von der Ernährung bis zum fairen Handel", std: "25–30" }],
+    bo: "Erkundung Wochenmarkt/Verkaufsstelle, regionale Erzeuger", bne: "planetare Grenzen, fairer Handel, regionale Produkte", sdg: [2, 12, 13] },
+  { jg: 10, nr: "I", id: "hw10-1", titel: "Vom Acker auf den Teller! Ernährungssysteme und der Schutz der natürlichen Ressourcen",
+    hwIF: [3, 5], wiIF: [5, 1], zeit: "ca. 25–30 Std.",
+    kompetenzen: ["SK1", "SK4", "MK1", "MK6", "UK1", "UK3", "HK1", "HK5"],
+    wi: ["beschreiben regionale Ernährungssysteme und ihre Bedeutung für nachhaltiges Wirtschaften (SK)", "erläutern Zusammenhänge zwischen Lieferketten, Direktvermarktung, Ressourcenverbrauch und Konsum (SK)", "erklären Fälle von Marktversagen, z. B. Umweltbelastungen (SK)", "beurteilen nachhaltige Konsumentscheidungen und regionale Wirtschaftsstrukturen (UK)"],
+    inhalteHW: ["Ernährungssysteme und planetare Grenzen", "Gütesiegel", "Nachhaltiges Handeln in privaten Haushalten", "Konsumentscheidungen", "Wasserverbrauch und Schutz natürlicher Ressourcen"],
+    inhalteWi: ["Regionale Ernährungssysteme und Direktvermarktung", "Globale Lieferketten", "Marktversagen am Beispiel von Umwelt- und Ressourcenbelastungen", "Verantwortung von Konsumierenden, Betrieben und Staat"],
+    mkrText: ["Informationsvideo „Wasserverbrauch und Tipps zum Wassersparen“", "Online-Recherche zu Tafel, Containern, Sattmacher-Rezepten", "digitale Informationen zu Ernährungssystemen vergleichen"], mkr: ["4.1", "2.1", "2.3"],
+    sequenzen: [{ titel: "Ernährungssysteme gegen Ausfälle stärken", std: "5–10" }, { titel: "Internationaler Lebensmittelhandel", std: "5–10" }, { titel: "Zugang zu sauberem Wasser – ein Menschenrecht", std: "5–10" }, { titel: "Ernährungsarmut und ein Rezept gegen den Welthunger", std: "5–10" }],
+    bo: "", bne: "Ressourcenschutz, Wasser, Welthunger", sdg: [2, 6, 12] },
+  { jg: 10, nr: "II", id: "hw10-2", titel: "„Augen auf beim Online-Kauf!“ – Onlinehandel und Datensicherheit",
+    hwIF: [5], wiIF: [4, 1], zeit: "ca. 25–30 Std.",
+    kompetenzen: ["SK1", "MK1", "MK2", "MK3", "MK7", "UK1", "HK3"],
+    wi: ["beschreiben digitale Zahlungsformen und Finanzdienstleistungen (SK)", "erläutern Chancen und Risiken digitaler Konsum- und Zahlungsformen (SK)", "erklären Auswirkungen digitaler Märkte, Plattformen und Algorithmen auf Preise und Werbung (SK)", "beurteilen Online-Kaufentscheidungen und Schutzmaßnahmen (UK)"],
+    inhalteHW: ["Konsumentscheidungen", "Verbraucherschutz und Datensicherheit", "Onlinehandel und Kundenkarten", "Datenschutz, Cookies, digitale Datenspuren", "Marketing im Onlinehandel"],
+    inhalteWi: ["Finanzielles Handeln beim Onlinekauf", "Digitale Zahlungsformen", "Digitale Märkte, Plattformen und Preisbildung", "Algorithmen und personalisierte Angebote", "Marktmacht und Verbraucherschutz"],
+    mkrText: ["Algorithmen und deren Funktion erkennen", "Recherche „Cookie-Einstellungen verändern“", "Preisentwicklung und Werbung über längeren Zeitraum beobachten"], mkr: ["6.2", "6.4", "1.4", "5.1"],
+    sequenzen: [{ titel: "Augen auf beim Online-Kauf!", std: "–" }, { titel: "Datenspuren im Netz und wie man sich schützen kann!", std: "–" }],
+    bo: "", bne: "Verbraucherschutz, verantwortlicher Konsum", sdg: [12] },
+  { jg: 10, nr: "III", id: "hw10-3", titel: "Leben und Wohnen, neu gedacht! – Lebensgestaltung und Wohnkonzepte",
+    hwIF: [1, 2], wiIF: [3, 5], zeit: "ca. 25–30 Std.",
+    kompetenzen: ["SK1", "SK2", "MK1", "MK6", "UK2"],
+    wi: ["beschreiben Veränderungen der Arbeitswelt durch Digitalisierung und flexible Arbeitsorte (SK)", "erläutern Zusammenhänge zwischen neuen Arbeitsformen, Lebensgestaltung und Wohnkonzepten (SK)", "beurteilen neue Wohn- und Arbeitsformen für Haushalte, Gemeinschaft und Region (UK)", "beurteilen Möglichkeiten nachhaltiger Gestaltung des Wohnumfelds (UK)"],
+    inhalteHW: ["Gender-Care-Gap", "Lebensgestaltung im privaten Haushalt", "Lebensqualität und Wohnen", "Care-Arbeit und Aufgabenverteilung", "Neue Wohnkonzepte"],
+    inhalteWi: ["Wandel der Arbeitswelt und neue Arbeitsformen", "Homeoffice und Co-Working", "Vereinbarkeit von Arbeit, Haushalt und Lebensgestaltung", "Wohnort, Infrastruktur und regionale Entwicklung", "Nachhaltige Wohn- und Lebenskonzepte"],
+    mkrText: ["digitales Vision Board „Mein Leben in 5 Jahren“", "Recherche zu neuen Wohn- und Arbeitskonzepten", "Co-Living und Co-Working digital vergleichen"], mkr: ["4.1", "5.3", "2.1", "2.3"],
+    sequenzen: [{ titel: "Wie gestalte ich mein Leben?", std: "–" }, { titel: "Care-Arbeit und Gender Care Gap", std: "–" }, { titel: "Co-Living und Co-Working – neue Wohn- und Arbeitskonzepte", std: "–" }],
+    bo: "Lebens- und Berufsplanung, neue Arbeitsformen", bne: "nachhaltige Wohn- und Lebenskonzepte", sdg: [5, 11] },
+];
+
+/* =========================================================================
+   Diskussionspunkte für die Fachkonferenz
+   ========================================================================= */
+const DISKUSSION = [
+  { id: "d1", titel: "Stundenmodell im HW-Plan anpassen",
+    text: "Der SchiLP Hauswirtschaft beschreibt noch eine „durchgehende Wochenstunde Wirtschaft“. Beschlossenes Modell: Einzelstunde mit Wirtschaftsschwerpunkt innerhalb des jeweiligen Schwerpunkthalbjahres, kein eigenständiger Wirtschaftsunterricht. Kapitel 1 des HW-Plans sollte angeglichen werden.", tag: "organisation" },
+  { id: "d2", titel: "Zeitbedarf Hauswirtschaft",
+    text: "Der HW-Plan sieht pro Jahrgang ca. 80 Std. (7–9: zwei Vorhaben à 40 Std.; 10: drei Vorhaben à 25–30 Std.) vor. Ein Schwerpunkthalbjahr umfasst ca. 54 Std. (36 Doppelstunde + 18 Einzelstunde). Kürzung oder Priorisierung in HW nötig.", tag: "organisation" },
+  { id: "d3", titel: "Halbjahre müssen unabhängig funktionieren",
+    text: "Welches Halbjahr Technik bzw. HW ist, hängt von der Personalplanung ab. Vorhaben eines Jahrgangs dürfen daher nicht aufeinander aufbauen; Querbezüge nur als Option („wenn HW schon war …“).", tag: "organisation" },
+  { id: "d4", titel: "Verteilung der Wirtschafts-Inhaltsfelder",
+    text: "Vorschlag: IF 4 (Finanzen/Verbraucher) bleibt bei HW. Doppelungen sind gewollt, aber mit verschiedener Perspektive: IF 2 (TC 7/8 Produktion & Kosten – HW 8 Marketing), IF 3 (TC 9 Automatisierung – HW 9/10 Gesundheitsberufe, neue Arbeitsformen), IF 5 (TC 7/10 Handwerk, Energiewende – HW 7/9/10 Wohnen, Ernährung), IF 1 (TC 8 Preisbildung, TC 10 CO₂ – HW 10 Ernährungssysteme, Onlinehandel).", tag: "wirtschaft" },
+  { id: "d5", titel: "Wirtschafts-Lehrwerk: Seitenüberschneidungen",
+    text: "starkeSeiten WAW Wirtschaft S. 124–129 werden in HW 7.I und TC 10 genutzt. Seitenverweise im Technik-Teil sind aus dem HW-Plan übernommen und noch am Buch zu prüfen.", tag: "wirtschaft" },
+  { id: "d6", titel: "Wegfall Statik und Fahrzeugtechnik",
+    text: "Durch die Halbierung der Technikzeit entfallen Statik (WP 8) und Fahrzeugtechnik (WP 9) als eigene Vorhaben. Optionen: Statik als Expertenaufgabe in Jg. 10 (Papierbrücke, BP S. 69/202), Antriebe/Mobilität als Expertenmodul in Jg. 9 (BP S. 116–131).", tag: "technik" },
+  { id: "d7", titel: "Kompetenzcodes prüfen",
+    text: "Technik-Codes (SK1–5, MK1–9, UK1–6, HK1–6) nach KLP WAW Abschnitt Technik; vor Beschluss gegen die Gesamtschul-Fassung (Heft 31031) abgleichen. HW nutzt eigene HW-Codes (z. B. MK 11) – im Gesamtdokument getrennt ausgewiesen.", tag: "technik" },
+  { id: "d8", titel: "Leistungsbewertung angleichen",
+    text: "HW: 50 % schriftliche Arbeiten / 50 % sonstige Leistungen, vier Klassenarbeiten pro Schuljahr → zwei pro Schwerpunkthalbjahr. Technik-Vorschlag: eine Klassenarbeit + eine Projektarbeit (Werkstück + Dokumentation). Zu klären: Zulässigkeit des Ersatzes einer Klassenarbeit gem. APO-S I, Zusammensetzung der Zeugnisnote aus Doppel- und Einzelstunde.", tag: "leistung" },
+  { id: "d9", titel: "Personal: Doppel- und Einzelstunde in einer Hand",
+    text: "Empfehlung: Die Lehrkraft der Doppelstunde unterrichtet auch die Einzelstunde, damit Wirtschaft wirklich mit dem Fachthema verknüpft ist.", tag: "organisation" },
+  { id: "d10", titel: "KAoA und außerschulische Partner",
+    text: "Abstimmung mit der Berufsorientierung: Berufsfelderkundung Jg. 8 (TC 8), Praktikum Jg. 9 (TC 9, HW 9.I), Anschlussplanung Jg. 10 (TC 10, HW 10.III). Partner: DASA, wilo, Handwerksbetriebe, Freilichtmuseum Hagen.", tag: "bo" },
+];
+
+/* =========================================================================
+   Leistungsbewertung (gemeinsame Grundsätze laut HW-Plan + Technik-Ergänzung)
+   ========================================================================= */
+const LEISTUNG = {
+  gewichtung: "Schriftliche Arbeiten 50 % · Sonstige Leistungen 50 %",
+  schluessel: [["100–87 %", "1"], ["86–73 %", "2"], ["72–59 %", "3"], ["58–45 %", "4"], ["44–18 %", "5"], ["17–0 %", "6"]],
+  schriftlich: ["Klassenarbeiten (in der Regel vier pro Schuljahr)", "materialgebundene Aufgaben, Darstellungs-, Analyse-, Erörterungs- und Gestaltungsaufgaben", "handlungsorientierte Aufgaben mit schriftlicher Reflexion"],
+  sonstigeTC: ["fachpraktische Leistungen: Werkstück, technisches System", "Projektdokumentation (digital, z. B. TaskCards), Skizzen, Stücklisten, Fertigungspläne", "Einhaltung der Sicherheitsregeln, Umgang mit Werkzeugen und Maschinen", "Lehrgangsnachweise (z. B. Bohrmaschinenschein)", "Präsentationen, Pitch, Energieberatung", "Erkundungsberichte (Betrieb, Praktikum)", "Selbsteinschätzung und Reflexion im Kompetenzraster (nicht benotet, aber Grundlage für Lerngespräche)"],
+  kriterienPraxisTC: ["Planung und Arbeitsvorbereitung", "Maßhaltigkeit und Qualität des Werkstücks", "sicherer und sachgerechter Umgang mit Werkzeugen und Maschinen", "Selbstständigkeit und Zeitmanagement", "Ordnung am Arbeitsplatz, Hinterlassen des Fachraums", "Zusammenarbeit im Team", "Reflexion des Arbeitsprozesses"],
+};
+
+</script>
+<script>
+/* =========================================================================
+   SchiLP WAW – Rendering, Navigation, Filter, Notizen (localStorage)
+   ========================================================================= */
+(function () {
+  "use strict";
+
+  /* ---------- Speicher (localStorage mit Fallback) ---------- */
+  const PREFIX = "schilp-waw:";
+  const mem = {};
+  const store = {
+    get(k) { try { const v = localStorage.getItem(PREFIX + k); return v === null ? (mem[k] ?? "") : v; } catch (e) { return mem[k] ?? ""; } },
+    set(k, v) { mem[k] = v; try { if (v === "" || v == null) localStorage.removeItem(PREFIX + k); else localStorage.setItem(PREFIX + k, v); } catch (e) { /* privat/gesperrt */ } },
+    all() {
+      const out = {};
+      try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith(PREFIX)) out[k.slice(PREFIX.length)] = localStorage.getItem(k); } } catch (e) { Object.assign(out, mem); }
+      return out;
+    },
+  };
+
+  /* ---------- Hilfen ---------- */
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const ul = (arr, cls = "") => arr && arr.length ? `<ul class="${cls}">${arr.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : `<p class="muted">–</p>`;
+  const sum = (arr, k) => arr.reduce((a, x) => a + (x[k] || 0), 0);
+  const chipTC = (n) => `<span class="chip tc" title="${esc(IF_TC[n].name)}">TC IF ${n} · ${esc(IF_TC[n].name)}</span>`;
+  const chipWI = (n, short) => `<span class="chip wi t-wi" title="${esc(IF_WI[n].name)}">Wi IF ${n}${short ? " · " + esc(IF_WI[n].kurz) : " · " + esc(IF_WI[n].name)}</span>`;
+  const chipHW = (n) => `<span class="chip hw" title="${esc(IF_HW[n])}">HW IF ${n} · ${esc(IF_HW[n])}</span>`;
+  const chipCode = (c, dict) => `<span class="chip code" title="${esc(dict[c] || "")}">${c.replace(/(\D+)(\d+)/, "$1 $2")}</span>`;
+  const chipMKR = (c) => `<span class="chip mkr t-mkr" title="${esc(MKR[c] || "")}">MKR ${c}</span>`;
+  const chipSDG = (n) => `<span class="chip bne" title="${esc(SDG[n] || "")}">SDG ${n}${SDG[n] ? " · " + esc(SDG[n]) : ""}</span>`;
+  const hwLabel = (h) => `HW ${h.jg}.${h.nr}`;
+
+  const STATI = ["offen", "diskutiert", "beschlossen", "zurückgestellt"];
+  function statusSelect(key) {
+    const v = store.get("status:" + key) || "offen";
+    return `<select class="status noprint-ok" data-status="${key}" data-v="${v}" title="Bearbeitungsstand (lokal gespeichert)">${STATI.map((s) => `<option ${s === v ? "selected" : ""}>${s}</option>`).join("")}</select>`;
+  }
+  function noteBox(key, label) {
+    const v = store.get("note:" + key);
+    return `<div class="note ${v ? "has" : ""}"><label><span>✎ ${esc(label || "Notizen")}</span><span class="saved">gespeichert ✓</span></label><textarea data-note="${key}" data-label="${esc(label || "")}" placeholder="Eigene Notizen, Änderungswünsche, Fragen … (werden nur in diesem Browser gespeichert)">${esc(v)}</textarea></div>`;
+  }
+
+  /* ---------- Ansichten ---------- */
+  function viewUebersicht() {
+    const modell = [7, 8, 9, 10].map((jg) => `
+      <div class="jgl">Jg. ${jg}</div>
+      <div class="hj tc"><b>Schwerpunkt Technik</b><div class="row"><span class="bar ds tc">2 Std. Technik (Fachraum)</span><span class="bar es">1 Std. Wirtschaft</span></div></div>
+      <div class="hj hw"><b>Schwerpunkt Hauswirtschaft</b><div class="row"><span class="bar ds hw">2 Std. HW (Lehrküche)</span><span class="bar es">1 Std. Wirtschaft</span></div></div>`).join("");
+
+    const rows = [7, 8, 9, 10].map((jg) => {
+      const t = TC.find((x) => x.jg === jg);
+      const hws = HW.filter((x) => x.jg === jg);
+      return `<tr>
+        <td>${jg}</td>
+        <td>
+          <a class="t" href="#jg${jg}">${esc(t.titel)}</a><small>${esc(t.untertitel)}</small><br>
+          ${t.tcIF.map((n) => `<span class="chip tc">TC IF ${n}</span>`).join("")}
+          ${t.wiIF.map((n) => chipWI(n, true)).join("")}<br>
+          <span class="chip bo t-bo">BO: ${esc(t.bo.berufe[0])} …</span>
+          ${t.bne.sdg.map((n) => `<span class="chip bne t-bne">SDG ${n}</span>`).join("")}
+          ${t.mkr.map((m) => chipMKR(m.code)).join("")}
+        </td>
+        <td>${hws.map((h) => `<div class="hwitem"><b>${hwLabel(h)}</b> ${esc(h.titel)}<br>${h.hwIF.map((n) => `<span class="chip hw">HW IF ${n}</span>`).join("")}${h.wiIF.map((n) => chipWI(n, true)).join("") || '<span class="chip">ohne Wi-Bezug</span>'} <small>${esc(h.zeit)}</small></div>`).join("")}</td>
+      </tr>`;
+    }).join("");
+
+    return `
+    <div class="card">
+      <h2>Organisationsmodell</h2>
+      <p>Das Wahlpflichtfach <b>Wirtschaft und Arbeitswelt</b> wird in den Jahrgängen 7–10 mit <b>drei Wochenstunden</b> unterrichtet – fächerintegriert in <b>Schwerpunkthalbjahren</b>. Jeder Jahrgang hat ein Halbjahr Schwerpunkt Technik und ein Halbjahr Schwerpunkt Hauswirtschaft (insgesamt je vier Halbjahre). Die <b>Doppelstunde</b> trägt den fachpraktischen Schwerpunkt, die <b>Einzelstunde</b> den Wirtschaftsschwerpunkt, der mit dem Fachthema verknüpft ist. <b>Es gibt keinen eigenständigen Wirtschaftsunterricht.</b></p>
+      <div class="box warn"><b>Reihenfolge variabel:</b> Welches Halbjahr Technik bzw. Hauswirtschaft ist, hängt von der Personalplanung ab. Jedes Vorhaben ist deshalb in sich geschlossen geplant.</div>
+      <div class="modell" style="margin-top:14px">${modell}</div>
+      <p class="muted" style="margin-top:10px">Zeitrahmen pro Schwerpunkthalbjahr (ca. 18 Unterrichtswochen): ca. 36 Std. fachpraktisch + ca. 18 Std. Wirtschaft.</p>
+    </div>
+
+    <div class="card">
+      <h2>Übersicht der Unterrichtsvorhaben</h2>
+      <div class="legend" style="margin-bottom:8px"><span><i class="sw" style="background:var(--tc)"></i>Technik</span><span><i class="sw" style="background:var(--hw)"></i>Hauswirtschaft</span><span><i class="sw" style="background:var(--wi)"></i>Wirtschaft</span><span><i class="sw" style="background:var(--bo)"></i>Berufsorientierung</span><span><i class="sw" style="background:var(--bne)"></i>BNE</span><span><i class="sw" style="background:var(--mkr)"></i>Medienkompetenz</span></div>
+      <div class="tablewrap"><table class="ov">
+        <thead><tr><th>Jg.</th><th>Schwerpunkthalbjahr Technik (Entwurf)</th><th>Schwerpunkthalbjahr Hauswirtschaft (Planung HW)</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3>Grundlagen</h3>
+        <ul>
+          <li>Kernlehrplan Wahlpflichtfach Wirtschaft und Arbeitswelt, Gesamtschule NRW (Heft 31031) – Abschnitte Wirtschaft, Hauswirtschaft, Technik</li>
+          <li>Medienkompetenzrahmen NRW · Leitlinie BNE · Rahmenvorgabe Verbraucherbildung · KAoA</li>
+          <li>Technik: <i>${esc(META.lehrwerkTC)}</i></li>
+          <li>Wirtschaft: <i>${esc(META.lehrwerkWI)}</i></li>
+          <li>Hauswirtschaft: <i>${esc(META.lehrwerkHW)}</i></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Leitideen für den Technik-Teil</h3>
+        <ul>
+          <li><b>Progression:</b> Einzelfertigung (7) → Serienfertigung (8) → Automatisierung (9) → vernetzte Systeme (10)</li>
+          <li><b>Selbstreguliertes Lernen:</b> Kompetenzraster mit Mindest-, Regel- und Expertenstandard; Phasen Planung – Durchführung – Reflexion</li>
+          <li><b>Wirtschaft eingebunden:</b> jede Einzelstunde greift das Technikthema auf (Betrieb, Kosten, Markt, Arbeit, Region)</li>
+          <li><b>IF 1 „Zukunftsgestaltung durch Technik“</b> als Querschnitt in allen vier Halbjahren</li>
+        </ul>
+      </div>
+    </div>
+    ${noteBox("uebersicht", "Notizen zur Gesamtstruktur")}`;
+  }
+
+  function viewTC(t) {
+    const ds = sum(t.sequenzen, "ds"), es = sum(t.sequenzen, "es");
+    const seqRows = t.sequenzen.map((s, i) => `<tr>
+        <td>${i + 1}. ${esc(s.titel)}</td>
+        <td>${s.ds ? `<span class="chip time">${s.ds} Std.</span>` : '<span class="muted">–</span>'}${ul(s.praxis)}</td>
+        <td class="wi t-wi">${s.es ? `<span class="chip time es">${s.es} Std.</span>` : ""}${ul(s.wirtschaft)}</td>
+        <td>${s.bp ? `<span class="h">Blickpunkt Technik</span>${esc(s.bp)}` : ""}${s.ss ? `<span class="h" style="margin-top:6px">starkeSeiten Wirtschaft</span>${esc(s.ss)}` : ""}</td>
+      </tr>`).join("");
+
+    const raster = t.raster.map((r) => `<tr class="${r.wi ? "wi t-wi" : ""}${r.bo ? " bo t-bo" : ""}${r.bne ? " bne t-bne" : ""}">
+        <td class="b">${esc(r.bereich)}<small>${esc(r.codes)}</small></td><td>${esc(r.m)}</td><td>${esc(r.r)}</td><td>${esc(r.e)}</td></tr>`).join("");
+
+    const hws = HW.filter((h) => h.jg === t.jg);
+
+    return `
+    <div class="card">
+      <div class="hero">
+        <div class="jg"><small>Jg.</small><b>${t.jg}</b></div>
+        <div class="ttl">
+          <h2>${esc(t.titel)}</h2>
+          <div class="sub">Schwerpunkthalbjahr Technik · ${esc(t.untertitel)}</div>
+          <div><span class="chip time">${ds} Std. Doppelstunde Technik</span> <span class="chip time es">${es} Std. Einzelstunde Wirtschaft</span></div>
+          <div class="leitfrage">Leitfrage: ${esc(t.leitfrage)}</div>
+        </div>
+        <div class="noprint">${statusSelect(t.id)}</div>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="box tc"><h4>Inhaltsfelder Technik</h4>
+        ${t.tcIF.map(chipTC).join("<br>")}
+        <p style="margin-top:8px"><b>Inhaltliche Schwerpunkte</b></p>${ul(t.tcSP)}
+        <p><b>Schwerpunkte der Kompetenzentwicklung</b></p>
+        <div>${t.kompetenzen.map((c) => chipCode(c, KLP_TC)).join("")}</div>
+        <details class="noprint" style="margin-top:6px"><summary class="muted" style="cursor:pointer">Kompetenzen ausformuliert</summary>
+          <ul>${t.kompetenzen.map((c) => `<li><b>${c}</b> – ${esc(KLP_TC[c])}</li>`).join("")}</ul></details>
+      </div>
+      <div class="box wi t-wi"><h4>Ergänzend Wirtschaft (Einzelstunde)</h4>
+        ${t.wiIF.map((n) => chipWI(n)).join("<br>")}
+        <p style="margin-top:8px"><b>Inhaltliche Schwerpunkte</b></p>${ul(t.wiSP)}
+        <p><b>Die Lernenden …</b></p>${ul(t.wiKompetenzen)}
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <h3>Sequenzplanung</h3>
+      <div class="tablewrap"><table class="seq">
+        <thead><tr><th>Sequenz</th><th>Doppelstunde: Technik</th><th>Einzelstunde: Wirtschaft</th><th>Lehrwerk</th></tr></thead>
+        <tbody>${seqRows}</tbody>
+        <tfoot><tr><td>Summe</td><td>${ds} Std.</td><td>${es} Std.</td><td></td></tr></tfoot>
+      </table></div>
+    </div>
+
+    <div class="grid g3">
+      <div class="box bo t-bo"><h4>Berufsorientierung</h4>
+        <p><b>Berufe</b></p>${ul(t.bo.berufe)}<p><b>Elemente</b></p>${ul(t.bo.elemente)}</div>
+      <div class="box bne t-bne"><h4>Bildung für nachhaltige Entwicklung</h4>
+        <div>${t.bne.sdg.map(chipSDG).join("<br>")}</div>${ul(t.bne.punkte)}</div>
+      <div class="box mkr t-mkr"><h4>Medienkompetenzrahmen</h4>
+        <ul>${t.mkr.map((m) => `<li><b>${m.code} ${esc(MKR[m.code])}</b><br><small>${esc(m.text)}</small></li>`).join("")}</ul></div>
+    </div>
+
+    <div class="card t-srl" style="margin-top:18px">
+      <h3>Selbstreguliertes Lernen</h3>
+      <div class="grid g3">
+        <div class="box srl"><h4>Planung</h4>${ul(t.srl.planung)}</div>
+        <div class="box srl"><h4>Durchführung</h4>${ul(t.srl.durchfuehrung)}</div>
+        <div class="box srl"><h4>Reflexion</h4>${ul(t.srl.reflexion)}</div>
+      </div>
+    </div>
+
+    <div class="card t-srl">
+      <h3>Kompetenzraster <small class="muted">– „Ich kann …“ für Selbsteinschätzung und Lerngespräche</small></h3>
+      <div class="tablewrap"><table class="raster">
+        <thead><tr><th>Bereich</th><th class="m">Mindeststandard</th><th class="r">Regelstandard</th><th class="e">Expertenstandard</th></tr></thead>
+        <tbody>${raster}</tbody>
+      </table></div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card tight"><h3>Produkte und Leistungsnachweise</h3>${ul(t.produkte)}<p class="muted">${esc(t.leistung)}</p></div>
+      <div class="card tight"><h3>Außerschulische Lernorte</h3>${ul(t.lernorte)}</div>
+    </div>
+    <div class="grid g2">
+      <div class="box hw"><h4>Bezug zur Hauswirtschaft</h4><p>${esc(t.hwBezug)}</p></div>
+      <div class="box"><h4>Bezug zum bisherigen Plan</h4><p>${esc(t.bisher)}</p></div>
+    </div>
+    ${noteBox(t.id, `Notizen Technik Jg. ${t.jg}`)}
+
+    <h2 style="margin-top:34px">Schwerpunkthalbjahr Hauswirtschaft · Jg. ${t.jg}</h2>
+    <p class="muted">Planung der Fachschaft Hauswirtschaft (SchiLP, Stand 31.08.2026), hier zusammengefasst. Kompetenzcodes = HW-Codes.</p>
+    ${hws.map(viewHW).join("")}`;
+  }
+
+  function viewHW(h) {
+    return `<details class="hwuv" id="${h.id}">
+      <summary><span class="chip hw">${hwLabel(h)}</span> ${esc(h.titel)} <small class="muted">${esc(h.zeit)}</small></summary>
+      <div class="body">
+        <div class="grid g2">
+          <div class="box hw"><h4>Inhaltsfelder Hauswirtschaft</h4>${h.hwIF.map(chipHW).join("<br>")}
+            <p style="margin-top:8px"><b>Inhaltliche Schwerpunkte</b></p>${ul(h.inhalteHW)}
+            <p><b>Kompetenzschwerpunkte</b></p><div>${h.kompetenzen.map((c) => chipCode(c, KLP_HW)).join("")}</div></div>
+          <div class="box wi t-wi"><h4>Ergänzend Wirtschaft</h4>${h.wiIF.length ? h.wiIF.map((n) => chipWI(n)).join("<br>") : '<p class="muted">kein Wirtschaftsbezug ausgewiesen</p>'}
+            ${h.inhalteWi.length ? `<p style="margin-top:8px"><b>Inhaltliche Schwerpunkte</b></p>${ul(h.inhalteWi)}` : ""}
+            ${h.wi.length ? `<p><b>Die Lernenden …</b></p>${ul(h.wi)}` : ""}</div>
+        </div>
+        <div class="grid g3" style="margin-top:12px">
+          <div class="box"><h4>Sequenzen</h4><ul>${h.sequenzen.map((s) => `<li>${esc(s.titel)} <small class="muted">${s.std !== "–" ? "(" + esc(s.std) + " Std.)" : ""}</small></li>`).join("")}</ul></div>
+          <div class="box mkr t-mkr"><h4>Medienkompetenz</h4>${ul(h.mkrText)}<div>${h.mkr.map(chipMKR).join("")}</div><small class="muted">Codes: Zuordnung als Vorschlag</small></div>
+          <div class="box bne"><h4>BO · BNE</h4>
+            <div class="t-bo"><b>BO:</b> ${h.bo ? esc(h.bo) : '<span class="muted">nicht explizit</span>'}</div>
+            <div class="t-bne" style="margin-top:6px"><b>BNE:</b> ${esc(h.bne)}<br>${h.sdg.map((n) => `<span class="chip bne">SDG ${n}</span>`).join("")}</div>
+            <small class="muted">abgeleitet aus dem HW-Plan</small></div>
+        </div>
+        ${noteBox(h.id, `Notizen ${hwLabel(h)}`)}
+      </div></details>`;
+  }
+
+  function viewAbdeckung() {
+    const jgs = [7, 8, 9, 10];
+    // Technik-Kompetenzen
+    const kRows = Object.keys(KLP_TC).map((c) => {
+      const hits = jgs.map((jg) => TC.find((t) => t.jg === jg).kompetenzen.includes(c));
+      const n = hits.filter(Boolean).length;
+      return `<tr><td><b>${c}</b> <small>${esc(KLP_TC[c])}</small></td>${hits.map((h) => `<td>${h ? '<span class="dot"></span>' : ""}</td>`).join("")}<td class="${n ? "" : "zero"}">${n}</td></tr>`;
+    }).join("");
+    // Technik-IF
+    const ifRows = Object.keys(IF_TC).map((k) => {
+      const n = +k;
+      return `<tr><td><b>IF ${n}</b> ${esc(IF_TC[n].name)}</td>${jgs.map((jg) => { const t = TC.find((x) => x.jg === jg); const i = t.tcIF.indexOf(n); return `<td>${i === 0 ? '<span class="dot" title="Schwerpunkt"></span>' : i > 0 ? '<span class="dot q" title="Querschnitt"></span>' : ""}</td>`; }).join("")}</tr>`;
+    }).join("");
+    // Wirtschaft-IF
+    const wiRows = Object.keys(IF_WI).map((k) => {
+      const n = +k;
+      const cells = jgs.map((jg) => {
+        const t = TC.find((x) => x.jg === jg);
+        const tc = t.wiIF.includes(n) ? `<span class="chip tc">TC ${jg}</span>` : "";
+        const hw = HW.filter((h) => h.jg === jg && h.wiIF.includes(n)).map((h) => `<span class="chip hw">${hwLabel(h)}</span>`).join("");
+        return `<td>${tc}${hw}</td>`;
+      }).join("");
+      return `<tr><td><b>IF ${n}</b> ${esc(IF_WI[n].name)}</td>${cells}</tr>`;
+    }).join("");
+    // MKR
+    const mkrCodes = Object.keys(MKR).filter((c) => c.includes("."));
+    const mkrRows = mkrCodes.map((c) => {
+      const cells = jgs.map((jg) => {
+        const t = TC.find((x) => x.jg === jg);
+        const tc = t.mkr.some((m) => m.code === c) ? `<span class="chip tc">TC</span>` : "";
+        const hw = HW.filter((h) => h.jg === jg && h.mkr.includes(c)).map((h) => `<span class="chip hw">${h.jg}.${h.nr}</span>`).join("");
+        return `<td>${tc}${hw}</td>`;
+      }).join("");
+      const any = /chip/.test(cells);
+      return `<tr><td><b>${c}</b> ${esc(MKR[c])}</td>${cells}<td class="${any ? "" : "muted"}">${any ? "✓" : "–"}</td></tr>`;
+    }).join("");
+    // Stundenbilanz
+    const bil = jgs.map((jg) => {
+      const t = TC.find((x) => x.jg === jg);
+      const hws = HW.filter((h) => h.jg === jg);
+      const hwStd = hws.map((h) => h.zeit.replace("ca. ", "")).join(" + ");
+      return `<tr><td><b>${jg}</b></td><td>${sum(t.sequenzen, "ds")} + ${sum(t.sequenzen, "es")} = <b>${sum(t.sequenzen, "ds") + sum(t.sequenzen, "es")} Std.</b></td><td>${esc(hwStd)}</td><td>ca. 54 Std.</td></tr>`;
+    }).join("");
+    // BO/BNE
+    const bobne = jgs.map((jg) => {
+      const t = TC.find((x) => x.jg === jg);
+      const hws = HW.filter((h) => h.jg === jg);
+      return `<tr><td><b>${jg}</b></td>
+        <td class="t-bo">${esc(t.bo.berufe.join(", "))}<br><small>${esc(t.bo.elemente[0])}</small></td>
+        <td class="t-bo">${hws.map((h) => h.bo ? `<b>${hwLabel(h)}:</b> ${esc(h.bo)}` : "").filter(Boolean).join("<br>") || '<span class="muted">–</span>'}</td>
+        <td class="t-bne">${t.bne.sdg.map((n) => `<span class="chip tc">SDG ${n}</span>`).join("")} ${hws.flatMap((h) => h.sdg).filter((v, i, a) => a.indexOf(v) === i).map((n) => `<span class="chip hw">SDG ${n}</span>`).join("")}</td></tr>`;
+    }).join("");
+
+    return `
+    <div class="card"><h2>Abdeckung des Kernlehrplans</h2>
+      <p class="muted">Wird automatisch aus den Planungsdaten berechnet. Rote „0“ = Kompetenz in keinem Technik-Halbjahr ausgewiesen.</p></div>
+    <div class="grid g2">
+      <div class="card"><h3>Technik: übergeordnete Kompetenzen</h3><div class="tablewrap"><table class="matrix">
+        <thead><tr><th>Kompetenz</th>${jgs.map((j) => `<th>Jg. ${j}</th>`).join("")}<th>Σ</th></tr></thead><tbody>${kRows}</tbody></table></div>
+        <small class="muted">Kurzfassungen; Wortlaut und Nummerierung gegen KLP Gesamtschule prüfen.</small></div>
+      <div>
+        <div class="card"><h3>Technik: Inhaltsfelder</h3><div class="tablewrap"><table class="matrix">
+          <thead><tr><th>Inhaltsfeld</th>${jgs.map((j) => `<th>Jg. ${j}</th>`).join("")}</tr></thead><tbody>${ifRows}</tbody></table></div>
+          <div class="legend" style="margin-top:6px"><span><span class="dot"></span> Schwerpunkt</span><span><span class="dot q"></span> Querschnitt</span></div></div>
+        <div class="card"><h3>Stundenbilanz pro Schwerpunkthalbjahr</h3><div class="tablewrap"><table>
+          <thead><tr><th>Jg.</th><th>Technik (DS + ES)</th><th>HW geplant</th><th>verfügbar</th></tr></thead><tbody>${bil}</tbody></table></div>
+          <small class="muted">HW-Planung übersteigt den Zeitrahmen eines Halbjahres → siehe Sitzung, Punkt 2.</small></div>
+      </div>
+    </div>
+    <div class="card t-wi"><h3>Wirtschaft: Inhaltsfelder nach Jahrgang und Fach</h3><div class="tablewrap"><table class="matrix">
+      <thead><tr><th>Inhaltsfeld Wirtschaft</th>${jgs.map((j) => `<th>Jg. ${j}</th>`).join("")}</tr></thead><tbody>${wiRows}</tbody></table></div></div>
+    <div class="card t-mkr"><h3>Medienkompetenzrahmen nach Jahrgang und Fach</h3><div class="tablewrap"><table class="matrix">
+      <thead><tr><th>Teilkompetenz</th>${jgs.map((j) => `<th>Jg. ${j}</th>`).join("")}<th></th></tr></thead><tbody>${mkrRows}</tbody></table></div></div>
+    <div class="card"><h3>Berufsorientierung und BNE</h3><div class="tablewrap"><table>
+      <thead><tr><th>Jg.</th><th>BO Technik</th><th>BO Hauswirtschaft</th><th>BNE (SDG) – <span class="chip tc">TC</span><span class="chip hw">HW</span></th></tr></thead><tbody>${bobne}</tbody></table></div></div>
+    ${noteBox("abdeckung", "Notizen zur Abdeckung")}`;
+  }
+
+  function viewLeistung() {
+    return `
+    <div class="card"><h2>Grundsätze der Leistungsbewertung</h2>
+      <p>Gemeinsame Grundsätze für den Wahlpflichtbereich Wirtschaft und Arbeitswelt (aus dem SchiLP Hauswirtschaft übernommen), ergänzt um technikspezifische Formen.</p>
+      <div class="box wi"><b>Gewichtung:</b> ${esc(LEISTUNG.gewichtung)}</div></div>
+    <div class="grid g3">
+      <div class="card"><h3>Schriftliche Arbeiten</h3>${ul(LEISTUNG.schriftlich)}
+        <div class="box warn"><b>Vorschlag Technik:</b> pro Schwerpunkthalbjahr eine Klassenarbeit und eine Projektarbeit (Werkstück + Dokumentation). Rechtliche Prüfung des Ersatzes nötig.</div></div>
+      <div class="card"><h3>Sonstige Leistungen Technik</h3>${ul(LEISTUNG.sonstigeTC)}</div>
+      <div class="card"><h3>Kriterien fachpraktischer Arbeit</h3>${ul(LEISTUNG.kriterienPraxisTC)}</div>
+    </div>
+    <div class="grid g2">
+      <div class="card"><h3>Notenschlüssel</h3><table><thead><tr><th>Prozent</th><th>Note</th></tr></thead>
+        <tbody>${LEISTUNG.schluessel.map(([p, n]) => `<tr><td>${p}</td><td>${n}</td></tr>`).join("")}</tbody></table></div>
+      <div class="card"><h3>Leistungsnachweise je Technik-Halbjahr</h3>
+        <table><tbody>${TC.map((t) => `<tr><td><b>Jg. ${t.jg}</b></td><td>${esc(t.leistung)}</td></tr>`).join("")}</tbody></table></div>
+    </div>
+    ${noteBox("leistung", "Notizen zur Leistungsbewertung")}`;
+  }
+
+  function viewSitzung() {
+    const tags = { organisation: ["Organisation", "tc"], wirtschaft: ["Wirtschaft", "wi"], technik: ["Technik", "tc"], leistung: ["Leistung", "srl"], bo: ["Berufsorientierung", "bo"] };
+    return `
+    <div class="card"><h2>Gesprächsgrundlage für die Sitzung</h2>
+      <p>Offene Punkte, die sich aus dem Abgleich von Technik-Entwurf und HW-Planung ergeben. Status und Notizen werden lokal in diesem Browser gespeichert – vor der Sitzung ggf. exportieren.</p></div>
+    ${DISKUSSION.map((d, i) => `<div class="card tight disc">
+        <div><h3>${i + 1}. ${esc(d.titel)} <span class="chip ${tags[d.tag][1]}">${tags[d.tag][0]}</span></h3><p>${esc(d.text)}</p></div>
+        <div class="noprint">${statusSelect(d.id)}</div>
+        <div class="tagline">${noteBox(d.id, "Ergebnis / Notiz")}</div>
+      </div>`).join("")}
+    <div class="card">${noteBox("protokoll", "Protokoll / weitere Punkte")}</div>`;
+  }
+
+  function collectNotes() {
+    const all = store.all();
+    const labels = {};
+    document.querySelectorAll("textarea[data-note]").forEach((t) => { labels[t.dataset.note] = t.dataset.label; });
+    return Object.keys(all).filter((k) => k.startsWith("note:") && all[k]).map((k) => {
+      const id = k.slice(5);
+      return { id, label: labels[id] || id, text: all[k], status: all["status:" + id] || "" };
+    });
+  }
+
+  function viewNotizen() {
+    return `
+    <div class="card"><h2>Meine Notizen</h2>
+      <p>Alle Notizen und Bearbeitungsstände werden <b>nur lokal in diesem Browser</b> gespeichert (localStorage). Sie gehen verloren, wenn der Browserspeicher gelöscht wird. Zum Teilen oder Sichern exportieren.</p>
+      <div class="noprint" style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn primary" data-act="export-md">Notizen als Markdown herunterladen</button>
+        <button class="btn" data-act="export-json">Sicherung (JSON) herunterladen</button>
+        <button class="btn" data-act="import-json">Sicherung einlesen</button>
+        <button class="btn" data-act="clear" style="border-color:var(--color-error);color:var(--color-error)">Alle Notizen löschen</button>
+      </div></div>
+    <div class="card notelist" id="notelist"></div>`;
+  }
+  function fillNotelist() {
+    const el = document.getElementById("notelist");
+    if (!el) return;
+    const notes = collectNotes();
+    el.innerHTML = notes.length ? notes.map((n) => `<div class="item"><b>${esc(n.label)}</b> ${n.status ? `<span class="chip srl">${esc(n.status)}</span>` : ""}<pre>${esc(n.text)}</pre></div>`).join("") : `<p class="muted">Noch keine Notizen. Notizfelder gibt es in jedem Abschnitt.</p>`;
+  }
+
+  /* ---------- Aufbau ---------- */
+  const VIEWS = [
+    { id: "uebersicht", label: "Übersicht", render: viewUebersicht },
+    ...TC.map((t) => ({ id: "jg" + t.jg, label: "Jahrgang " + t.jg, render: () => viewTC(t) })),
+    { id: "abdeckung", label: "Abdeckung KLP", render: viewAbdeckung },
+    { id: "leistung", label: "Leistungsbewertung", render: viewLeistung },
+    { id: "sitzung", label: "Sitzung", render: viewSitzung },
+    { id: "notizen", label: "Meine Notizen", render: viewNotizen },
+  ];
+
+  function build() {
+    document.title = `${META.titel} – SchiLP Arbeitsversion`;
+    document.getElementById("app").innerHTML = `
+      <header class="topbar">
+        <div class="brand"><b>${esc(META.titel)}</b><span>${esc(META.untertitel)} · ${esc(META.schule)}</span></div>
+        <span class="badge-draft">${esc(META.version)}</span>
+        <span class="spacer"></span>
+        <span style="font-size:.8rem;opacity:.8">Stand ${esc(META.stand)}</span>
+        <button data-act="print">Ansicht drucken</button>
+        <button data-act="printall">Gesamt drucken</button>
+      </header>
+      <nav class="tabs"><div class="inner">${VIEWS.map((v) => `<a href="#${v.id}" data-view="${v.id}">${v.label}</a>`).join("")}</div>
+        <div class="filterbar"><span class="lbl">Hervorheben:</span>
+          <button class="fchip" data-f="wi">Wirtschaft</button>
+          <button class="fchip" data-f="bo">Berufsorientierung</button>
+          <button class="fchip" data-f="bne">BNE</button>
+          <button class="fchip" data-f="mkr">Medienkompetenz</button>
+          <button class="fchip" data-f="srl">SRL</button>
+        </div></nav>
+      <main>${VIEWS.map((v) => `<section class="view" id="view-${v.id}">${v.render()}</section>`).join("")}</main>
+      <div class="foot">${esc(META.schule)} · SchiLP WP Wirtschaft und Arbeitswelt · ${esc(META.version)} · Notizen werden nur lokal gespeichert</div>
+      <div class="toast" id="toast"></div>
+      <input type="file" id="importfile" accept="application/json" hidden>`;
+  }
+
+  function show(id) {
+    if (!VIEWS.some((v) => v.id === id)) id = "uebersicht";
+    document.querySelectorAll("section.view").forEach((s) => s.classList.toggle("active", s.id === "view-" + id));
+    document.querySelectorAll("nav.tabs a").forEach((a) => a.classList.toggle("active", a.dataset.view === id));
+    if (id === "notizen") fillNotelist();
+    store.set("ui:view", id);
+  }
+
+  function toast(msg) {
+    const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2200);
+  }
+  function download(name, text, type) {
+    const blob = new Blob([text], { type }); const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  }
+
+  function bind() {
+    const timers = {};
+    document.addEventListener("input", (e) => {
+      const ta = e.target.closest("textarea[data-note]");
+      if (!ta) return;
+      const key = ta.dataset.note;
+      clearTimeout(timers[key]);
+      timers[key] = setTimeout(() => {
+        store.set("note:" + key, ta.value);
+        const box = ta.closest(".note"); box.classList.toggle("has", !!ta.value);
+        const s = box.querySelector(".saved"); s.classList.add("show"); setTimeout(() => s.classList.remove("show"), 1200);
+        // gleiche Notiz an anderer Stelle (Druckansicht) synchron halten
+        document.querySelectorAll(`textarea[data-note="${key}"]`).forEach((o) => { if (o !== ta) o.value = ta.value; });
+      }, 400);
+    });
+    document.addEventListener("change", (e) => {
+      const sel = e.target.closest("select[data-status]");
+      if (sel) { store.set("status:" + sel.dataset.status, sel.value === "offen" ? "" : sel.value); sel.dataset.v = sel.value; toast("Status gespeichert"); }
+    });
+    document.addEventListener("click", (e) => {
+      const f = e.target.closest(".fchip");
+      if (f) {
+        f.classList.toggle("on"); document.body.classList.toggle("hl-" + f.dataset.f, f.classList.contains("on"));
+        const on = [...document.querySelectorAll(".fchip.on")].map((x) => x.dataset.f).join(",");
+        store.set("ui:filter", on); return;
+      }
+      const b = e.target.closest("[data-act]");
+      if (!b) return;
+      const act = b.dataset.act;
+      if (act === "print") { document.body.classList.remove("printall"); document.querySelectorAll("section.view.active details.hwuv").forEach((d) => d.open = true); window.print(); }
+      if (act === "printall") { document.body.classList.add("printall"); document.querySelectorAll("details.hwuv").forEach((d) => d.open = true); window.print(); setTimeout(() => document.body.classList.remove("printall"), 500); }
+      if (act === "export-md") {
+        const notes = collectNotes();
+        const md = `# Notizen SchiLP WAW (${new Date().toLocaleDateString("de-DE")})\n\n` + (notes.map((n) => `## ${n.label}${n.status ? ` _(Status: ${n.status})_` : ""}\n\n${n.text}\n`).join("\n") || "_keine Notizen_\n");
+        download(`schilp-waw-notizen-${new Date().toISOString().slice(0, 10)}.md`, md, "text/markdown");
+      }
+      if (act === "export-json") download(`schilp-waw-sicherung-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(store.all(), null, 2), "application/json");
+      if (act === "import-json") document.getElementById("importfile").click();
+      if (act === "clear" && confirmClear()) {
+        Object.keys(store.all()).forEach((k) => { if (k.startsWith("note:") || k.startsWith("status:")) store.set(k, ""); });
+        rerender(); toast("Notizen gelöscht");
+      }
+    });
+    document.getElementById("importfile").addEventListener("change", (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      const r = new FileReader();
+      r.onload = () => {
+        try { const data = JSON.parse(r.result); Object.entries(data).forEach(([k, v]) => { if (/^(note|status|ui):/.test(k)) store.set(k, v); }); rerender(); toast("Sicherung eingelesen"); }
+        catch (err) { toast("Datei konnte nicht gelesen werden"); }
+      };
+      r.readAsText(file); e.target.value = "";
+    });
+    window.addEventListener("hashchange", () => show(location.hash.slice(1)));
+  }
+  // Sicherheitsabfrage ohne blockierenden Browser-Dialog: zweimal klicken
+  let clearArmed = 0;
+  function confirmClear() {
+    if (Date.now() - clearArmed < 4000) { clearArmed = 0; return true; }
+    clearArmed = Date.now(); toast("Zum Löschen innerhalb von 4 Sekunden erneut klicken"); return false;
+  }
+  function rerender() {
+    const cur = location.hash.slice(1) || store.get("ui:view") || "uebersicht";
+    VIEWS.forEach((v) => { document.getElementById("view-" + v.id).innerHTML = v.render(); });
+    show(cur);
+  }
+  function restoreFilters() {
+    (store.get("ui:filter") || "").split(",").filter(Boolean).forEach((f) => {
+      const b = document.querySelector(`.fchip[data-f="${f}"]`); if (b) { b.classList.add("on"); document.body.classList.add("hl-" + f); }
+    });
+  }
+
+  build(); bind(); restoreFilters();
+  show(location.hash.slice(1) || store.get("ui:view") || "uebersicht");
+})();
+
+</script>
+</body>
+</html>
