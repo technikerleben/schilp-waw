@@ -1,6 +1,6 @@
 # SchiLP Wirtschaft und Arbeitswelt (WP) – HBG Dortmund
 
-Schulinterner Lehrplan für das Wahlpflichtfach **Wirtschaft und Arbeitswelt**, Teil **Technik**,
+Gemeinsamer schulinterner Lehrplan für das Wahlpflichtfach **Wirtschaft und Arbeitswelt** (Hauswirtschaft, Technik, Wirtschaft)
 an der Heinrich-Böll-Gesamtschule Dortmund (Jahrgänge 7–10).
 
 ## Organisationsmodell
@@ -33,7 +33,9 @@ Sie wird aus `src/` gebaut:
 python3 tools/build.py
 ```
 
-- `src/data.js` – alle Inhalte (Technik-Vorhaben, HW-Planung, Diskussionspunkte, Leistungsbewertung)
+- `src/hw-data.js` – Hauswirtschaft, **automatisch und wörtlich** aus dem SchiLP HW erzeugt:
+  `python3 tools/extract_hw.py quellen/SchiLP_HW.pdf` (PDF liegt nur lokal, nicht im Repo)
+- `src/data.js` – Technik-Entwurf, gemeinsame Kapitel (Rahmen, Leistung, Lehrwerke – mit Quellenkennzeichnung), Diskussionspunkte
 - `src/app.js` – Darstellung, Navigation, Hervorhebungsfilter, Notizen
 - `src/style.css` – HBG-SRL-Farbschema
 

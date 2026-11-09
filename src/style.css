@@ -187,3 +187,78 @@ body.hl-srl .t-srl{outline:3px solid var(--srl);outline-offset:2px;border-radius
   table{font-size:9pt} tr{break-inside:avoid}
   a{text-decoration:none;color:inherit}
 }
+
+/* ===== Gemeinsamer Plan: gleichrangige Fächer ===== */
+h5{font-size:.85rem;color:var(--slate-dark);text-transform:uppercase;letter-spacing:.04em;margin:0 0 .4em}
+h4.sec{margin:20px 0 8px;color:var(--slate-dark)}
+.grid.tight{gap:8px}
+.grid + .grid{margin-top:12px}
+.src{display:inline-block;font-size:.7rem;font-weight:700;border-radius:5px;padding:1px 7px;margin-bottom:6px;letter-spacing:.02em}
+.src.hw{background:var(--hw-pale);color:var(--sage-dark)}
+.src.tc{background:var(--tc-pale);color:var(--slate-dark)}
+.src.neu{background:var(--rust-pale);color:var(--rust-dark)}
+.col{border-radius:10px;padding:12px 14px}
+.col.hw{background:var(--sage-ghost);border-top:4px solid var(--hw)}
+.col.tc{background:var(--slate-ghost);border-top:4px solid var(--tc)}
+.box.neu{background:var(--rust-ghost);border-color:var(--rust-base)}
+.box.hw{background:var(--sage-ghost);border-color:var(--hw)}
+.nicht{color:var(--text-muted);font-style:italic;background:repeating-linear-gradient(45deg,transparent,transparent 6px,rgba(0,0,0,.025) 6px,rgba(0,0,0,.025) 12px);border-radius:6px;padding:6px 8px;margin:4px 0}
+.hinweis{font-size:.85rem;color:var(--color-warning);font-weight:600}
+.btn.danger{border-color:var(--color-error);color:var(--color-error)}
+.card.inner{box-shadow:none;border:1px solid var(--slate-pale);margin-top:12px}
+
+/* Fachkennzeichnung */
+.fbadge{display:inline-block;border-radius:6px;padding:2px 9px;font-size:.75rem;font-weight:700;color:#fff;white-space:nowrap}
+.fbadge.hw{background:var(--hw)} .fbadge.tc{background:var(--tc)}
+.chip.time.hw{background:var(--hw)} .chip.time.tc{background:var(--tc)}
+.h{display:block;font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;margin:4px 0 2px;color:var(--text-muted)}
+.h.hw{color:var(--sage-dark)} .h.tc{color:var(--slate-base)} .h.wi{color:var(--wi)}
+th.hw{background:var(--sage-pale)} th.tc{background:var(--tc-pale)}
+td.fcol.hw{background:var(--sage-ghost)} td.fcol.tc{background:var(--slate-ghost)}
+.dot.hw{background:var(--hw)} .dot.tc{background:var(--tc)}
+div.wi{background:var(--rust-ghost);border-radius:6px;padding:2px 8px;margin-top:6px}
+
+/* Jahrgangskopf */
+.jgcard{border-radius:12px;padding:14px 16px}
+.jgcard.hw{background:var(--sage-ghost);border:2px solid var(--hw-pale)}
+.jgcard.tc{background:var(--slate-ghost);border:2px solid var(--tc-pale)}
+.jgct{font-weight:700;color:var(--slate-dark);margin-bottom:8px}
+.jgitem{display:block;text-decoration:none;color:var(--text);padding:5px 0;border-bottom:1px dashed var(--slate-pale)}
+.jgitem:hover{color:var(--rust-dark)}
+.fachblock{margin-top:24px}
+.fh{padding:8px 14px;border-radius:10px;color:#fff}
+.fh.hw{background:var(--hw)} .fh.tc{background:var(--tc)}
+
+/* Unterrichtsvorhaben */
+details.uv{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:12px}
+details.uv.hw{border-left:6px solid var(--hw)} details.uv.tc{border-left:6px solid var(--tc)}
+details.uv summary{cursor:pointer;padding:14px 18px;list-style:none;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+details.uv summary::-webkit-details-marker{display:none}
+details.uv summary:before{content:"▸";color:var(--slate-mid);transition:transform .2s;font-size:1.1rem}
+details.uv[open] summary:before{transform:rotate(90deg)}
+details.uv .sumt{flex:1 1 380px;color:var(--slate-dark)}
+details.uv .sumchips{display:flex;flex-wrap:wrap;gap:2px}
+details.uv .body{padding:0 18px 18px}
+.uvhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+table.seq td.s1{width:20%} .stitle{font-weight:600;color:var(--slate-dark);margin:2px 0 4px}
+table.seq.hw th{background:var(--sage-pale)} table.seq.tc th{background:var(--tc-pale)}
+table.seq td{font-size:.85rem}
+table.seq ul{padding-left:1.05em}
+.ovitem{margin-bottom:8px}
+.ov td{width:46%} .ov td:first-child{width:8%}
+
+/* Fachfilter */
+.seg{display:inline-flex;border:1.5px solid var(--slate-mid);border-radius:999px;overflow:hidden}
+.seg button{font:inherit;font-size:.8rem;font-weight:600;border:none;background:#fff;color:var(--slate-base);padding:3px 11px;cursor:pointer}
+.seg button.on{background:var(--slate-base);color:#fff}
+body.only-hw .fachblock.tc, body.only-hw details.uv.tc, body.only-hw .col.tc, body.only-hw .jgcard.tc{display:none}
+body.only-tc .fachblock.hw, body.only-tc details.uv.hw, body.only-tc .col.hw, body.only-tc .jgcard.hw{display:none}
+
+@media print{
+  details.uv{box-shadow:none;border:1px solid #ccc}
+  details.uv .body{display:block!important}
+  details.uv summary:before{display:none}
+  .seg,.fchip{display:none}
+}
+
+table.seq td.s1{font-weight:400;color:var(--text)}

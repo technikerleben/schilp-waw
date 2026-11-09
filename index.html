@@ -196,10 +196,1553 @@ body.hl-srl .t-srl{outline:3px solid var(--srl);outline-offset:2px;border-radius
   a{text-decoration:none;color:inherit}
 }
 
+/* ===== Gemeinsamer Plan: gleichrangige Fächer ===== */
+h5{font-size:.85rem;color:var(--slate-dark);text-transform:uppercase;letter-spacing:.04em;margin:0 0 .4em}
+h4.sec{margin:20px 0 8px;color:var(--slate-dark)}
+.grid.tight{gap:8px}
+.grid + .grid{margin-top:12px}
+.src{display:inline-block;font-size:.7rem;font-weight:700;border-radius:5px;padding:1px 7px;margin-bottom:6px;letter-spacing:.02em}
+.src.hw{background:var(--hw-pale);color:var(--sage-dark)}
+.src.tc{background:var(--tc-pale);color:var(--slate-dark)}
+.src.neu{background:var(--rust-pale);color:var(--rust-dark)}
+.col{border-radius:10px;padding:12px 14px}
+.col.hw{background:var(--sage-ghost);border-top:4px solid var(--hw)}
+.col.tc{background:var(--slate-ghost);border-top:4px solid var(--tc)}
+.box.neu{background:var(--rust-ghost);border-color:var(--rust-base)}
+.box.hw{background:var(--sage-ghost);border-color:var(--hw)}
+.nicht{color:var(--text-muted);font-style:italic;background:repeating-linear-gradient(45deg,transparent,transparent 6px,rgba(0,0,0,.025) 6px,rgba(0,0,0,.025) 12px);border-radius:6px;padding:6px 8px;margin:4px 0}
+.hinweis{font-size:.85rem;color:var(--color-warning);font-weight:600}
+.btn.danger{border-color:var(--color-error);color:var(--color-error)}
+.card.inner{box-shadow:none;border:1px solid var(--slate-pale);margin-top:12px}
+
+/* Fachkennzeichnung */
+.fbadge{display:inline-block;border-radius:6px;padding:2px 9px;font-size:.75rem;font-weight:700;color:#fff;white-space:nowrap}
+.fbadge.hw{background:var(--hw)} .fbadge.tc{background:var(--tc)}
+.chip.time.hw{background:var(--hw)} .chip.time.tc{background:var(--tc)}
+.h{display:block;font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;margin:4px 0 2px;color:var(--text-muted)}
+.h.hw{color:var(--sage-dark)} .h.tc{color:var(--slate-base)} .h.wi{color:var(--wi)}
+th.hw{background:var(--sage-pale)} th.tc{background:var(--tc-pale)}
+td.fcol.hw{background:var(--sage-ghost)} td.fcol.tc{background:var(--slate-ghost)}
+.dot.hw{background:var(--hw)} .dot.tc{background:var(--tc)}
+div.wi{background:var(--rust-ghost);border-radius:6px;padding:2px 8px;margin-top:6px}
+
+/* Jahrgangskopf */
+.jgcard{border-radius:12px;padding:14px 16px}
+.jgcard.hw{background:var(--sage-ghost);border:2px solid var(--hw-pale)}
+.jgcard.tc{background:var(--slate-ghost);border:2px solid var(--tc-pale)}
+.jgct{font-weight:700;color:var(--slate-dark);margin-bottom:8px}
+.jgitem{display:block;text-decoration:none;color:var(--text);padding:5px 0;border-bottom:1px dashed var(--slate-pale)}
+.jgitem:hover{color:var(--rust-dark)}
+.fachblock{margin-top:24px}
+.fh{padding:8px 14px;border-radius:10px;color:#fff}
+.fh.hw{background:var(--hw)} .fh.tc{background:var(--tc)}
+
+/* Unterrichtsvorhaben */
+details.uv{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:12px}
+details.uv.hw{border-left:6px solid var(--hw)} details.uv.tc{border-left:6px solid var(--tc)}
+details.uv summary{cursor:pointer;padding:14px 18px;list-style:none;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+details.uv summary::-webkit-details-marker{display:none}
+details.uv summary:before{content:"▸";color:var(--slate-mid);transition:transform .2s;font-size:1.1rem}
+details.uv[open] summary:before{transform:rotate(90deg)}
+details.uv .sumt{flex:1 1 380px;color:var(--slate-dark)}
+details.uv .sumchips{display:flex;flex-wrap:wrap;gap:2px}
+details.uv .body{padding:0 18px 18px}
+.uvhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+table.seq td.s1{width:20%} .stitle{font-weight:600;color:var(--slate-dark);margin:2px 0 4px}
+table.seq.hw th{background:var(--sage-pale)} table.seq.tc th{background:var(--tc-pale)}
+table.seq td{font-size:.85rem}
+table.seq ul{padding-left:1.05em}
+.ovitem{margin-bottom:8px}
+.ov td{width:46%} .ov td:first-child{width:8%}
+
+/* Fachfilter */
+.seg{display:inline-flex;border:1.5px solid var(--slate-mid);border-radius:999px;overflow:hidden}
+.seg button{font:inherit;font-size:.8rem;font-weight:600;border:none;background:#fff;color:var(--slate-base);padding:3px 11px;cursor:pointer}
+.seg button.on{background:var(--slate-base);color:#fff}
+body.only-hw .fachblock.tc, body.only-hw details.uv.tc, body.only-hw .col.tc, body.only-hw .jgcard.tc{display:none}
+body.only-tc .fachblock.hw, body.only-tc details.uv.hw, body.only-tc .col.hw, body.only-tc .jgcard.hw{display:none}
+
+@media print{
+  details.uv{box-shadow:none;border:1px solid #ccc}
+  details.uv .body{display:block!important}
+  details.uv summary:before{display:none}
+  .seg,.fchip{display:none}
+}
+
+table.seq td.s1{font-weight:400;color:var(--text)}
+
 </style>
 </head>
 <body>
 <div id="app"></div>
+<script>
+/* AUTOMATISCH ERZEUGT aus dem SchiLP Hauswirtschaft (Stand 31.08.2026) mit tools/extract_hw.py.
+   Wörtliche Übernahme – bitte nicht von Hand ändern, sondern das PDF aktualisieren und neu erzeugen. */
+const HW = [
+ {
+  "id": "hw7-1",
+  "jg": 7,
+  "nr": "I",
+  "titel": "Leben in den eigenen vier Wänden – Vom Wohlfühlen in der eigenen Wohnung bis zur Aufgabenverteilung im eigenen Haushalt",
+  "inhaltsfelder": [
+   "Hauswirtschaft: IF 1 Haushaltsmanagement",
+   "Hauswirtschaft: IF 2 Leben im Haushalt",
+   "Wirtschaft: IF 5 Nachhaltiges wirtschaftliches Handeln in der Region"
+  ],
+  "kompetenzen": [
+   "beschreiben Elemente und Funktionen von Haushaltssystemen (SK 2).",
+   "entnehmen Einzelmaterialien thematisch relevante Informationen, gliedern diese und setzen sie zueinander in Beziehung (MK 1).",
+   "interpretieren diskontinuierliche Texte wie Grafiken, Rezepte, Bilder und Diagramme sowie weitere Medien (MK 6).",
+   "identifizieren unterschiedliche Standpunkte im eigenen Erfahrungsbereich und analysieren diese auch anhand von Fallbeispielen (MK 8).",
+   "beurteilen kriteriengeleitet fachbezogene Sachverhalte, Systeme und Verfahren (UK 1).",
+   "erörtern Möglichkeiten, Grenzen und Folgen haushaltsbezogenen Handelns (UK 3)."
+  ],
+  "wirtschaft": [
+   "beschreiben Veränderungen im Bereich Wohnen und Haushaltsführung im Kontext gesellschaftlicher und technologischer Entwicklungen (SK).",
+   "erläutern Ansätze nachhaltiger Entwicklung im privaten Haushalt, z. B. Energieeinsparung und Ressourcenschonung (SK).",
+   "beurteilen unterschiedliche Wohn- und Haushaltsformen im Hinblick auf ökologische und ökonomische Auswirkungen (UK)."
+  ],
+  "inhalteHW": [
+   "Haushaltsführung: Aufgaben zur Bewältigung des Alltags",
+   "Lebensgestaltung der Mitglieder im privaten Haushalt",
+   "Lebensqualität und Wohnen"
+  ],
+  "inhalteWi": [
+   "Strukturwandel und nachhaltige Entwicklung: Wirtschaftssektoren, Beschäftigungsstruktur, Infrastruktur, steuerliche Entwicklung"
+  ],
+  "mkr": [
+   "Lernende gestalten ein Erklärvideo zum Thema „Richtig lüften“ und präsentieren ihre Ergebnisse",
+   "Lernende gestalten ein Erklärvideo zum Einsatz von Haushaltsgeräten und präsentieren ihre Ergebnisse"
+  ],
+  "zeit": "ca. 40 Std",
+  "sequenzen": [
+   {
+    "nr": 1,
+    "titel": "Zuhause ist’s am schönsten! Wohlfühlen in den eigenen vier Wänden",
+    "themen": [
+     "Was ist Lebensqualität?",
+     "Leben auf dem Land vs. in der Stadt",
+     "Alleine oder zusammen leben? Wohnformen",
+     "Wohnung einrichten/gestalten",
+     "Smart-Home",
+     "Innovation: Intelligenter Kühlschrank",
+     "Wohnort, Infrastruktur und Lebensqualität",
+     "Standortfaktoren im eigenen Lebensumfeld"
+    ],
+    "zeit": "ca. 16-20 Stunden",
+    "ideen": [
+     "Den Zusammenhang zwischen Lebensqualität und Wohnen erläutern",
+     "Vor- und Nachteile zwischen Wohnen in der Stadt und auf dem Land benennen",
+     "Unterschiedliche Wohnformen benennen sowie Vor- und Nachteile aufzeigen",
+     "Das eigene Traumzimmer planen und gestalterische Entscheidungen begründen",
+     "Smart-Home-Anwendungen und digitale Innovationen im Haushalt untersuchen",
+     "Chancen und Grenzen technischer Innovationen für Wohnen, Alltag und Nachhaltigkeit diskutieren",
+     "Den eigenen Wohnort im Hinblick auf Infrastruktur, Versorgung, Mobilität und Lebensqualität betrachten",
+     "Standortfaktoren für Wohnen und Leben in der Region untersuchen",
+     "Erklärvideo: Regeln zum richtigen Lüften"
+    ],
+    "kompHW": [
+     "erläutern unterschiedliche Möglichkeiten der Lebensgestaltung im privaten Haushalt (SK).",
+     "erläutern den Zusammenhang von Lebensqualität und Wohnen (SK).",
+     "diskutieren unterschiedliche Möglichkeiten der Lebensgestaltung (UK).",
+     "erörtern die Einflüsse von Innovationen, unter anderem Digitalität, im Bereich des Wohnens (UK)."
+    ],
+    "kompWI": [
+     "beschreiben Merkmale einer Wirtschaftsregion im Hinblick auf Wohnen, Infrastruktur und Versorgung (SK).",
+     "erläutern Zusammenhänge zwischen Standortfaktoren, Infrastruktur und Lebensqualität in der eigenen Region (SK).",
+     "erklären, wie regionale Entwicklungen das Wohnen und Leben von privaten Haushalten beeinflussen können (SK).",
+     "beurteilen individuelle Möglichkeiten bei der nachhaltigen Gestaltung des eigenen Wohn- und Lebensumfeldes (UK)."
+    ],
+    "matHW": [
+     "S. 10–11: „Wohlfühlen in den eigenen vier Wänden“",
+     "S. 16–17: „Innovation: intelligenter Kühlschrank“"
+    ],
+    "matWI": [
+     "S. 124–125: „Wo wohnst du, wie lebst du?“",
+     "S. 126–127: „Welcher Standort ist der richtige?“",
+     "S. 128–129: „Gute Aussichten für meine Region“",
+     "ggf. S. 136–137: „Standorte untersuchen“"
+    ]
+   },
+   {
+    "nr": 2,
+    "titel": "Haushalt leicht gemacht! Arten und Verteilung von Haushaltsaufgaben",
+    "themen": [
+     "Haushaltsmanagement",
+     "Arten von Haushaltsaufgaben",
+     "Gerechte Aufgabenverteilung im Haushalt",
+     "Care-Arbeit",
+     "Dienstleistungen für den Haushalt",
+     "Trendgeräte im Haushalt",
+     "Arbeitspläne",
+     "Resilienz im privaten Haushalt",
+     "Berufsbilder rund um Haushalt, Dienstleistung und Care-Arbeit",
+     "Digitalisierung und Wandel von Arbeit im Alltag"
+    ],
+    "zeit": "ca. 18-22 Stunden",
+    "ideen": [
+     "Arbeitspläne nach gerechter Aufgabenverteilung im Haushalt untersuchen",
+     "Eigene Arbeitspläne erstellen",
+     "Arten von Haushaltsaufgaben beschreiben und ordnen",
+     "Haushaltsaufgaben unter dem Aspekt von Care-Arbeit und Geschlechterrollen reflektieren",
+     "Einsatz elektrischer Haushaltsgeräte untersuchen",
+     "Erklärvideo: Einsatz von Haushaltsgeräten, z. B. Staubsauger oder Handrührgerät",
+     "Arten von Dienstleistungen für den Haushalt benennen",
+     "Steckbriefe erstellen: Berufe im Dienstleistungsbereich",
+     "Veränderungen von Arbeit durch Digitalisierung und neue Arbeitsformen untersuchen",
+     "Den Zusammenhang zwischen Haushalt, Arbeitsteilung und Resilienz erarbeiten",
+     "Klassenspaziergang zum Thema „Resilienz“"
+    ],
+    "kompHW": [
+     "beschreiben Art und Umfang von Haushaltsaufgaben (SK).",
+     "untersuchen, auch unter Genderaspekten, Möglichkeiten der internen Verteilung von Haushaltsaufgaben oder deren externe Vergabe (SK).",
+     "beschreiben Berufsbilder rund um den Haushalt, auch unter Genderaspekten (SK).",
+     "erläutern die Bedeutung von Resilienz für das Individuum und Faktoren, die zu ihrer Entwicklung führen (SK).",
+     "bewerten Möglichkeiten der internen oder externen Bewältigung von Haushaltsaufgaben kriterienorientiert, auch unter Genderaspekten (UK).",
+     "entscheiden über den zielorientierten Einsatz der Haushaltsmittel zur Bewältigung der Haushaltsaufgaben (UK).",
+     "erörtern die Rolle des privaten Haushalts für die Entstehung von Resilienz (UK)."
+    ],
+    "kompWI": [
+     "beschreiben unterschiedliche Formen von Arbeit im privaten Haushalt, im Dienstleistungsbereich und in der Erwerbsarbeit (SK).",
+     "erläutern Veränderungen der Arbeitswelt durch Digitalisierung, neue Arbeitsformen und veränderte Anforderungen an Berufsbilder (SK).",
+     "stellen Zusammenhänge zwischen haushaltsnahen Dienstleistungen, Care-Arbeit und dem Wandel der Arbeitswelt dar (SK).",
+     "beurteilen Chancen und Herausforderungen digitaler und technischer Entwicklungen für private Haushalte und Arbeitsprozesse (UK).",
+     "diskutieren Möglichkeiten einer gerechten Aufgabenverteilung im Haushalt unter sozialen, ökonomischen und geschlechterbezogenen Gesichtspunkten (UK)."
+    ],
+    "matHW": [
+     "S. 12–13: „Haushaltsmanagement“",
+     "S. 14–15: „Dienstleistungen für den Haushalt“",
+     "S. 16–17: „Innovation: intelligenter Kühlschrank“",
+     "S. 18–19: „Mit Belastungen umgehen“",
+     "S. 24–25: „Care-Arbeit“",
+     "ggf. S. 28–29: „Co-Working und Co-Living“"
+    ],
+    "matWI": [
+     "S. 78–79: „Arbeit ist nicht gleich Arbeit“",
+     "S. 80–81: „Die Arbeitswelt der Zukunft“",
+     "S. 82–83: „Digitalisierung verändert“",
+     "S. 84–85: „New Work“"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "hw7-2",
+  "jg": 7,
+  "nr": "II",
+  "titel": "Schlauer shoppen, so werde ich zum Einkaufsprofi!",
+  "inhaltsfelder": [
+   "Hauswirtschaft: IF 5 Konsum und Verantwortung",
+   "Wirtschaft: IF 4 Verantwortliches finanzielles Handeln als Verbraucherinnen und Verbraucher"
+  ],
+  "kompetenzen": [
+   "stellen fachbezogene Sachverhalte und Problemstellungen unter Verwendung zentraler Fachbegriffe bildungssprachlich korrekt dar (SK 1).",
+   "ordnen fachbezogene Sachverhalte in übergreifende Zusammenhänge ein (SK 4).",
+   "entnehmen Einzelmaterialien thematisch relevante Informationen, gliedern diese und setzen sie zueinander in Beziehung (MK 1).",
+   "erheben Daten u. a. durch Beobachtungen, Erkundungen und Umfragen (MK 3).",
+   "interpretieren diskontinuierliche Texte wie Grafiken, Rezepte, Bilder und Diagramme sowie weitere Medien (MK 6).",
+   "überprüfen Fragestellungen und Hypothesen qualitativ und quantitativ durch Testverfahren, Experimente, Erkundungen und Befragungen (MK 7).",
+   "präsentieren Arbeitsergebnisse auch unter Nutzung digitaler Medien nach formulierten Kriterien (MK 11).",
+   "beurteilen kriteriengeleitet fachbezogene Sachverhalte, Systeme und Verfahren (UK 1).",
+   "analysieren Konsumentscheidungen aus verschiedenen Perspektiven hinsichtlich zugrunde liegender Motive, Bedürfnisse und Interessen (UK 4).",
+   "planen und realisieren fachbezogene Vorhaben anhand vorgegebener Kriterien (HK 5)."
+  ],
+  "wirtschaft": [
+   "beschreiben grundlegende Formen der Bezahlung, zum Beispiel bar, bargeldlos und digital, und deren Einsatzmöglichkeiten (SK).",
+   "erläutern Zusammenhänge zwischen Konsumentscheidungen und verfügbaren finanziellen Mitteln (SK).",
+   "analysieren Kaufentscheidungen unter Berücksichtigung finanzieller Rahmenbedingungen (UK).",
+   "beurteilen Möglichkeiten eines verantwortungsvollen und nachhaltigen Umgangs mit Geld im Alltag (UK)."
+  ],
+  "inhalteHW": [
+   "Individuelle und gemeinschaftliche Konsumentscheidungen im privaten Haushalt",
+   "Zielgruppenorientiertes Marketing: Haushalts-, Gender-, Kinder-, Jugend- und Familienmarketing für Lebensmittel und Artikel des täglichen Bedarfs"
+  ],
+  "inhalteWi": [
+   "Formen der Bezahlung im Alltag, z. B. Bargeld, EC-Karte, Online-Zahlung",
+   "Einfache Finanzdienstleistungen im Alltag, z. B. Girokonto als Grundlage des Zahlungsverkehrs",
+   "Zusammenhang von Konsum, Bedürfnissen und finanziellen Möglichkeiten",
+   "Grundlagen eines verantwortungsvollen Umgangs mit Geld, z. B. Sparen, Planen von Ausgaben"
+  ],
+  "mkr": [
+   "Lernende bedienen und erproben Apps als elektronische Einkaufszettel",
+   "Lernende werten ihre Ergebnisse im Rahmen der Supermarkterkundung digital aus"
+  ],
+  "zeit": "ca. 40 Stunden",
+  "sequenzen": [
+   {
+    "nr": 1,
+    "titel": "Einkaufsprofi werden!",
+    "themen": [
+     "Einkaufsplanung",
+     "Einkaufslisten",
+     "Elektronische Einkaufszettel",
+     "Plankauf, Gewohnheitskauf, Spontankauf",
+     "Bedürfnisse und Kaufentscheidungen",
+     "Geld bewusst ausgeben"
+    ],
+    "zeit": "ca. 10-15 Stunden",
+    "ideen": [
+     "Eigene Einkaufsgewohnheiten sammeln und reflektieren",
+     "Einkaufslisten analog und digital erstellen",
+     "Apps als elektronische Einkaufszettel erproben",
+     "Bedürfnisse, Wünsche und Kaufentscheidungen unterscheiden",
+     "Die Begriffe Plankauf, Gewohnheitskauf und Spontankauf tabellarisch gegenüberstellen",
+     "Ein einfaches Einkaufsbudget planen und begründen",
+     "Kaufentscheidungen unter dem Aspekt „brauche ich das – kann ich mir das leisten – ist es sinnvoll?“ reflektieren"
+    ],
+    "kompHW": [
+     "erläutern den Einfluss der im Haushalt lebenden Individuen auf Konsumentscheidungen privater Haushalte (SK).",
+     "analysieren Konsumentscheidungen aus verschiedenen Perspektiven hinsichtlich zugrunde liegender Motive, Bedürfnisse und Interessen (UK).",
+     "planen und realisieren fachbezogene Vorhaben anhand vorgegebener Kriterien (HK 5)."
+    ],
+    "kompWI": [
+     "beschreiben grundlegende Formen der Bezahlung sowie einfache Möglichkeiten des Sparens im Alltag (SK).",
+     "erläutern Zusammenhänge zwischen Konsumentscheidungen, verfügbaren finanziellen Mitteln und persönlichen Bedürfnissen (SK).",
+     "beurteilen Kaufentscheidungen unter Berücksichtigung finanzieller Rahmenbedingungen (UK)."
+    ],
+    "matHW": [
+     "S. 36–37: „Fair denken, fair kaufen“",
+     "ggf. S. 44–45: „Lokale und globale Ernährungswelten“"
+    ],
+    "matWI": [
+     "S. 104–105: „Geld geben und Geld nehmen – Wie lege ich Vermögen an? (I)“",
+     "S. 106–107: „Geld geben und Geld nehmen – Wie lege ich Vermögen an? (II)“",
+     "ggf. S. 110–111: „Kredite“"
+    ]
+   },
+   {
+    "nr": 2,
+    "titel": "Lebensmittelverpackungen unter der Lupe!",
+    "themen": [
+     "Pflichtangaben",
+     "Freiwillige Angaben",
+     "MHD und Verbrauchsdatum",
+     "Mogelpackungen",
+     "Betrug und Täuschung",
+     "Siegel und Verbraucherinformation"
+    ],
+    "zeit": "ca. 10-12 Stunden",
+    "ideen": [
+     "Lebensmittelverpackungen untersuchen",
+     "Lebensmittelverpackungen miteinander vergleichen",
+     "Pflichtangaben und freiwillige Angaben unterscheiden",
+     "Unterschied zwischen MHD und Verbrauchsdatum erklären",
+     "Mogelpackungen und irreführende Produktinformationen erkennen",
+     "Fallbeispiele zu Betrug und Täuschung auswerten",
+     "Verbraucherinformationen und Siegel als Orientierungshilfe prüfen"
+    ],
+    "kompHW": [
+     "analysieren aspektgeleitet Ziele und Motive zielgruppenspezifischer Marketingstrategien im Hinblick auf die Bedeutung für individuelle Kaufentscheidungen (SK).",
+     "diskutieren die Verantwortung und Möglichkeiten der Einflussnahme der Konsumierenden und Anbietenden unter sozialen, ökologischen und ökonomischen Gesichtspunkten (UK)."
+    ],
+    "kompWI": [
+     "beschreiben grundlegende Funktionen von Märkten im Hinblick auf Angebot, Nachfrage und Preisbildung (SK).",
+     "erläutern, dass unvollständige oder irreführende Informationen zu Nachteilen für Verbraucherinnen und Verbraucher führen können (SK).",
+     "beurteilen ausgewählte Fälle von Marktversagen im Hinblick auf Verbraucherinteressen und staatliche Schutzmöglichkeiten (UK)."
+    ],
+    "matHW": [
+     "S. 34–35: „Nachhaltigkeit in der Ernährung“",
+     "S. 36–37: „Fair denken, fair kaufen“",
+     "ggf. S. 122–123: „Verbraucherstudien“"
+    ],
+    "matWI": [
+     "S. 14–15: „Machtspiele am Markt“",
+     "S. 16–17: „Wenn Märkte versagen“"
+    ]
+   },
+   {
+    "nr": 3,
+    "titel": "Wir gehen in den Supermarkt! Eine Erkundung durchführen",
+    "themen": [
+     "Supermarkterkundung",
+     "Preisvergleiche von Produkten",
+     "Produktplatzierung",
+     "Sonderangebote",
+     "Verkaufsstrategien",
+     "Onlinehandel und Kundenkarten",
+     "digitale Datenerhebung"
+    ],
+    "zeit": "ca. 10-15 Stunden",
+    "ideen": [
+     "Eine Supermarkterkundung planen",
+     "Beobachtungs- und Fragebögen erstellen",
+     "Verkaufsstrategien im Supermarkt untersuchen",
+     "Produktplatzierungen und Sonderangebote analysieren",
+     "Preisvergleiche ausgewählter Produkte durchführen",
+     "Ergebnisse digital erfassen und auswerten",
+     "Ergebnisse adressatengerecht präsentieren",
+     "Einkauf vor Ort und Onlinehandel vergleichend betrachten"
+    ],
+    "kompHW": [
+     "erklären Veränderungen von Konsumprozessen durch Digitalität, auch im Hinblick auf nachhaltiges Handeln (SK).",
+     "analysieren aspektgeleitet Ziele und Motive zielgruppenspezifischer Marketingstrategien im Hinblick auf die Bedeutung für individuelle Kaufentscheidungen (SK).",
+     "setzen sich kritisch mit zielgruppenspezifischem Marketing als Instrument zur Bedürfnisgenese im Onlinehandel und in sozialen Medien auseinander (UK)."
+    ],
+    "kompWI": [
+     "erläutern das Zusammenspiel von Angebot, Nachfrage und Preisbildung an alltagsnahen Beispielen (SK).",
+     "beschreiben Auswirkungen digitaler Märkte auf Konsum- und Kaufentscheidungen (SK).",
+     "beurteilen Chancen und Risiken digitaler Konsumformen für Verbraucherinnen und Verbraucher (UK)."
+    ],
+    "matHW": [
+     "S. 42–43: „METHODE Erkundung durchführen“",
+     "S. 36–37: „Fair denken, fair kaufen“",
+     "S. 44–45: „Lokale und globale Ernährungswelten“",
+     "ggf. S. 122–123: „Verbraucherstudien“"
+    ],
+    "matWI": [
+     "S. 10–11: „Am Markt trifft Angebot auf Nachfrage“",
+     "S. 12–13: „Preise: Ein Mix aus Angebot und Nachfrage“",
+     "S. 14–15: „Machtspiele am Markt“",
+     "S. 16–17: „Wenn Märkte versagen“"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "hw8-1",
+  "jg": 8,
+  "nr": "I",
+  "titel": "Zum Essen und Kauf verführt? Einflussfaktoren auf das Ess- und Konsumverhalten",
+  "inhaltsfelder": [
+   "Hauswirtschaft: IF 5 Konsum und Verantwortung",
+   "Hauswirtschaft: IF 3 Haushalt und Globalisierung",
+   "Wirtschaft: IF 2 Wirtschaftliches Handeln in Unternehmen"
+  ],
+  "kompetenzen": [
+   "stellen fachbezogene Sachverhalte und Problemstellungen unter Verwendung zentraler Fachbegriffe bildungssprachlich korrekt dar (SK 1).",
+   "entnehmen Einzelmaterialien thematisch relevante Informationen, gliedern diese und setzen sie zueinander in Beziehung (MK 1).",
+   "interpretieren diskontinuierliche Texte wie Grafiken, Rezepte, Bilder und Diagramme sowie weitere Medien (MK 6).",
+   "erstellen und gestalten auch unter Nutzung digitaler Medien fachbezogene Medienprodukte nach vorgegebenen Kriterien (MK 10).",
+   "präsentieren Arbeitsergebnisse auch unter Nutzung digitaler Medien nach formulierten Kriterien (MK 11).",
+   "analysieren Konsumentscheidungen aus verschiedenen Perspektiven hinsichtlich zugrunde liegender Motive, Bedürfnisse und Interessen (UK 4).",
+   "planen und realisieren fachbezogene Vorhaben anhand vorgegebener Kriterien (HK 5)."
+  ],
+  "wirtschaft": [
+   "stellen grundlegende Zielsetzungen unternehmerischen Handelns dar (SK).",
+   "erläutern, wie Unternehmen durch Produktgestaltung, Werbung und Marketing Kaufentscheidungen beeinflussen (SK).",
+   "beurteilen unternehmerische Entscheidungen im Spannungsfeld von Gewinnorientierung, Verbraucherinteressen und Nachhaltigkeit (UK)."
+  ],
+  "inhalteHW": [
+   "Individuelle und gemeinschaftliche Konsumentscheidungen im privaten Haushalt",
+   "Zielgruppenorientiertes Marketing: Haushalts-, Gender-, Kinder-, Jugend- und Familienmarketing für Lebensmittel und Artikel des täglichen Bedarfs",
+   "Verbraucherschutz und Datensicherheit",
+   "Gütesiegel",
+   "Lebensmittelsicherheit und Lebensmittelqualität"
+  ],
+  "inhalteWi": [
+   "Unternehmerische Zielsetzungen und Marketingentscheidungen",
+   "Produktgestaltung und Zielgruppenorientierung",
+   "Werbung als Instrument unternehmerischen Handelns",
+   "Nachhaltiges Handeln in Unternehmen",
+   "Verantwortung von Unternehmen gegenüber Verbraucherinnen und Verbrauchern"
+  ],
+  "mkr": [
+   "Lernende gestalten einen Werbespot zu einem ausgewählten Produkt",
+   "Lernende recherchieren im Internet zum Thema „Lebensmittelsiegel“ sowie „Lebensmittelwarnungen und Rückrufaktionen“"
+  ],
+  "zeit": "ca. 40 Stunden",
+  "sequenzen": [
+   {
+    "nr": 1,
+    "titel": "Wer oder was hat Einfluss auf mein Essverhalten?",
+    "themen": [
+     "Das 3-Kompetenzmodell des Essverhaltens",
+     "Innere Signale und äußere Einflüsse auf das Essverhalten",
+     "Essgewohnheiten und Essbiografie",
+     "Ernährungstrends in sozialen Medien",
+     "Bedürfnisse und Konsumentscheidungen"
+    ],
+    "zeit": "ca. 8–10 Stunden",
+    "ideen": [
+     "Das 3-Kompetenzmodell des Essverhaltens anhand einer Grafik beschreiben",
+     "Innere und äußere Einflussfaktoren auf das Essverhalten sammeln und ordnen",
+     "Mit Fallbeispielen zu unterschiedlichen Essgewohnheiten arbeiten",
+     "Eigene Essgewohnheiten reflektieren",
+     "Ernährungstrends in sozialen Medien untersuchen",
+     "Ein Rollenspiel durchführen: Eine Familie überlegt, was am Wochenende gegessen werden soll",
+     "Erste Zusammenhänge zwischen Bedürfnissen, Trends und Konsumentscheidungen herstellen"
+    ],
+    "kompHW": [
+     "erläutern den Einfluss der im Haushalt lebenden Individuen auf Konsumentscheidungen privater Haushalte (SK).",
+     "analysieren Konsumentscheidungen aus verschiedenen Perspektiven hinsichtlich zugrunde liegender Motive, Bedürfnisse und Interessen (UK).",
+     "interpretieren diskontinuierliche Texte wie Grafiken, Rezepte, Bilder und Diagramme sowie weitere Medien (MK 6)."
+    ],
+    "kompWI": [
+     "erläutern, dass Unternehmen Bedürfnisse, Trends und Zielgruppen bei der Entwicklung und Vermarktung von Produkten berücksichtigen (SK).",
+     "beschreiben Zusammenhänge zwischen Konsumtrends und unternehmerischen Entscheidungen im Lebensmittelbereich (SK)."
+    ],
+    "matHW": [
+     "S. 96–97: „Ernährung muss sich anpassen“",
+     "S. 98–99: „Ernährungstrends in Sozialen Medien“",
+     "S. 106–107: „Essbiografie erstellen“"
+    ],
+    "matWI": [
+     "S. 50–51: „Ein Unternehmen gründen?“",
+     "S. 52–53: „Geht es nur um Gewinn?“"
+    ]
+   },
+   {
+    "nr": 2,
+    "titel": "Zum Kauf verführt durch Werbung?",
+    "themen": [
+     "Zielgruppen",
+     "Wirkung der Werbung",
+     "Werbung für Kinder und Jugendliche",
+     "Informierende Werbung und emotionale Werbung",
+     "Deutschlands Werbemarkt",
+     "Produktgestaltung und Markenbildung",
+     "Werbung als Instrument unternehmerischen Handelns"
+    ],
+    "zeit": "ca. 16-18 Stunden",
+    "ideen": [
+     "Werbeanzeigen untersuchen",
+     "Die Grafik „Deutschlands Werbemarkt“ analysieren",
+     "Produkte und deren Marken nennen und vergleichen",
+     "Bedürfnisse und Sehnsüchte von Kindern und Jugendlichen benennen",
+     "Informierende und emotionale Werbung unterscheiden",
+     "Zielgruppen und Werbestrategien ausgewählter Lebensmittelprodukte analysieren",
+     "Produktgestaltung, Verpackung und Markenwirkung untersuchen",
+     "Ein Produkt in einem Werbespot darstellen",
+     "Ein Werbeplakat erstellen und präsentieren",
+     "Unternehmerische Ziele von Werbung reflektieren"
+    ],
+    "kompHW": [
+     "analysieren aspektgeleitet Ziele und Motive zielgruppenspezifischer Marketingstrategien im Hinblick auf die Bedeutung für individuelle Kaufentscheidungen (SK).",
+     "setzen sich kritisch mit zielgruppenspezifischem Marketing als Instrument zur Bedürfnisgenese im Onlinehandel und in sozialen Medien auseinander (UK).",
+     "erstellen und gestalten auch unter Nutzung digitaler Medien fachbezogene Medienprodukte nach vorgegebenen Kriterien (MK 10).",
+     "präsentieren Arbeitsergebnisse auch unter Nutzung digitaler Medien nach formulierten Kriterien (MK 11)."
+    ],
+    "kompWI": [
+     "stellen grundlegende Zielsetzungen unternehmerischen Handelns dar (SK).",
+     "erläutern Marketing, Werbung und Produktgestaltung als Mittel unternehmerischer Entscheidungen (SK).",
+     "beurteilen unternehmerische Marketingentscheidungen im Spannungsfeld von Gewinnorientierung, Verbraucherinteressen und Verantwortung (UK)."
+    ],
+    "matHW": [
+     "S. 98–99: „Ernährungstrends in Sozialen Medien“",
+     "S. 122–123: „Verbraucherstudien“",
+     "ggf. S. 36–37: „Fair denken, fair kaufen“"
+    ],
+    "matWI": [
+     "S. 52–53: „Geht es nur um Gewinn?“",
+     "S. 54–55: „Businessplan entwickeln“",
+     "S. 60–61: „Nachhaltig wirtschaften“"
+    ]
+   },
+   {
+    "nr": 3,
+    "titel": "Lebensmittelqualität und Durchblick im Siegel-Dschungel",
+    "themen": [
+     "Lebensmittelqualität",
+     "Qualitätsfaktoren",
+     "Gütesiegel",
+     "Lebensmittelsicherheit",
+     "Tests und Überwachung",
+     "Geruch, Geschmack und Gefühle",
+     "Duftmarketing",
+     "Nachhaltigkeit und unternehmerische Verantwortung"
+    ],
+    "zeit": "ca. 12-14 Stunden",
+    "ideen": [
+     "Erklären, was Lebensmittelqualität ist",
+     "Qualitätsfaktoren von Lebensmitteln sammeln und ordnen",
+     "Lebensmittelsiegel im Internet recherchieren und Kriterien nennen",
+     "Gründe für Rückrufaktionen und Lebensmittelwarnungen recherchieren",
+     "Lebensmittelsicherheit als Aufgabe von Unternehmen, Kontrolleinrichtungen und Verbraucherinnen und Verbrauchern betrachten",
+     "Verbraucherinformationen und Gütesiegel kritisch prüfen",
+     "Geruch und Geschmack als Einflussfaktoren auf Kaufentscheidungen untersuchen",
+     "Duftmarketing an Beispielen beschreiben",
+     "Nachhaltiges Wirtschaften im Lebensmittelbereich reflektieren"
+    ],
+    "kompHW": [
+     "beschreiben Kriterien für Gütesiegel, auch aus der Perspektive des Trägers (SK).",
+     "bewerten kriteriengeleitet die Intention und Aussagekraft von Gütesiegeln aus unterschiedlichen Perspektiven (UK).",
+     "setzen sich kritisch mit zielgruppenspezifischem Marketing als Instrument zur Bedürfnisgenese im Onlinehandel und in sozialen Medien auseinander (UK)."
+    ],
+    "kompWI": [
+     "erläutern Merkmale nachhaltigen Handelns in Unternehmen am Beispiel von Lebensmittelproduktion und Lebensmittelvermarktung (SK).",
+     "stellen Verantwortung von Unternehmen gegenüber Verbraucherinnen und Verbrauchern dar (SK).",
+     "beurteilen unternehmerische Entscheidungen unter sozialen, ökologischen und ökonomischen Gesichtspunkten (UK)."
+    ],
+    "matHW": [
+     "S. 34–35: „Nachhaltigkeit in der Ernährung“",
+     "S. 36–37: „Fair denken, fair kaufen“",
+     "S. 42–43: „METHODE Erkundung durchführen“",
+     "S. 122–123: „Verbraucherstudien“"
+    ],
+    "matWI": [
+     "S. 52–53: „Geht es nur um Gewinn?“",
+     "S. 58–59: „Gut für die Region“",
+     "S. 60–61: „Nachhaltig wirtschaften“"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "hw8-2",
+  "jg": 8,
+  "nr": "II",
+  "titel": "Gesund & fit – Die Bedeutung von Lebensmitteln und Bewegung für unseren Körper",
+  "inhaltsfelder": [
+   "Hauswirtschaft: IF 4 Gesundheit und Ernährung"
+  ],
+  "kompetenzen": [
+   "stellen fachbezogene Sachverhalte und Problemstellungen unter Verwendung zentraler Fachbegriffe bildungssprachlich korrekt dar (SK 1).",
+   "entnehmen Einzelmaterialien thematisch relevante Informationen, gliedern diese und setzen sie zueinander in Beziehung (MK 1).",
+   "interpretieren diskontinuierliche Texte wie Grafiken, Rezepte, Bilder und Diagramme sowie weitere Medien (MK 6).",
+   "begründen einen eigenen Standpunkt unter Berücksichtigung fachbezogener Aspekte (UK 2)."
+  ],
+  "wirtschaft": [],
+  "inhalteHW": [
+   "Gesundheitsförderliche Lebensweise",
+   "Lebensmittel und ihre Inhaltsstoffe",
+   "Energiebedarf und Bewegung",
+   "Ernährungsempfehlungen und Ernährungsmodelle",
+   "Qualitätsstandards für Schulverpflegung"
+  ],
+  "inhalteWi": [],
+  "mkr": [
+   "Lernende recherchieren im Internet zum Thema „Qualitätsstandards für die Schulverpflegung“"
+  ],
+  "zeit": "ca. 40 Stunden",
+  "sequenzen": [
+   {
+    "nr": 1,
+    "titel": "Was ist Gesundheit und wie halte ich mich gesund?",
+    "themen": [
+     "Definition „Gesundheit“",
+     "Ernährungsmodelle",
+     "Gesundheit durch Bewegung",
+     "Qualitätsstandards für Schulverpflegung",
+     "Gesundheitsförderliche Lebensweise"
+    ],
+    "zeit": "ca. 10-15 Stunden",
+    "ideen": [
+     "Ernährungsmodelle, z. B. 10 Regeln der DGE, Ernährungspyramide und „5 am Tag“, erklären",
+     "Die 10 Regeln der DGE kennenlernen",
+     "Eigenes Ernährungsverhalten anhand der Regeln bewerten",
+     "Vor- und Nachteile der 10 Regeln der DGE beschreiben",
+     "Die Regeln in eine ausgewogene Ernährung einordnen",
+     "Recherche: Was sind Qualitätsstandards für die Schulverpflegung?",
+     "Grafiken zu Bewegung und Ernährung analysieren",
+     "Zusammenhänge zwischen Gesundheit, Ernährung und Bewegung erarbeiten"
+    ],
+    "kompHW": [
+     "analysieren in Ansätzen Zusammenhänge zwischen Essbiografie und Gesundheit (SK).",
+     "erläutern gesundheitsförderliche Ernährung und Lebensweisen in verschiedenen Altersstufen und Lebenssituationen (SK).",
+     "bewerten Ernährungssituationen von Menschen in verschiedenen Lebensphasen (UK)."
+    ],
+    "kompWI": [],
+    "matHW": [
+     "S. 68–69: „Gesundheit – wie bleibe ich fit“",
+     "S. 70–71: „Referenzwerte für die Nährstoffzufuhr“"
+    ],
+    "matWI": []
+   },
+   {
+    "nr": 2,
+    "titel": "Was steckt in unserer Nahrung? Lebensmittel und ihre Inhaltsstoffe",
+    "themen": [
+     "Kleine Ernährungslehre",
+     "Nährstoffe",
+     "Kohlenhydrate",
+     "Eiweiße",
+     "Fette",
+     "Vitamine",
+     "Mineralstoffe",
+     "Wasser"
+    ],
+    "zeit": "ca. 20 Stunden",
+    "ideen": [
+     "Nährstoffe in Lebensmitteln benennen",
+     "Die Funktion und Wirkung der Nährstoffe in unserem Körper erklären",
+     "Mit der Nährwerttabelle arbeiten",
+     "Lebensmittel mithilfe von Nährwertangaben vergleichen",
+     "Experimente durchführen, z. B. Fett-Fleck-Probe oder Stärkenachweis",
+     "Ergebnisse dokumentieren und auswerten",
+     "Flipbook zu Nährstoffen erstellen"
+    ],
+    "kompHW": [
+     "erklären die Bedeutung von Energiebilanz und Lebensmittelinhaltsstoffen für eine gesundheitsförderliche Lebensweise (SK).",
+     "stellen fachbezogene Sachverhalte und Problemstellungen unter Verwendung zentraler Fachbegriffe bildungssprachlich korrekt dar (SK 1).",
+     "interpretieren diskontinuierliche Texte wie Grafiken, Rezepte, Bilder und Diagramme sowie weitere Medien (MK 6)."
+    ],
+    "kompWI": [],
+    "matHW": [
+     "S. 70–71: „Referenzwerte für die Nährstoffzufuhr“",
+     "S. 72–73: „Kleine Ernährungslehre: Kohlenhydrate“",
+     "S. 74–75: „Kleine Ernährungslehre: Eiweiße“",
+     "S. 76–77: „Kleine Ernährungslehre: Fette“",
+     "S. 78–79: „METHODE Fette nachweisen“",
+     "S. 80–81: „Kleine Ernährungslehre: Vitamine“",
+     "S. 82–83: „Kleine Ernährungslehre: Mineralstoffe“",
+     "S. 84–85: „Kleine Ernährungslehre: Wasser“"
+    ],
+    "matWI": []
+   },
+   {
+    "nr": 3,
+    "titel": "Ohne Energie geht nichts! Energiebedarf und Ernährung",
+    "themen": [
+     "Energieliefernde Nährstoffe",
+     "Energiebedarf",
+     "Grundumsatz",
+     "Leistungsumsatz und PAL-Wert",
+     "Bewegungsempfehlungen",
+     "Energiebilanz"
+    ],
+    "zeit": "ca. 5-10 Stunden",
+    "ideen": [
+     "Energieliefernde Nährstoffe nennen",
+     "Beschreiben, wie sich der Gesamtenergiebedarf zusammensetzt",
+     "Den Begriff „PAL-Wert“ erklären",
+     "Bewegungsempfehlungen für Kinder und Jugendliche nennen",
+     "Den eigenen Energiebedarf in Ansätzen berechnen und reflektieren",
+     "Fallbeispiele zu Bewegungsmangel und unausgewogener Ernährung auswerten",
+     "Möglichkeiten für eine gesundheitsförderliche Alltagsgestaltung entwickeln"
+    ],
+    "kompHW": [
+     "erklären die Bedeutung von Energiebilanz und Lebensmittelinhaltsstoffen für eine gesundheitsförderliche Lebensweise (SK).",
+     "erläutern gesundheitsförderliche Ernährung und Lebensweisen in verschiedenen Altersstufen und Lebenssituationen (SK).",
+     "bewerten Ernährungssituationen von Menschen in verschiedenen Lebensphasen (UK)."
+    ],
+    "kompWI": [],
+    "matHW": [
+     "S. 86–87: „Wie viel Energie braucht der Mensch?“",
+     "ggf. S. 68–69: „Gesundheit – wie bleibe ich fit“"
+    ],
+    "matWI": []
+   }
+  ]
+ },
+ {
+  "id": "hw9-1",
+  "jg": 9,
+  "nr": "I",
+  "titel": "Das Zusammenspiel von Ernährung und Gesundheit",
+  "inhaltsfelder": [
+   "Hauswirtschaft: IF 4 Gesundheit und Ernährung",
+   "Wirtschaft: IF 3 Wandel in der Arbeitswelt"
+  ],
+  "kompetenzen": [
+   "stellen fachbezogene Sachverhalte und Problemstellungen unter Verwendung zentraler Fachbegriffe bildungssprachlich korrekt dar (SK 1).",
+   "entnehmen Einzelmaterialien thematisch relevante Informationen, gliedern diese und setzen sie zueinander in Beziehung (MK 1).",
+   "führen Recherchen auch mit digitalen Medien durch (MK 2).",
+   "interpretieren diskontinuierliche Texte wie Grafiken, Rezepte, Bilder und Diagramme sowie weitere Medien (MK 6).",
+   "präsentieren Arbeitsergebnisse auch unter Nutzung digitaler Medien nach formulierten Kriterien (MK 11).",
+   "begründen einen eigenen Standpunkt unter Berücksichtigung fachbezogener Aspekte (UK 2)."
+  ],
+  "wirtschaft": [
+   "beschreiben Berufsfelder und Tätigkeiten im Bereich Gesundheit, Ernährung und Pflege (SK).",
+   "erläutern Veränderungen der Arbeitswelt im Gesundheits- und Ernährungsbereich, auch im Hinblick auf Digitalisierung und neue Anforderungen (SK).",
+   "beurteilen Anforderungen und Entwicklungsmöglichkeiten ausgewählter Berufe im Bereich Gesundheit und Ernährung (UK)."
+  ],
+  "inhalteHW": [
+   "Gesundheitsförderliche Lebensweise",
+   "Lebensmittel und ihre Inhaltsstoffe",
+   "Ernährungsmitbedingte Krankheiten und Essstörungen",
+   "Gesundheitsförderliche Ernährung in unterschiedlichen Lebenssituationen",
+   "Berufe im Bereich Gesundheit und Ernährung"
+  ],
+  "inhalteWi": [
+   "Wandel der Arbeitswelt im Gesundheits- und Ernährungsbereich",
+   "Berufsbilder, Tätigkeiten und Anforderungen",
+   "Digitalisierung und veränderte Arbeitsprozesse",
+   "Vereinbarkeit von Arbeit, Gesundheit und Lebensgestaltung"
+  ],
+  "mkr": [
+   "Lernende recherchieren online zu den Themen „Ernährungstrends“, „ernährungsmitbedingte Erkrankungen“ und „Berufe in der Rehaklinik“",
+   "Lernende präsentieren ihre Arbeitsergebnisse unter Nutzung digitaler Medien",
+   "Lernende bilden sich eine Meinung zum Thema „Gesundheit per App“",
+   "Lernende gestalten eine digitale Pinnwand zum Thema „Ursachen und Folgen von Essstörungen“"
+  ],
+  "zeit": "ca. 40 Stunden",
+  "sequenzen": [
+   {
+    "nr": 1,
+    "titel": "Jeder Mensch is(st) anders",
+    "themen": [
+     "Ernährung muss sich anpassen",
+     "Ernährungstrends in den sozialen Medien",
+     "Gesundheit per App",
+     "Ich esse vegetarisch, weil ...",
+     "Essbiografie"
+    ],
+    "zeit": "ca. 10-15 Stunden",
+    "ideen": [
+     "Ernährung in unterschiedlichen Lebensphasen kennen und erläutern",
+     "Einfluss sozialer Medien auf Ernährungstrends herausstellen",
+     "Digitale Pinnwand zum Thema „Ernährungstrends“ entwickeln",
+     "Nutzen von Gesundheits-Apps erläutern",
+     "Diskussion zum Thema „Gesundheit per App“ durchführen",
+     "Gruppenpuzzle: Vegetarische Ernährung",
+     "Eine Essbiografie erstellen"
+    ],
+    "kompHW": [
+     "analysieren in Ansätzen Zusammenhänge zwischen Essbiografie und Gesundheit (SK).",
+     "erläutern gesundheitsförderliche Ernährung und Lebensweisen in verschiedenen Altersstufen und Lebenssituationen (SK).",
+     "beurteilen den Nutzen digitaler Werkzeuge im Gesundheits- und Ernährungsbereich (UK).",
+     "diskutieren Ernährungstrends, die auch über soziale Netzwerke verbreitet werden (UK).",
+     "bewerten Ernährungssituationen von Menschen in verschiedenen Lebensphasen (UK)."
+    ],
+    "kompWI": [
+     "beschreiben Veränderungen von Konsum- und Gesundheitsverhalten durch digitale Angebote (SK).",
+     "erläutern Chancen und Herausforderungen digitaler Angebote im Gesundheits- und Ernährungsbereich (SK)."
+    ],
+    "matHW": [
+     "S. 96–97: „Ernährung muss sich anpassen“",
+     "S. 98–99: „Ernährungstrends in Sozialen Medien“",
+     "S. 100–101: „Ernährungsberatung per App“",
+     "S. 104–105: „Ich esse vegetarisch, weil ...“",
+     "S. 106–107: „Essbiografie erstellen“"
+    ],
+    "matWI": [
+     "S. 84–85: „Digitalisierung verändert“",
+     "ggf. S. 86–87: „New Work“"
+    ]
+   },
+   {
+    "nr": 2,
+    "titel": "Ernährungsmitbedingte Krankheiten und Essstörungen",
+    "themen": [
+     "Ernährungsmitbedingte Erkrankungen",
+     "Nahrungsmittelallergien",
+     "Nahrungsmittelunverträglichkeiten",
+     "Essstörungen",
+     "Ursachen und Folgen"
+    ],
+    "zeit": "ca. 15-20 Stunden",
+    "ideen": [
+     "Wie entstehen ernährungsmitbedingte Erkrankungen?",
+     "Internetrecherche zu ernährungsmitbedingten Erkrankungen und ihren Ursachen",
+     "Folgen von Übergewicht und Adipositas sowie Therapiemaßnahmen erläutern",
+     "Arbeit mit Fallbeispielen",
+     "Wie entstehen Zivilisationskrankheiten?",
+     "Die Entstehung einer allergischen Reaktion erklären",
+     "14 Hauptallergene benennen",
+     "Mit einer Nahrungsmittelallergie leben",
+     "Zusammenhang zwischen Nahrungsmittelallergie und Nahrungsmittelunverträglichkeit herausstellen",
+     "Formen von Essstörungen unterscheiden",
+     "Erstellung einer digitalen Pinnwand zum Thema „Ursachen und Folgen von Essstörungen“"
+    ],
+    "kompHW": [
+     "erklären Merkmale und Auswirkungen von Nahrungsmittelunverträglichkeiten (SK).",
+     "erläutern die Bedeutung von Körperwahrnehmungen in Bezug auf Essstörungen (SK).",
+     "erklären mögliche Ursachen und Folgen von Essstörungen (SK).",
+     "bewerten die Bedeutung von Nahrungsmittelunverträglichkeiten für die tägliche Nahrungsaufnahme (UK)."
+    ],
+    "kompWI": [
+     "beschreiben Auswirkungen von Gesundheit, Ernährung und Erkrankungen auf Alltag, Schule und Arbeitsleben (SK).",
+     "erläutern die Bedeutung gesundheitsförderlicher Lebensweisen für gesellschaftliche und berufliche Teilhabe (SK"
+    ],
+    "matHW": [
+     "S. 110–111: „Ernährungsmitbedingte Krankheiten“",
+     "S. 112–113: „Nahrungsmittelallergie“",
+     "S. 114–115: „Nahrungsmittelintoleranz“",
+     "S. 116–117: „REHA-Klinik“"
+    ],
+    "matWI": []
+   },
+   {
+    "nr": 3,
+    "titel": "Berufe im Bereich Gesundheit und Ernährung",
+    "themen": [
+     "Berufe in der Rehaklinik",
+     "Weitere Berufe im Bereich „Gesundheit und Ernährung“",
+     "Anforderungen an Berufe",
+     "Praktikum und Berufswahl",
+     "Wandel der Arbeitswelt im Gesundheitsbereich"
+    ],
+    "zeit": "ca. 5-10 Stunden",
+    "ideen": [
+     "Lexikonartikel verfassen: Was ist eine Rehaklinik?",
+     "Internetrecherche: Berufe in der Rehaklinik und ihre Anforderungen",
+     "Vorstellung der Berufe in einem Steckbrief",
+     "Weitere Berufe im Bereich Gesundheit und Ernährung recherchieren",
+     "Anforderungen, Tätigkeiten und Entwicklungsmöglichkeiten ausgewählter Berufe vergleichen",
+     "Diskussion: In welchem Beruf im Gesundheitswesen würdest du ein Praktikum absolvieren?",
+     "Veränderungen der Arbeitswelt im Gesundheitsbereich beschreiben"
+    ],
+    "kompHW": [
+     "beschreiben Berufsbilder im Bereich Gesundheit und Ernährung, auch unter Genderaspekten (SK).",
+     "erörtern die Anforderungen zur Ausübung eines Berufs im Bereich Gesundheit und Ernährung (UK)."
+    ],
+    "kompWI": [
+     "beschreiben unterschiedliche Formen von Arbeit und Berufsfelder im Gesundheits- und Ernährungsbereich (SK).",
+     "erläutern Veränderungen der Arbeitswelt durch Digitalisierung, neue Arbeitsformen und veränderte Anforderungen an Berufsbilder (SK).",
+     "beurteilen Anforderungen und Entwicklungsmöglichkeiten ausgewählter Berufe im Bereich Gesundheit und Ernährung (UK)."
+    ],
+    "matHW": [
+     "S. 116–117: „REHA-Klinik“",
+     "ggf. S. 118–119: „TRAINING“"
+    ],
+    "matWI": [
+     "S. 80–81: „Arbeit ist nicht gleich Arbeit“",
+     "S. 82–83: „Die Arbeitswelt der Zukunft“",
+     "S. 84–85: „Digitalisierung verändert“",
+     "ggf. S. 86–87: „New Work“"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "hw9-2",
+  "jg": 9,
+  "nr": "II",
+  "titel": "Nachhaltiger Konsum – Wie können wir klima- und umweltfreundlich handeln?",
+  "inhaltsfelder": [
+   "Hauswirtschaft: IF 3 Haushalt und Globalisierung",
+   "Hauswirtschaft: IF 5 Konsum und Verantwortung",
+   "Wirtschaft: IF 5 Nachhaltiges wirtschaftliches Handeln in der Region",
+   "(Wirtschaft: IF 2 Wirtschaftliches Handeln in Unternehmen)"
+  ],
+  "kompetenzen": [
+   "stellen fachbezogene Sachverhalte und Problemstellungen unter Verwendung zentraler Fachbegriffe bildungssprachlich korrekt dar (SK 1).",
+   "entnehmen Einzelmaterialien thematisch relevante Informationen, gliedern diese und setzen sie zueinander in Beziehung (MK 1).",
+   "führen Recherchen auch mit digitalen Medien durch (MK 2).",
+   "erheben Daten u. a. durch Beobachtungen, Erkundungen und Umfragen (MK 3).",
+   "interpretieren diskontinuierliche Texte wie Grafiken, Rezepte, Bilder und Diagramme sowie weitere Medien (MK 6).",
+   "überprüfen Fragestellungen und Hypothesen qualitativ und quantitativ durch Testverfahren, Experimente, Erkundungen und Befragungen (MK 7).",
+   "beurteilen kriteriengeleitet fachbezogene Sachverhalte, Systeme und Verfahren (UK 1).",
+   "verarbeiten Lebensmittel nach vorgegebenen Verfahren (HK 1)."
+  ],
+  "wirtschaft": [
+   "beschreiben Merkmale nachhaltigen wirtschaftlichen Handelns in der Region (SK).",
+   "erläutern Zusammenhänge zwischen regionalen Produkten, Direktvermarktung, globalen Lieferketten und nachhaltigem Konsum (SK).",
+   "stellen Zielsetzungen und Handlungsmöglichkeiten von Unternehmen im Kontext nachhaltiger Produktion und Vermarktung dar (SK).",
+   "beurteilen Möglichkeiten und Grenzen nachhaltiger Konsumentscheidungen unter ökologischen, sozialen und ökonomischen Gesichtspunkten (UK).",
+   "beurteilen unternehmerische Entscheidungen im Spannungsfeld von Wirtschaftlichkeit, sozialer Verantwortung und ökologischer Nachhaltigkeit (UK)."
+  ],
+  "inhalteHW": [
+   "Ernährungssysteme und planetare Grenzen",
+   "Nachhaltige Ernährung",
+   "Gütesiegel",
+   "Nachhaltiges Handeln in privaten Haushalten",
+   "Fairer Handel und globale Ernährungswelten",
+   "Ernährung außer Haus"
+  ],
+  "inhalteWi": [
+   "Nachhaltiges wirtschaftliches Handeln in der Region",
+   "Regionale Produkte und Direktvermarktung",
+   "Globale Lieferketten und fairer Handel",
+   "Unternehmerische Zielsetzungen und nachhaltiges Handeln in Unternehmen",
+   "Verantwortung von Unternehmen gegenüber Konsumierenden, Produzierenden und Umwelt",
+   "Nachhaltige Unternehmens- und Konsumentscheidungen"
+  ],
+  "mkr": [
+   "Lernende recherchieren im Internet zu „Fair-Trade-Produkten“",
+   "Lernende vergleichen digitale Informationen zu regionalen, fair gehandelten und global erzeugten Lebensmitteln",
+   "Lernende dokumentieren und präsentieren Ergebnisse einer Erkundung, z. B. Wochenmarkt oder Verkaufsstelle"
+  ],
+  "zeit": "ca. 25-30 Stunden",
+  "sequenzen": [
+   {
+    "nr": 1,
+    "titel": "Nachhaltigkeit – Was bedeutet der Begriff und welche Ziele werden verfolgt?",
+    "themen": [
+     "Der Begriff der Nachhaltigkeit",
+     "Das Dreieck der Nachhaltigkeit",
+     "Global Goals",
+     "Planetare Grenzen",
+     "Nachhaltiges Handeln im Alltag"
+    ],
+    "zeit": "ca. 2-5 Stunden",
+    "ideen": [
+     "Den Begriff „Nachhaltigkeit“ erklären",
+     "Das Dreieck der Nachhaltigkeit beschreiben",
+     "Ökologische, soziale und ökonomische Aspekte von Nachhaltigkeit unterscheiden",
+     "Die Global Goals kennenlernen",
+     "Möglichkeiten nennen, wie die Global Goals erreicht werden können",
+     "Ideen sammeln, um im Alltag einen Beitrag zur Nachhaltigkeit zu leisten"
+    ],
+    "kompHW": [
+     "erläutern ernährungsspezifische Herausforderungen und Chancen im Kontext von Gesundheit, Ökonomie und nachhaltiger Entwicklung (SK)."
+    ],
+    "kompWI": [
+     "beschreiben ökologische, soziale und ökonomische Dimensionen nachhaltigen wirtschaftlichen Handelns (SK).",
+     "erläutern die Bedeutung nachhaltigen Handelns für private Haushalte, Unternehmen und Regionen (SK)."
+    ],
+    "matHW": [
+     "S. 32–33: „Global Goals“",
+     "S. 34–35: „Nachhaltigkeit in der Ernährung“"
+    ],
+    "matWI": [
+     "S. 58–59: „Gut für die Region“",
+     "S. 60–61: „Nachhaltig wirtschaften“"
+    ]
+   },
+   {
+    "nr": 2,
+    "titel": "Von der Ernährung bis zum fairen Handel! So geht’s nachhaltig!",
+    "themen": [
+     "Nachhaltige Ernährung",
+     "Planetary Health Diet",
+     "Ziele des Fair-Trade-Handels",
+     "Gütesiegel und Siegelbewertung",
+     "Regionale Produkte und Wochenmarkt",
+     "Globaler Lebensmittelhandel",
+     "Ernährung außer Haus",
+     "Gesund und klimafreundlich essen"
+    ],
+    "zeit": "ca. 25-30 Stunden",
+    "ideen": [
+     "Vier Aspekte einer nachhaltigen Ernährung beschreiben",
+     "Planetary Health Diet erklären",
+     "Fair-Trade-Produkte recherchieren",
+     "Fair-Trade-Siegel benennen und untersuchen",
+     "Gütesiegel nach Kriterien bewerten",
+     "Einen Wochenmarkt oder eine Verkaufsstelle erkunden",
+     "Regionale, faire und globale Produkte vergleichen",
+     "Chancen und Grenzen regionaler Produkte diskutieren",
+     "Ernährung außer Haus unter Nachhaltigkeitsaspekten betrachten",
+     "Probleme und Ursachen im Hinblick auf Lebensmittelfälle nennen",
+     "Umsetzung eines gesunden und klimafreundlichen Gerichts planen und durchführen"
+    ],
+    "kompHW": [
+     "erläutern ernährungsspezifische Herausforderungen und Chancen im Kontext von Gesundheit, Ökonomie und nachhaltiger Entwicklung (SK).",
+     "beschreiben Kriterien für Gütesiegel, auch aus der Perspektive des Trägers (SK).",
+     "erläutern unterschiedliche Handlungsoptionen privater Haushalte bei der Beschaffung und Verwendung von Lebensmitteln und Artikeln des täglichen Bedarfs (SK).",
+     "bewerten kriteriengeleitet die Intention und Aussagekraft von Gütesiegeln unterschiedlicher Urheber (UK).",
+     "bewerten in Ansätzen die Wirksamkeit und Realisierbarkeit von individuellen Handlungsoptionen im Hinblick auf nachhaltige Entwicklung bei der Beschaffung und Verwendung von Lebensmitteln und Artikeln des täglichen Bedarfs (UK)."
+    ],
+    "kompWI": [
+     "erläutern Zusammenhänge zwischen regionalen Produkten, Direktvermarktung, globalen Lieferketten und nachhaltigem Konsum (SK).",
+     "beschreiben Möglichkeiten nachhaltigen wirtschaftlichen Handelns von Betrieben und Konsumierenden in der Region (SK).",
+     "stellen Zielsetzungen und Handlungsmöglichkeiten von Unternehmen im Kontext nachhaltiger Produktion, Vermarktung und Beschaffung dar (SK).",
+     "beurteilen regionale, faire und globale Produkte unter ökologischen, sozialen und ökonomischen Gesichtspunkten (UK).",
+     "beurteilen unternehmerische Entscheidungen im Spannungsfeld von Wirtschaftlichkeit, sozialer Verantwortung und ökologischer Nachhaltigkeit (UK)."
+    ],
+    "matHW": [
+     "S. 34–35: „Nachhaltigkeit in der Ernährung“",
+     "S. 36–37: „Fair denken, fair kaufen“",
+     "S. 38–39: „Ernährungsstile und Kostformen“",
+     "S. 40–41: „Ernährung außer Haus“",
+     "S. 42–43: „METHODE Erkundung durchführen“",
+     "S. 44–45: „Lokale und globale Ernährungswelten“",
+     "S. 46–47: „Internationaler Lebensmittelhandel“"
+    ],
+    "matWI": [
+     "S. 58–59: „Gut für die Region“",
+     "S. 60–61: „Nachhaltig wirtschaften“",
+     "ggf. S. 68–69: „Internationale Handelsströme und -abkommen“",
+     "ggf. S. 72–73: „Globalisierung: Was ist das?“"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "hw10-1",
+  "jg": 10,
+  "nr": "I",
+  "titel": "Vom Acker auf den Teller! Ernährungssysteme und der Schutz der natürlichen Ressourcen",
+  "inhaltsfelder": [
+   "Hauswirtschaft: IF 3 Haushalt und Globalisierung",
+   "Hauswirtschaft: IF 5 Konsum und Verantwortung",
+   "Wirtschaft: IF 5 Nachhaltiges wirtschaftliches Handeln in der Region",
+   "Wirtschaft: IF 1 Grundprinzipien, Funktionen und Versagen von Märkten"
+  ],
+  "kompetenzen": [
+   "stellen fachbezogene Sachverhalte und Problemstellungen unter Verwendung zentraler Fachbegriffe bildungssprachlich korrekt dar (SK 1).",
+   "ordnen fachbezogene Sachverhalte in übergreifende Zusammenhänge ein (SK 4).",
+   "entnehmen Einzelmaterialien thematisch relevante Informationen, gliedern diese und setzen sie zueinander in Beziehung (MK 1).",
+   "interpretieren diskontinuierliche Texte wie Grafiken, Rezepte, Bilder und Diagramme sowie weitere Medien (MK 6).",
+   "beurteilen kriteriengeleitet fachbezogene Sachverhalte, Systeme und Verfahren (UK 1).",
+   "erörtern Möglichkeiten, Grenzen und Folgen haushaltsbezogenen Handelns (UK 3).",
+   "verarbeiten Lebensmittel nach vorgegebenen Verfahren (HK 1).",
+   "planen und realisieren fachbezogene Vorhaben anhand vorgegebener Kriterien (HK 5)."
+  ],
+  "wirtschaft": [
+   "beschreiben Merkmale und Entwicklungen regionaler Ernährungssysteme sowie deren Bedeutung für nachhaltiges wirtschaftliches Handeln (SK).",
+   "erläutern Zusammenhänge zwischen globalen Lieferketten, regionaler Direktvermarktung, Ressourcenverbrauch und nachhaltigem Konsum (SK).",
+   "erklären ausgewählte Fälle von Marktversagen, zum Beispiel Umweltbelastungen oder Ressourcenverbrauch, im Zusammenhang mit Ernährungssystemen (SK).",
+   "beurteilen Möglichkeiten und Grenzen nachhaltiger Konsumentscheidungen und regionaler Wirtschaftsstrukturen unter ökologischen, sozialen und ökonomischen Gesichtspunkten (UK)."
+  ],
+  "inhalteHW": [
+   "Ernährungssysteme und planetare Grenzen",
+   "Gütesiegel",
+   "Nachhaltiges Handeln in privaten Haushalten",
+   "Individuelle und gemeinschaftliche Konsumentscheidungen im privaten Haushalt",
+   "Wasserverbrauch und Schutz natürlicher Ressourcen"
+  ],
+  "inhalteWi": [
+   "Regionale Ernährungssysteme und Direktvermarktung",
+   "Globale Lieferketten und internationaler Lebensmittelhandel",
+   "Marktversagen am Beispiel von Umwelt- und Ressourcenbelastungen",
+   "Nachhaltiges wirtschaftliches Handeln in der Region",
+   "Verantwortung von Konsumierenden, Betrieben und Staat"
+  ],
+  "mkr": [
+   "Lernende gestalten ein Informationsvideo zum Thema „Wasserverbrauch und Tipps zum Wasser sparen“",
+   "Lernende recherchieren online zu den Themen „Die Tafel“, „Containern“ und „Sattmacher-Rezepte“",
+   "Lernende vergleichen digitale Informationen zu regionalen und globalen Ernährungssystemen"
+  ],
+  "zeit": "ca. 25-30 Stunden",
+  "sequenzen": [
+   {
+    "nr": 1,
+    "titel": "Ernährungssysteme gegen Ausfälle stärken",
+    "themen": [
+     "Was ist eine Lieferkette?",
+     "Zusammenwirken der Bereiche des Ernährungssystems",
+     "Auswirkungen von Naturkatastrophen und Ernteausfällen",
+     "Resiliente Ernährungssysteme",
+     "Regionale Versorgung und Direktvermarktung"
+    ],
+    "zeit": "ca. 5-10 Stunden",
+    "ideen": [
+     "Den Begriff „Lieferkette“ beschreiben",
+     "Das Zusammenwirken der verschiedenen Bereiche eines Ernährungssystems erläutern",
+     "Auswirkungen von Naturkatastrophen und Ernteausfällen beschreiben",
+     "Diskussion zum Thema „Ernährungssysteme künftig regionaler gestalten?“ durchführen",
+     "Möglichkeiten regionaler Versorgung und Direktvermarktung untersuchen",
+     "Chancen und Grenzen resilienter Ernährungssysteme diskutieren"
+    ],
+    "kompHW": [
+     "beschreiben die Merkmale und Auswirkungen von Ernährungssystemen (SK).",
+     "beurteilen Empfehlungen für zukünftige Ernährungssysteme im Hinblick auf Gesundheit, Ökonomie, nachhaltige Entwicklung und die individuelle Umsetzbarkeit (UK)."
+    ],
+    "kompWI": [
+     "beschreiben Merkmale nachhaltigen wirtschaftlichen Handelns in der Region am Beispiel regionaler Ernährungssysteme (SK).",
+     "erläutern Zusammenhänge zwischen regionaler Versorgung, Direktvermarktung und nachhaltigem Konsum (SK).",
+     "beurteilen Chancen und Grenzen regionaler Ernährungssysteme unter ökologischen, sozialen und ökonomischen Gesichtspunkten (UK)."
+    ],
+    "matHW": [
+     "S. 44–45: „Lokale und globale Ernährungswelten“",
+     "ggf. S. 48–49: „METHODE Mystery entschlüsseln“"
+    ],
+    "matWI": [
+     "S. 130–131: „Regionen entwickeln sich“",
+     "S. 132–133: „Direktvermarktung“",
+     "S. 134–135: „Förderung der heimischen Wirtschaft“"
+    ]
+   },
+   {
+    "nr": 2,
+    "titel": "Internationaler Lebensmittelhandel",
+    "themen": [
+     "Bedeutung des globalen Handels",
+     "Veränderte Nachfrage",
+     "Herkunft und Produktion von Lebensmitteln",
+     "Globale Lieferketten",
+     "Beispiel Schokolade",
+     "Verantwortung in globalen Ernährungssystemen"
+    ],
+    "zeit": "ca. 5-10 Stunden",
+    "ideen": [
+     "Lebensmittelherkunft vor ca. 70 Jahren beschreiben",
+     "Die Bedeutung des globalen Handels erklären",
+     "Ursachen veränderter Nachfrage untersuchen",
+     "Projektarbeit: Herkunft, Produktion und Konsum eines bestimmten Lebensmittels, z. B. Schokolade",
+     "Globale Lieferketten exemplarisch darstellen",
+     "Soziale, ökologische und ökonomische Auswirkungen des internationalen Lebensmittelhandels diskutieren"
+    ],
+    "kompHW": [
+     "erläutern ernährungsspezifische Herausforderungen und Chancen im Kontext von Gesundheit, Ökonomie und nachhaltiger Entwicklung (SK).",
+     "bewerten in Ansätzen die Wirksamkeit und Realisierbarkeit von individuellen Handlungsoptionen im Hinblick auf nachhaltige Entwicklung bei der Beschaffung und Verwendung von Lebensmitteln und Artikeln des täglichen Bedarfs (UK)."
+    ],
+    "kompWI": [
+     "erläutern Zusammenhänge zwischen globalen Lieferketten, internationalem Handel und Konsumentscheidungen privater Haushalte (SK).",
+     "beschreiben Auswirkungen globaler Handelsstrukturen auf Produzierende, Unternehmen und Konsumierende (SK).",
+     "beurteilen globale Lebensmittelprodukte im Hinblick auf Preis, Herkunft, Produktionsbedingungen und Nachhaltigkeit (UK)."
+    ],
+    "matHW": [
+     "S. 46–47: „Internationaler Lebensmittelhandel“",
+     "ggf. S. 36–37: „Fair denken, fair kaufen“"
+    ],
+    "matWI": [
+     "S. 68–69: „Internationale Handelsströme und",
+     "abkommen“",
+     "S. 72–73: „Globalisierung: Was ist das?“",
+     "ggf. S. 74–75: „Globale Wertschöpfungsprozesse“"
+    ]
+   },
+   {
+    "nr": 3,
+    "titel": "Zugang zu sauberem Wasser – ein Menschenrecht",
+    "themen": [
+     "„Sicheres“ Wasser",
+     "Trinkwasserverbrauch",
+     "Virtuelles Wasser",
+     "Wasserfußabdruck",
+     "Wasserverbrauch in Ernährungssystemen",
+     "Marktversagen und Ressourcenverbrauch"
+    ],
+    "zeit": "ca. 5-10 Stunden",
+    "ideen": [
+     "Wasserverbrauch in deutschen Haushalten untersuchen",
+     "Virtuelles Wasser für die Erzeugung einzelner Produkte aufzeigen",
+     "Den Wasserfußabdruck erklären",
+     "Tipps zum Thema „Wasser sparen“ zusammenstellen",
+     "Informationsflyer oder Informationsvideo erstellen",
+     "Wasserverbrauch und Ressourcenbelastung als Beispiel für Marktversagen untersuchen",
+     "Verantwortung von Konsumierenden, Unternehmen und Staat diskutieren"
+    ],
+    "kompHW": [
+     "erläutern ernährungsspezifische Herausforderungen und Chancen im Kontext von Gesundheit, Ökonomie und nachhaltiger Entwicklung (SK).",
+     "erläutern unterschiedliche Handlungsoptionen privater Haushalte bei der Beschaffung und Verwendung von Lebensmitteln und Artikeln des täglichen Bedarfs (UK).",
+     "diskutieren die Verantwortung und Möglichkeiten der Einflussnahme der Konsumierenden und Anbietenden unter sozialen, ökologischen und ökonomischen Gesichtspunkten (UK)."
+    ],
+    "kompWI": [
+     "erklären ausgewählte Fälle von Marktversagen am Beispiel von Umweltbelastungen und Ressourcenverbrauch (SK).",
+     "erläutern die Rolle des Staates und der Konsumierenden bei der Begrenzung ökologischer Folgekosten (SK).",
+     "beurteilen Möglichkeiten und Grenzen eines verantwortungsvollen Umgangs mit natürlichen Ressourcen (UK)."
+    ],
+    "matHW": [
+     "S. 50–51: „Sauberes Trinkwasser“"
+    ],
+    "matWI": [
+     "S. 16–17: „Wenn Märkte versagen“",
+     "ggf. S. 60–61: „Nachhaltig wirtschaften“"
+    ]
+   },
+   {
+    "nr": 4,
+    "titel": "Ernährungsarmut und ein Rezept gegen den Welthunger",
+    "themen": [
+     "Ausgewogene Ernährung mit wenig Geld",
+     "Hunger und Ernährungsarmut",
+     "Die Tafel",
+     "Saisonkalender",
+     "Containern",
+     "Sattmacher-Rezepte",
+     "Lebensmittelverschwendung"
+    ],
+    "zeit": "ca. 5-10 Stunden",
+    "ideen": [
+     "Grafiken analysieren: Ernährungsarmut in Deutschland",
+     "Internetrecherche: Berechtigung zur Teilnahme an einer Tafel",
+     "Möglichkeiten für eine ausgewogene Ernährung mit wenig Geld nennen",
+     "Mit dem Saisonkalender arbeiten",
+     "Internetrecherche: Was bedeutet „Containern“?",
+     "„Sattmacher-Rezepte“ recherchieren und in der Praxis umsetzen",
+     "Lebensmittelverschwendung und soziale Folgen diskutieren",
+     "Handlungsmöglichkeiten privater Haushalte entwickeln"
+    ],
+    "kompHW": [
+     "erläutern ernährungsspezifische Herausforderungen und Chancen im Kontext von Gesundheit, Ökonomie und nachhaltiger Entwicklung (SK).",
+     "beschreiben die Merkmale und Auswirkungen von Ernährungssystemen (SK).",
+     "beurteilen Empfehlungen für zukünftige Ernährungssysteme im Hinblick auf Gesundheit, Ökonomie, nachhaltige Entwicklung und die individuelle Umsetzbarkeit (UK)."
+    ],
+    "kompWI": [
+     "erläutern Zusammenhänge zwischen Einkommen, Konsummöglichkeiten und Ernährungsteilhabe (SK).",
+     "beschreiben Möglichkeiten nachhaltigen wirtschaftlichen Handelns in der Region, zum Beispiel Direktvermarktung, Tafeln oder Vermeidung von Lebensmittelverschwendung (SK).",
+     "beurteilen Maßnahmen gegen Ernährungsarmut und Lebensmittelverschwendung unter sozialen, ökologischen und ökonomischen Gesichtspunkten (UK)."
+    ],
+    "matHW": [
+     "S. 52–53: „Hunger“",
+     "ggf. S. 54–55: „Entomophagie – eine Alternative“",
+     "ggf. S. 60–61: „Bedeutung des Ackers“",
+     "ggf. S. 62–63: „Urban gardening, Mietacker, Crowdgardening“"
+    ],
+    "matWI": [
+     "S. 58–59: „Gut für die Region“",
+     "S. 60–61: „Nachhaltig wirtschaften“",
+     "S. 132–133: „Direktvermarktung“"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "hw10-2",
+  "jg": 10,
+  "nr": "II",
+  "titel": "„Augen auf beim Online-Kauf!“ – Onlinehandel und Datensicherheit",
+  "inhaltsfelder": [
+   "Hauswirtschaft: IF 5 Konsum und Verantwortung",
+   "Wirtschaft: IF 4 Verantwortliches finanzielles Handeln als Verbraucherinnen und Verbraucher",
+   "Wirtschaft: IF 1 Grundprinzipien, Funktionen und Versagen von Märkten"
+  ],
+  "kompetenzen": [
+   "stellen fachbezogene Sachverhalte und Problemstellungen unter Verwendung zentraler Fachbegriffe bildungssprachlich korrekt dar (SK 1).",
+   "entnehmen Einzelmaterialien thematisch relevante Informationen, gliedern diese und setzen sie zueinander in Beziehung (MK 1).",
+   "führen Recherchen auch mit digitalen Medien durch (MK 2).",
+   "erheben Daten u. a. durch Beobachtungen, Erkundungen und Umfragen (MK 3).",
+   "überprüfen Fragestellungen und Hypothesen qualitativ und quantitativ durch Testverfahren, Experimente, Erkundungen und Befragungen (MK 7).",
+   "beurteilen kriteriengeleitet fachbezogene Sachverhalte, Systeme und Verfahren (UK 1).",
+   "entwickeln Lösungen und Lösungswege, auch algorithmische Sequenzen, fachbezogener Probleme (HK 3)."
+  ],
+  "wirtschaft": [
+   "beschreiben Formen der Bezahlung und Finanzdienstleistungen im digitalen Alltag, z. B. Online-Zahlung, Kauf auf Rechnung und Zahlungsdienstleister (SK).",
+   "erläutern Chancen und Risiken digitaler Konsum- und Zahlungsformen für Verbraucherinnen und Verbraucher (SK).",
+   "erklären Auswirkungen digitaler Märkte, Plattformen und Algorithmen auf Preise, Werbung und Kaufentscheidungen (SK).",
+   "beurteilen Online-Kaufentscheidungen unter Berücksichtigung von Preis, Datenschutz, Verbraucherschutz und finanziellen Risiken (UK).",
+   "beurteilen Chancen und Grenzen staatlicher und verbraucherbezogener Schutzmaßnahmen im Onlinehandel (UK)."
+  ],
+  "inhalteHW": [
+   "Individuelle und gemeinschaftliche Konsumentscheidungen im privaten Haushalt",
+   "Verbraucherschutz und Datensicherheit",
+   "Onlinehandel und Kundenkarten",
+   "Datenschutz, Cookies und digitale Datenspuren",
+   "Zielgruppenorientiertes Marketing im Onlinehandel"
+  ],
+  "inhalteWi": [
+   "Verantwortliches finanzielles Handeln beim Onlinekauf",
+   "Digitale Zahlungsformen und Finanzdienstleistungen",
+   "Digitale Märkte, Plattformen und Preisbildung",
+   "Algorithmen, Werbung und personalisierte Angebote",
+   "Marktmacht, Verbraucherrechte und Verbraucherschutz"
+  ],
+  "mkr": [
+   "Lernende erkennen Algorithmen und deren Funktion.",
+   "Lernende recherchieren im Internet zum Thema „Cookies-Einstellungen verändern“",
+   "Lernende analysieren und reflektieren die Preisentwicklung eines Produktes und Schaltung von Werbung über einen längeren Beobachtungszeitraum"
+  ],
+  "zeit": "ca. 25-30 Stunden",
+  "sequenzen": [
+   {
+    "nr": 1,
+    "titel": "Augen auf beim Online-Kauf!",
+    "themen": [
+     "Fake-Shops",
+     "Rechte und Pflichten der Verbraucherinnen und Verbraucher",
+     "Widerrufsrecht",
+     "Auf und Ab der Preise",
+     "Kundenkarte mit Bonussystem",
+     "Zahlungsformen im Onlinehandel",
+     "Kauf auf Rechnung und Ratenzahlung"
+    ],
+    "zeit": "ca. 10-15 Stunden",
+    "ideen": [
+     "Verkaufsstrategien im Onlinehandel analysieren",
+     "Fake-Shops untersuchen und erkennen",
+     "Traditionellen Einzelhandel und Onlinekauf vergleichen",
+     "Chancen und Risiken des Online-Einkaufs erarbeiten",
+     "Online-Einkaufsmöglichkeiten hinsichtlich rechtlicher Grundlagen bewerten",
+     "Eigene Erfahrungen mit dem Online-Kauf reflektieren",
+     "Kundenkarten, Apps und Newsletter hinsichtlich Datenschutz und Sicherheit bewerten",
+     "Zahlungsarten im Onlinehandel vergleichen",
+     "Risiken von Kauf auf Rechnung, Ratenzahlung und spontanen Onlinekäufen diskutieren"
+    ],
+    "kompHW": [
+     "erklären Veränderungen von Konsumprozessen durch Digitalität, auch im Hinblick auf nachhaltiges Handeln (SK).",
+     "analysieren aspektgeleitet Ziele und Motive zielgruppenspezifischer Marketingstrategien im Hinblick auf die Bedeutung für individuelle Kaufentscheidungen (SK).",
+     "stellen grundlegende Verbraucherrechte und Aspekte des Datenschutzes bei der Nutzung von Kundenkarten und Bonussystemen sowie beim Onlinekauf dar (SK)."
+    ],
+    "kompWI": [
+     "beschreiben Formen der Bezahlung und Finanzdienstleistungen im digitalen Alltag (SK).",
+     "erläutern Chancen und Risiken von Online-Zahlungen, Kauf auf Rechnung und Ratenzahlung (SK).",
+     "beurteilen Online-Kaufentscheidungen unter Berücksichtigung finanzieller Rahmenbedingungen und möglicher Risiken (UK)."
+    ],
+    "matHW": [
+     "S. 140–141: „Onlinehandel und Kundenkarten“",
+     "ggf. S. 160–173"
+    ],
+    "matWI": [
+     "S. 104–105: „Geld geben und Geld nehmen – Wie lege ich Vermögen an? (I)“",
+     "S. 106–107: „Geld geben und Geld nehmen – Wie lege ich Vermögen an? (II)“",
+     "S. 110–111: „Kredite“"
+    ]
+   },
+   {
+    "nr": 2,
+    "titel": "Datenspuren im Netz und wie man sich schützen kann!",
+    "themen": [
+     "Big Data und Datenspuren",
+     "Cookies und Algorithmen",
+     "Datenspuren in sozialen Netzwerken",
+     "Influencer-Marketing",
+     "Datenschutz",
+     "personalisierte Werbung",
+     "dynamische Preise"
+    ],
+    "zeit": "ca. 5-10 Stunden",
+    "ideen": [
+     "Kundenkarten und Daten, die erfasst werden, nennen",
+     "Die Funktion von Algorithmen erklären",
+     "Internetrecherche: Cookies-Einstellungen verändern",
+     "Finanzierungsmöglichkeiten auf dem Influencer-Markt beschreiben",
+     "Versuch: Produktrecherche zu festgelegten Zeitpunkten und Beobachtung der Preisentwicklung und Werbeschaltung",
+     "Personalisierte Werbung und dynamische Preise untersuchen",
+     "Den Zusammenhang von Daten, Werbung, Konsum und Marktmechanismen erläutern"
+    ],
+    "kompHW": [
+     "erklären Veränderungen von Konsumprozessen durch Digitalität, auch im Hinblick auf nachhaltiges Handeln (SK).",
+     "stellen grundlegende Verbraucherrechte und Aspekte des Datenschutzes bei der Nutzung von Kundenkarten und Bonussystemen sowie beim Onlinekauf dar (SK).",
+     "bewerten Chancen und Risiken nachhaltigen Handelns durch Digitalität (UK).",
+     "setzen sich kritisch mit zielgruppenspezifischem Marketing als Instrument zur Bedürfnisgenese im Onlinehandel und in sozialen Medien auseinander (UK).",
+     "beurteilen den Umgang mit persönlichen Daten in fachbezogenen Kontexten (UK)."
+    ],
+    "kompWI": [
+     "erklären Auswirkungen digitaler Märkte, Plattformen und Algorithmen auf Preise, Werbung und Kaufentscheidungen (SK).",
+     "beschreiben die Bedeutung von Daten für Unternehmen im Onlinehandel (SK).",
+     "beurteilen Chancen und Risiken digitaler Märkte für Verbraucherinnen und Verbraucher (UK)."
+    ],
+    "matHW": [
+     "S. 132–133: „Datenspuren für die Werbung nutzen“",
+     "ggf. S. 170–171"
+    ],
+    "matWI": [
+     "S. 10–11: „Am Markt trifft Angebot auf Nachfrage“",
+     "S. 12–13: „Preise: Ein Mix aus Angebot und Nachfrage“",
+     "S. 14–15: „Machtspiele am Markt“",
+     "S. 16–17: „Wenn Märkte versagen“"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "hw10-3",
+  "jg": 10,
+  "nr": "III",
+  "titel": "Leben und Wohnen, neu gedacht! - Lebensgestaltung und Wohnkonzepte",
+  "inhaltsfelder": [
+   "Hauswirtschaft: IF 1 Haushaltsmanagement",
+   "Hauswirtschaft: IF 2 Leben im Haushalt",
+   "Wirtschaft: IF 3 Wandel in der Arbeitswelt",
+   "Wirtschaft: IF 5 Nachhaltiges wirtschaftliches Handeln in der Region"
+  ],
+  "kompetenzen": [
+   "stellen fachbezogene Sachverhalte und Problemstellungen unter Verwendung zentraler Fachbegriffe bildungssprachlich korrekt dar (SK 1).",
+   "beschreiben Elemente und Funktionen von Haushaltssystemen (SK 2).",
+   "entnehmen Einzelmaterialien thematisch relevante Informationen, gliedern diese und setzen sie zueinander in Beziehung (MK 1).",
+   "interpretieren diskontinuierliche Texte wie Grafiken, Rezepte, Bilder und Diagramme sowie weitere Medien (MK 6).",
+   "begründen einen eigenen Standpunkt unter Berücksichtigung fachbezogener Aspekte (UK 2)."
+  ],
+  "wirtschaft": [
+   "beschreiben Veränderungen der Arbeitswelt im Hinblick auf Digitalisierung, flexible Arbeitsorte und neue Formen der Zusammenarbeit (SK).",
+   "erläutern Zusammenhänge zwischen neuen Arbeitsformen, Lebensgestaltung und Wohnkonzepten (SK).",
+   "beurteilen Chancen und Herausforderungen neuer Wohn- und Arbeitsformen für private Haushalte, Gemeinschaft und Region (UK).",
+   "beurteilen individuelle Möglichkeiten bei der nachhaltigen Gestaltung des eigenen Wohn- und Lebensumfeldes (UK)."
+  ],
+  "inhalteHW": [
+   "Gender-Care-Gap im privaten Haushalt",
+   "Lebensgestaltung der Mitglieder im privaten Haushalt",
+   "Lebensqualität und Wohnen",
+   "Care-Arbeit und Aufgabenverteilung",
+   "Neue Wohnkonzepte und gemeinschaftliches Leben"
+  ],
+  "inhalteWi": [
+   "Wandel der Arbeitswelt und neue Arbeitsformen",
+   "Digitalisierung, Homeoffice und Co-Working",
+   "Vereinbarkeit von Arbeit, Haushalt und Lebensgestaltung",
+   "Wohnort, Infrastruktur und regionale Entwicklung",
+   "Nachhaltige Wohn- und Lebenskonzepte"
+  ],
+  "mkr": [
+   "SuS gestalten ein digitales Vision Board zu ihrer eigenen Lebensgestaltung (in 5 Jahren).",
+   "Lernende recherchieren digitale Informationen zu neuen Wohn- und Arbeitskonzepten",
+   "Lernende vergleichen Co-Living- und Co-Working-Konzepte anhand digitaler Quellen"
+  ],
+  "zeit": "ca. 25-30 Stunden",
+  "sequenzen": [
+   {
+    "nr": 1,
+    "titel": "Wie gestalte ich mein Leben?",
+    "themen": [
+     "Möglichkeiten der Lebensgestaltung",
+     "Einfluss des Haushalts auf die Lebensgestaltung",
+     "Eigene Zukunftsvorstellungen",
+     "Wohnen, Arbeiten und Leben in fünf Jahren"
+    ],
+    "zeit": "ca. 5-10 Stunden",
+    "ideen": [
+     "Eigene Lebensgestaltung analysieren und untereinander diskutieren",
+     "Einfluss von Haushalt, Wohnform, Beruf und Familie auf die Lebensgestaltung herausarbeiten",
+     "Vision Board zur Lebensgestaltung in fünf Jahren erstellen und präsentieren",
+     "Zukunftsvorstellungen im Hinblick auf Wohnen, Arbeit, Freizeit und Verantwortung reflektieren"
+    ],
+    "kompHW": [
+     "erläutern unterschiedliche Möglichkeiten der Lebensgestaltung im privaten Haushalt (SK).",
+     "erläutern den Zusammenhang von Lebensqualität und Wohnen (SK).",
+     "diskutieren unterschiedliche Möglichkeiten der Lebensgestaltung (UK)."
+    ],
+    "kompWI": [
+     "beschreiben Zusammenhänge zwischen Lebensgestaltung, Berufswahl, Einkommen und Wohnform (SK).",
+     "erläutern, wie Veränderungen der Arbeitswelt individuelle Lebensentwürfe beeinflussen können (SK).",
+     "beurteilen Chancen und Herausforderungen unterschiedlicher Lebensentwürfe im Hinblick auf Arbeit, Wohnen und Alltag (UK)."
+    ],
+    "matHW": [
+     "S. 22–23: „Wie gestalte ich meinen Alltag“"
+    ],
+    "matWI": [
+     "S. 78–79: „Arbeit ist nicht gleich Arbeit“",
+     "S. 80–81: „Die Arbeitswelt der Zukunft“"
+    ]
+   },
+   {
+    "nr": 2,
+    "titel": "Care-Arbeit und Gender Care Gap – ein wichtiger Teil der Lebensgestaltung?",
+    "themen": [
+     "Ehrenamtliche Tätigkeiten",
+     "Arten von Care-Arbeit",
+     "Ursachen und Folgen des Gender-Care-Gaps",
+     "Maßnahmen zur Reduzierung des Gender-Care-Gaps",
+     "Pflegearbeit und gesellschaftliche Verantwortung"
+    ],
+    "zeit": "ca. 5-10 Stunden",
+    "ideen": [
+     "Den Begriff „Care-Arbeit“ erklären",
+     "Ursachen und Folgen des Gender-Care-Gaps erklären",
+     "Maßnahmen zur Reduzierung des Gender-Care-Gaps erläutern",
+     "Arbeit mit Fallbeispielen",
+     "Internetrecherche: Bedingungen für die Anstellung einer ausländischen Pflegekraft",
+     "Care-Arbeit im Spannungsfeld von Haushalt, Familie, Beruf und Gesellschaft diskutieren"
+    ],
+    "kompHW": [
+     "erläutern unterschiedliche Arten von Care-Arbeit (SK).",
+     "erläutern Ursachen und Folgen des Gender-Care-Gaps (SK).",
+     "erörtern die Anforderungen zur Ausübung eines Berufs rund um den Haushalt, auch unter Genderaspekten (UK).",
+     "bewerten Möglichkeiten der internen oder externen Bewältigung von Haushaltsaufgaben kriterienorientiert, auch unter Genderaspekten (UK).",
+     "erörtern Maßnahmen und Optionen zur Reduzierung des Gender-Care-Gaps (UK)."
+    ],
+    "kompWI": [
+     "beschreiben Care-Arbeit als Teil gesellschaftlicher und wirtschaftlicher Arbeitsteilung (SK).",
+     "erläutern Zusammenhänge zwischen unbezahlter Care-Arbeit, Erwerbsarbeit und geschlechterbezogenen Ungleichheiten (SK).",
+     "beurteilen Auswirkungen des Gender-Care-Gaps auf Lebensgestaltung, Erwerbsbiografien und soziale Teilhabe (UK)."
+    ],
+    "matHW": [
+     "S. 24–25: „Care-Arbeit“"
+    ],
+    "matWI": [
+     "S. 78–79: „Arbeit ist nicht gleich Arbeit“",
+     "ggf. S. 92–93: „Einkommensarten unter der Lupe“",
+     "ggf. S. 94–95: „Brutto- und Nettoeinkommen“"
+    ]
+   },
+   {
+    "nr": 3,
+    "titel": "Co-Living und Co-Working – neue Wohn- und Arbeitskonzepte",
+    "themen": [
+     "Co-Working-Büros",
+     "Co-Living-Konzepte",
+     "Homeoffice und flexible Arbeitsorte",
+     "Wohnen und Arbeiten an einem Ort",
+     "Infrastruktur und Standortfaktoren",
+     "Chancen und Grenzen neuer Wohn- und Arbeitsformen"
+    ],
+    "zeit": "ca. 5-10 Stunden",
+    "ideen": [
+     "Vorteile von Co-Working-Büros benennen",
+     "Konflikte beschreiben, die in Co-Working-Büros entstehen können",
+     "Co-Living-Konzepte erläutern",
+     "Neue Wohn- und Arbeitskonzepte recherchieren und vergleichen",
+     "Informationsflyer über neue Wohn- und Arbeitskonzepte erstellen",
+     "Standortfaktoren für neue Wohn- und Arbeitsformen untersuchen",
+     "Chancen und Grenzen von Co-Living und Co-Working diskutieren"
+    ],
+    "kompHW": [
+     "erläutern den Zusammenhang von Lebensqualität und Wohnen (SK).",
+     "erörtern die Einflüsse von Innovationen, unter anderem Digitalität, im Bereich des Wohnens (UK)."
+    ],
+    "kompWI": [
+     "erläutern Veränderungen der Arbeitswelt durch Digitalisierung, mobile Arbeit und neue Arbeitsformen (SK).",
+     "beschreiben Zusammenhänge zwischen Co-Working, Co-Living, Infrastruktur und Standortfaktoren (SK).",
+     "beurteilen Chancen und Herausforderungen neuer Wohn- und Arbeitsformen für private Haushalte und Regionen (UK)"
+    ],
+    "matHW": [
+     "S. 28–29: „Co-Working und Co-Living“"
+    ],
+    "matWI": [
+     "S. 82–83: „Digitalisierung verändert“",
+     "S. 84–85: „New Work“",
+     "S. 124–125: „Wo wohnst du, wie lebst du?“",
+     "S. 126–127: „Welcher Standort ist der richtige?“"
+    ]
+   }
+  ]
+ }
+];
+
+</script>
 <script>
 /* =========================================================================
    SchiLP WP Wirtschaft und Arbeitswelt – HBG Dortmund
@@ -209,10 +1752,10 @@ body.hl-srl .t-srl{outline:3px solid var(--srl);outline-offset:2px;border-radius
 
 const META = {
   titel: "Wirtschaft und Arbeitswelt (WP)",
-  untertitel: "Schulinterner Lehrplan · Arbeitsversion zur Planung",
+  untertitel: "Gemeinsamer schulinterner Lehrplan Hauswirtschaft · Technik · Wirtschaft",
   schule: "Heinrich-Böll-Gesamtschule Dortmund",
   stand: "09.11.2026",
-  version: "Entwurf 0.1 – Gesprächsgrundlage Fachkonferenz",
+  version: "Arbeitsversion 0.2 – Gesprächsgrundlage",
   lehrwerkTC: "Blickpunkt Technik SI, Westermann 2025 (ISBN 978-3-14-188512-5)",
   lehrwerkWI: "starkeSeiten Wahlpflicht Wirtschaft und Arbeitswelt – Wirtschaft, NRW, Klett",
   lehrwerkHW: "starkeSeiten Hauswirtschaft / WP-Arbeitslehre Hauswirtschaft/Wirtschaft, Klett",
@@ -246,28 +1789,6 @@ const KLP_TC = {
   HK4: "Werkstücke, technische Systeme oder Teilsysteme erstellen",
   HK5: "Hard- und Software bedienen und konfigurieren",
   HK6: "Arbeitsabläufe technischer Berufe simulieren",
-};
-
-/* ---------- HW-Kompetenzcodes (Wortlaut aus SchiLP Hauswirtschaft) ---------- */
-const KLP_HW = {
-  SK1: "stellen fachbezogene Sachverhalte unter Verwendung zentraler Fachbegriffe bildungssprachlich korrekt dar",
-  SK2: "beschreiben Elemente und Funktionen von Haushaltssystemen",
-  SK4: "ordnen fachbezogene Sachverhalte in übergreifende Zusammenhänge ein",
-  MK1: "entnehmen Einzelmaterialien thematisch relevante Informationen, gliedern und setzen sie in Beziehung",
-  MK2: "führen Recherchen auch mit digitalen Medien durch",
-  MK3: "erheben Daten u. a. durch Beobachtungen, Erkundungen und Umfragen",
-  MK6: "interpretieren diskontinuierliche Texte wie Grafiken, Rezepte, Bilder und Diagramme",
-  MK7: "überprüfen Fragestellungen und Hypothesen durch Testverfahren, Experimente, Erkundungen, Befragungen",
-  MK8: "identifizieren unterschiedliche Standpunkte und analysieren diese anhand von Fallbeispielen",
-  MK10: "erstellen und gestalten fachbezogene Medienprodukte nach vorgegebenen Kriterien",
-  MK11: "präsentieren Arbeitsergebnisse auch digital nach formulierten Kriterien",
-  UK1: "beurteilen kriteriengeleitet fachbezogene Sachverhalte, Systeme und Verfahren",
-  UK2: "begründen einen eigenen Standpunkt unter Berücksichtigung fachbezogener Aspekte",
-  UK3: "erörtern Möglichkeiten, Grenzen und Folgen haushaltsbezogenen Handelns",
-  UK4: "analysieren Konsumentscheidungen hinsichtlich Motiven, Bedürfnissen und Interessen",
-  HK1: "verarbeiten Lebensmittel nach vorgegebenen Verfahren",
-  HK3: "entwickeln Lösungen und Lösungswege, auch algorithmische Sequenzen",
-  HK5: "planen und realisieren fachbezogene Vorhaben anhand vorgegebener Kriterien",
 };
 
 /* ---------- Inhaltsfelder ---------- */
@@ -329,23 +1850,23 @@ const TC = [
       "beurteilen Einzelfertigung im Handwerk und Massenfertigung im Möbelhandel aus Sicht von Kundschaft und Betrieb (UK)",
     ],
     sequenzen: [
-      { titel: "Sicher starten im Technikraum", ds: 4, es: 2,
+      { titel: "Sicher starten im Technikraum", k: ['SK2', 'HK2'], wk: [0], ds: 4, es: 2,
         praxis: ["Werkraumregeln, Einrichtung des Technikraums", "Lehrgang Tischbohrmaschine („Bohrmaschinenschein“)"],
         wirtschaft: ["Was ist ein Betrieb? Handwerk in unserer Umgebung (Mindmap, Branchen)"],
         bp: "S. 8–11, 40–43", ss: "" },
-      { titel: "Vom Baum zum Brett", ds: 6, es: 4,
+      { titel: "Vom Baum zum Brett", k: ['SK1', 'MK4', 'UK1'], wk: [0], ds: 6, es: 4,
         praxis: ["Rohstoff Holz, Baumarten, Tropenholz", "Werkstoff Holz und Handelsformen (Baumscheibe-App)"],
         wirtschaft: ["Wertschöpfungskette Forst – Sägewerk – Tischlerei: Wer verdient am Holz?", "Siegel FSC/PEFC, regionale Holzwirtschaft"],
         bp: "S. 12–19", ss: "S. 58–59 „Gut für die Region“" },
-      { titel: "Planen wie Profis", ds: 6, es: 4,
+      { titel: "Planen wie Profis", k: ['MK5', 'MK8'], wk: [1], ds: 6, es: 4,
         praxis: ["Skizze, technische Zeichnung, räumliche Darstellung", "Stückliste und Fertigungsplan, Schnittplan-Simulator"],
         wirtschaft: ["Was kostet mein Möbelstück? Material- und Arbeitskosten, Stundensatz, Preis", "Geht es nur um Gewinn? Ziele eines Betriebs"],
         bp: "S. 64–67, 70–76", ss: "S. 52–53 „Geht es nur um Gewinn?“" },
-      { titel: "Möbelbau-Projekt", ds: 20, es: 6,
+      { titel: "Möbelbau-Projekt", k: ['HK1', 'HK2', 'HK4', 'UK5', 'SK5'], wk: [0, 2], ds: 20, es: 6,
         praxis: ["Weg A: Modellbau (Eisstiele) · Weg B: Originalmöbel (Dachlatte)", "Holz trennen und fügen, Messen und Anreißen, Oberflächenschutz", "buchbare Kurz-Lehrgänge als Voraussetzung für Maschinen"],
         wirtschaft: ["Ein Handwerksbetrieb von innen: Betriebserkundung oder Expertenbesuch Tischlerei", "Berufe rund um Holz und Konstruieren (Steckbriefe)", "Ein Unternehmen gründen? Was braucht eine Tischlerei?"],
         bp: "S. 30–39, 48–55, 77, 87", ss: "S. 50–51 „Ein Unternehmen gründen?“" },
-      { titel: "Ausstellung und Reflexion", ds: 0, es: 2,
+      { titel: "Ausstellung und Reflexion", k: ['MK7', 'UK1'], wk: [1], ds: 0, es: 2,
         praxis: ["Beurteilungsbogen, Abgleich mit dem Kompetenzraster"],
         wirtschaft: ["Preisschild für das eigene Werkstück: Kalkulation präsentieren"],
         bp: "S. 67", ss: "" },
@@ -415,19 +1936,19 @@ const TC = [
       "beurteilen eine Geschäftsidee unter ökonomischen und ökologischen Kriterien (UK)",
     ],
     sequenzen: [
-      { titel: "Kunststoffe – Alleskönner mit Folgen", ds: 6, es: 4,
+      { titel: "Kunststoffe – Alleskönner mit Folgen", k: ['MK6', 'UK3', 'UK4'], wk: [3], ds: 6, es: 4,
         praxis: ["Kunststoffarten durch Versuche unterscheiden (Thermoplast, Duroplast, Elastomer)", "Recyclingcodes, Kunststoffe recyceln"],
         wirtschaft: ["Wirtschaftskreisläufe und Produktlebenszyklus", "Nachhaltig wirtschaften: Was tun Unternehmen gegen Plastikmüll?"],
         bp: "S. 26–29, 90–93", ss: "S. 60–61 „Nachhaltig wirtschaften“" },
-      { titel: "Vom Entwurf zum Prototyp", ds: 10, es: 4,
+      { titel: "Vom Entwurf zum Prototyp", k: ['MK2', 'MK8', 'HK3', 'HK5'], wk: [0], ds: 10, es: 4,
         praxis: ["räumliche Darstellung", "CAD-Lernpfad (z. B. Tinkercad) mit drei Niveaus", "3D-Druck und Rapid Prototyping: Prototyp drucken und testen"],
         wirtschaft: ["Geschäftsidee und Zielgruppe finden", "Businessplan light: Produkt, Kundschaft, Kosten, Preis"],
         bp: "S. 74–76, 80–83, 95", ss: "S. 50–51, 54–55 „Businessplan entwickeln“" },
-      { titel: "Wir fertigen in Serie", ds: 16, es: 6,
+      { titel: "Wir fertigen in Serie", k: ['SK3', 'SK4', 'HK4'], wk: [1, 2], ds: 16, es: 6,
         praxis: ["Einzel- und Mehrfachfertigung vergleichen", "Vorrichtung bauen (vgl. Projekt Sägevorrichtung)", "Acrylglas warmumformen (vgl. Projekt Gewächshaus), Spritzguss als Industrieverfahren", "arbeitsteilige Kleinserie mit Qualitätskontrolle"],
         wirtschaft: ["Was kostet ein Stück? Fixe und variable Kosten, Stückkosten bei steigender Menge", "Am Markt treffen Angebot und Nachfrage aufeinander – Preisfindung für unser Produkt"],
         bp: "S. 68, 84–86, 94, 98–99", ss: "S. 10–13 (Markt, Preise)" },
-      { titel: "Markttag und Auswertung", ds: 4, es: 4,
+      { titel: "Markttag und Auswertung", k: ['MK9', 'UK3'], wk: [2, 3], ds: 4, es: 4,
         praxis: ["Qualitätsprüfung der Serie", "Produktpräsentation (Pitch)"],
         wirtschaft: ["Verkauf am Markttag/Schulfest", "Auswertung: Gewinn? Nachhaltig? Was würden wir ändern?"],
         bp: "S. 88–89", ss: "S. 52–53" },
@@ -498,19 +2019,19 @@ const TC = [
       "beurteilen Chancen und Risiken der Automatisierung für Beschäftigte, auch am Beispiel des eigenen Praktikumsbetriebs (UK)",
     ],
     sequenzen: [
-      { titel: "Was steckt in einer Maschine?", ds: 8, es: 4,
+      { titel: "Was steckt in einer Maschine?", k: ['SK2', 'MK5', 'MK6'], wk: [0], ds: 8, es: 4,
         praxis: ["Maschinenbegriff, Demontieren und Remontieren (z. B. Akkuschrauber, Handrührgerät)", "Getriebe und Übersetzung, Riemenantrieb", "Funktionsmodell eines Getriebes"],
         wirtschaft: ["Arbeit ist nicht gleich Arbeit: Erwerbsarbeit, Hausarbeit, Ehrenamt"],
         bp: "S. 106–115", ss: "S. 78–79 „Arbeit ist nicht gleich Arbeit“" },
-      { titel: "Metall bearbeiten – ein Bauteil für unsere Maschine", ds: 10, es: 4,
+      { titel: "Metall bearbeiten – ein Bauteil für unsere Maschine", k: ['HK2', 'MK3'], wk: [1], ds: 10, es: 4,
         praxis: ["Werkstoff Metall, Metalle recyceln", "Anreißen, Sägen, Feilen, Bohren, Gewinde; Messschieber", "Metallschutz, Entsorgung von Problemstoffen", "Werkstück: Bauteil/Halterung für das Getriebe oder Schlüsselanhänger"],
         wirtschaft: ["Die Arbeitswelt der Zukunft: Digitalisierung verändert", "Industrie 4.0"],
         bp: "S. 20–25, 33, 56–63, 100–101, 305", ss: "S. 80–83" },
-      { titel: "Maschinen lernen fühlen: Sensoren, Aktoren, Programme", ds: 14, es: 6,
+      { titel: "Maschinen lernen fühlen: Sensoren, Aktoren, Programme", k: ['SK3', 'HK3', 'HK5'], wk: [2, 3], ds: 14, es: 6,
         praxis: ["Regelkreise, EVA-Prinzip, Sensor-Aktor-Systeme", "Roboter in der Arbeitswelt", "Calliope mini / Open Roberta: Steuerung programmieren (z. B. Förderband mit Lichtschranke, Greifer)", "ergänzend: SPS-Werkstatt"],
         wirtschaft: ["Mensch und Roboter: Wer macht welche Arbeit?", "New Work, Arbeitszeitmodelle, Schichtarbeit", "Praktikum: Erkundungsauftrag „Automatisierung in meinem Betrieb“"],
         bp: "S. 244–273", ss: "S. 84–85 „New Work“" },
-      { titel: "Sicher und gerecht arbeiten", ds: 4, es: 4,
+      { titel: "Sicher und gerecht arbeiten", k: ['UK2', 'UK6', 'HK6', 'SK5'], wk: [3], ds: 4, es: 4,
         praxis: ["Arbeitsschutz an Maschinen, Wartung und Instandhaltung", "ergonomische und gendergerechte Arbeitsplätze"],
         wirtschaft: ["Berufe im Wandel: Steckbrief zum Praktikumsberuf", "Präsentation der Praktikumserkundung"],
         bp: "S. 10–11, 88–89", ss: "" },
@@ -581,19 +2102,19 @@ const TC = [
       "beurteilen die Wirtschaftlichkeit einer Energiesparmaßnahme für einen Haushalt (UK)",
     ],
     sequenzen: [
-      { titel: "Was ein Haus zum Leben braucht", ds: 6, es: 4,
+      { titel: "Was ein Haus zum Leben braucht", k: ['SK1', 'SK4', 'MK3'], wk: [0], ds: 6, es: 4,
         praxis: ["Phasen des Hausbaus, Anschlüsse am Haus", "Zentralheizung, Wärmepumpe, Energieeffizienz von Häusern", "Wärmeverluste messen (Temperaturlogger, Wärmebild)"],
         wirtschaft: ["Vom Kohlenpott zur Energiewende: Strukturwandel im Ruhrgebiet", "Wo wohnst du? Standortfaktoren"],
         bp: "S. 192–217", ss: "S. 124–127, 130–131" },
-      { titel: "Strom im Haus – sicher installieren", ds: 10, es: 4,
+      { titel: "Strom im Haus – sicher installieren", k: ['HK4', 'MK1'], wk: [2], ds: 10, es: 4,
         praxis: ["Stromkreis, Spannung, Stromstärke, Widerstand, Leistung", "Schaltpläne lesen, Aus-, Wechsel- und Kreuzschaltung", "Schutzeinrichtungen, Elektroinstallation am Hausmodell (Kleinspannung)"],
         wirtschaft: ["Was kostet Energie? Strompreis im Haushalt", "Wenn Märkte versagen: Wer zahlt für CO₂?"],
         bp: "S. 136–161, 232–235, 238–239", ss: "S. 16–17 „Wenn Märkte versagen“" },
-      { titel: "Energie von morgen", ds: 8, es: 4,
+      { titel: "Energie von morgen", k: ['MK2', 'MK3', 'UK3'], wk: [1], ds: 8, es: 4,
         praxis: ["Energiespeicherung, Kraftwerke, fossile und nachhaltige Energie", "Experimente und Schaltung mit Solarzellen", "Wasser- und Windkraft"],
         wirtschaft: ["Gute Aussichten für meine Region? Unternehmen der Energiewende", "Förderung der heimischen Wirtschaft, Standorte untersuchen"],
         bp: "S. 218–237", ss: "S. 128–129, 134–137" },
-      { titel: "Smart Home: Das Haus denkt mit", ds: 12, es: 6,
+      { titel: "Smart Home: Das Haus denkt mit", k: ['HK3', 'HK5', 'MK9', 'UK1', 'UK2', 'UK4', 'SK5'], wk: [3], ds: 12, es: 6,
         praxis: ["Sensoren, Internet of Things", "Hausmodell automatisieren: Licht, Lüftung, Heizung mit Calliope", "Datenschutz im Smart Home"],
         wirtschaft: ["Projekt Energieberatung: Wir beraten einen Haushalt (Kosten, Einsparung, Amortisation)", "Berufe der Energie- und Gebäudetechnik"],
         bp: "S. 161, 172–173, 246–249, 270–273, 304", ss: "" },
@@ -651,133 +2172,119 @@ const TC = [
 ];
 
 /* =========================================================================
-   HAUSWIRTSCHAFT – Planung der Fachschaft HW (SchiLP, Stand 31.08.2026)
+   Kapitel 1: Rahmenbedingungen – Quellen: SchiLP HW (Stand 31.08.2026), SchiLP Technik (bisher)
+   q: "hw" = wörtlich aus SchiLP Hauswirtschaft, "tc" = wörtlich aus SchiLP Technik (bisher),
+      "neu" = Beschluss/Entwurf für den gemeinsamen Plan
    ========================================================================= */
-const HW = [
-  { jg: 7, nr: "I", id: "hw7-1", titel: "Leben in den eigenen vier Wänden – Vom Wohlfühlen in der eigenen Wohnung bis zur Aufgabenverteilung im eigenen Haushalt",
-    hwIF: [1, 2], wiIF: [5], zeit: "ca. 40 Std.",
-    kompetenzen: ["SK2", "MK1", "MK6", "MK8", "UK1", "UK3"],
-    wi: ["beschreiben Veränderungen im Bereich Wohnen und Haushaltsführung im Kontext gesellschaftlicher und technologischer Entwicklungen (SK)", "erläutern Ansätze nachhaltiger Entwicklung im privaten Haushalt, z. B. Energieeinsparung und Ressourcenschonung (SK)", "beurteilen Wohn- und Haushaltsformen im Hinblick auf ökologische und ökonomische Auswirkungen (UK)"],
-    inhalteHW: ["Haushaltsführung: Aufgaben zur Bewältigung des Alltags", "Lebensgestaltung der Mitglieder im privaten Haushalt", "Lebensqualität und Wohnen"],
-    inhalteWi: ["Strukturwandel und nachhaltige Entwicklung: Wirtschaftssektoren, Beschäftigungsstruktur, Infrastruktur"],
-    mkrText: ["Erklärvideo „Richtig lüften“", "Erklärvideo zum Einsatz von Haushaltsgeräten"], mkr: ["4.1", "4.2"],
-    sequenzen: [{ titel: "Zuhause ist’s am schönsten! Wohlfühlen in den eigenen vier Wänden", std: "16–20" }, { titel: "Haushalt leicht gemacht! Arten und Verteilung von Haushaltsaufgaben", std: "18–22" }],
-    bo: "Berufsbilder rund um Haushalt, Dienstleistung und Care-Arbeit", bne: "Energieeinsparung und Ressourcenschonung im Haushalt", sdg: [11, 12] },
-  { jg: 7, nr: "II", id: "hw7-2", titel: "Schlauer shoppen, so werde ich zum Einkaufsprofi!",
-    hwIF: [5], wiIF: [4], zeit: "ca. 40 Std.",
-    kompetenzen: ["SK1", "SK4", "MK1", "MK3", "MK6", "MK7", "MK11", "UK1", "UK4", "HK5"],
-    wi: ["beschreiben Formen der Bezahlung (bar, bargeldlos, digital) (SK)", "erläutern Zusammenhänge zwischen Konsumentscheidungen und verfügbaren finanziellen Mitteln (SK)", "analysieren Kaufentscheidungen unter finanziellen Rahmenbedingungen (UK)", "beurteilen einen verantwortungsvollen und nachhaltigen Umgang mit Geld (UK)"],
-    inhalteHW: ["Individuelle und gemeinschaftliche Konsumentscheidungen", "Zielgruppenorientiertes Marketing für Lebensmittel und Artikel des täglichen Bedarfs"],
-    inhalteWi: ["Formen der Bezahlung", "Girokonto als Grundlage des Zahlungsverkehrs", "Konsum, Bedürfnisse und finanzielle Möglichkeiten", "Sparen, Ausgaben planen"],
-    mkrText: ["Apps als elektronische Einkaufszettel erproben", "Supermarkterkundung digital auswerten"], mkr: ["1.2", "2.2"],
-    sequenzen: [{ titel: "Einkaufsprofi werden!", std: "10–15" }, { titel: "Lebensmittelverpackungen unter der Lupe!", std: "10–12" }, { titel: "Wir gehen in den Supermarkt! Eine Erkundung durchführen", std: "10–15" }],
-    bo: "Erkundung Verbrauchermarkt (Einzelhandel)", bne: "nachhaltiger Umgang mit Geld, Verpackungen", sdg: [12] },
-  { jg: 8, nr: "I", id: "hw8-1", titel: "Zum Essen und Kauf verführt? Einflussfaktoren auf das Ess- und Konsumverhalten",
-    hwIF: [5, 3], wiIF: [2], zeit: "ca. 40 Std.",
-    kompetenzen: ["SK1", "MK1", "MK6", "MK10", "MK11", "UK4", "HK5"],
-    wi: ["stellen Zielsetzungen unternehmerischen Handelns dar (SK)", "erläutern, wie Unternehmen durch Produktgestaltung, Werbung und Marketing Kaufentscheidungen beeinflussen (SK)", "beurteilen unternehmerische Entscheidungen zwischen Gewinn, Verbraucherinteressen und Nachhaltigkeit (UK)"],
-    inhalteHW: ["Konsumentscheidungen im privaten Haushalt", "Zielgruppenorientiertes Marketing", "Verbraucherschutz und Datensicherheit", "Gütesiegel", "Lebensmittelsicherheit und -qualität"],
-    inhalteWi: ["Unternehmerische Zielsetzungen und Marketingentscheidungen", "Produktgestaltung und Zielgruppenorientierung", "Werbung", "Nachhaltiges Handeln in Unternehmen", "Verantwortung von Unternehmen"],
-    mkrText: ["Werbespot zu einem Produkt gestalten", "Internetrecherche zu Lebensmittelsiegeln, Warnungen und Rückrufen"], mkr: ["4.1", "4.2", "2.1", "2.3"],
-    sequenzen: [{ titel: "Wer oder was hat Einfluss auf mein Essverhalten?", std: "8–10" }, { titel: "Zum Kauf verführt durch Werbung?", std: "16–18" }, { titel: "Lebensmittelqualität und Durchblick im Siegel-Dschungel", std: "12–14" }],
-    bo: "Berufe in Marketing und Lebensmittelproduktion (implizit)", bne: "Gütesiegel, nachhaltiges Handeln in Unternehmen", sdg: [12] },
-  { jg: 8, nr: "II", id: "hw8-2", titel: "Gesund & fit – Die Bedeutung von Lebensmitteln und Bewegung für unseren Körper",
-    hwIF: [4], wiIF: [], zeit: "ca. 40 Std.",
-    kompetenzen: ["SK1", "MK1", "MK6", "UK2"],
-    wi: [],
-    inhalteHW: ["Gesundheitsförderliche Lebensweise", "Lebensmittel und ihre Inhaltsstoffe", "Energiebedarf und Bewegung", "Ernährungsempfehlungen und -modelle", "Qualitätsstandards für Schulverpflegung"],
-    inhalteWi: [],
-    mkrText: ["Internetrecherche „Qualitätsstandards für die Schulverpflegung“"], mkr: ["2.1"],
-    sequenzen: [{ titel: "Was ist Gesundheit und wie halte ich mich gesund?", std: "10–15" }, { titel: "Was steckt in unserer Nahrung? Lebensmittel und ihre Inhaltsstoffe", std: "20" }, { titel: "Ohne Energie geht nichts! Energiebedarf und Ernährung", std: "5–10" }],
-    bo: "", bne: "Gesundheit und Wohlergehen", sdg: [3] },
-  { jg: 9, nr: "I", id: "hw9-1", titel: "Das Zusammenspiel von Ernährung und Gesundheit",
-    hwIF: [4], wiIF: [3], zeit: "ca. 40 Std.",
-    kompetenzen: ["SK1", "MK1", "MK2", "MK6", "MK11", "UK2"],
-    wi: ["beschreiben Berufsfelder im Bereich Gesundheit, Ernährung und Pflege (SK)", "erläutern Veränderungen der Arbeitswelt in diesem Bereich, auch durch Digitalisierung (SK)", "beurteilen Anforderungen und Entwicklungsmöglichkeiten ausgewählter Berufe (UK)"],
-    inhalteHW: ["Gesundheitsförderliche Lebensweise", "Lebensmittel und ihre Inhaltsstoffe", "Ernährungsmitbedingte Krankheiten und Essstörungen", "Ernährung in unterschiedlichen Lebenssituationen", "Berufe im Bereich Gesundheit und Ernährung"],
-    inhalteWi: ["Wandel der Arbeitswelt im Gesundheits- und Ernährungsbereich", "Berufsbilder, Tätigkeiten, Anforderungen", "Digitalisierung und veränderte Arbeitsprozesse", "Vereinbarkeit von Arbeit, Gesundheit und Lebensgestaltung"],
-    mkrText: ["Online-Recherche zu Ernährungstrends, Erkrankungen, Berufen in der Rehaklinik", "digitale Präsentation", "Meinungsbildung „Gesundheit per App“", "digitale Pinnwand zu Essstörungen"], mkr: ["2.1", "4.1", "5.2", "3.1"],
-    sequenzen: [{ titel: "Jeder Mensch is(st) anders", std: "10–15" }, { titel: "Ernährungsmitbedingte Krankheiten und Essstörungen", std: "15–20" }, { titel: "Berufe im Bereich Gesundheit und Ernährung", std: "5–10" }],
-    bo: "Berufe in Gesundheit, Ernährung und Pflege (Rehaklinik)", bne: "Gesundheit und Wohlergehen", sdg: [3, 8] },
-  { jg: 9, nr: "II", id: "hw9-2", titel: "Nachhaltiger Konsum – Wie können wir klima- und umweltfreundlich handeln?",
-    hwIF: [3, 5], wiIF: [5, 2], zeit: "ca. 25–30 Std.",
-    kompetenzen: ["SK1", "MK1", "MK2", "MK3", "MK6", "MK7", "UK1", "HK1"],
-    wi: ["beschreiben Merkmale nachhaltigen wirtschaftlichen Handelns in der Region (SK)", "erläutern Zusammenhänge zwischen regionalen Produkten, Direktvermarktung, globalen Lieferketten und nachhaltigem Konsum (SK)", "stellen Ziele und Handlungsmöglichkeiten von Unternehmen bei nachhaltiger Produktion dar (SK)", "beurteilen nachhaltige Konsum- und Unternehmensentscheidungen (UK)"],
-    inhalteHW: ["Ernährungssysteme und planetare Grenzen", "Nachhaltige Ernährung", "Gütesiegel", "Nachhaltiges Handeln in privaten Haushalten", "Fairer Handel und globale Ernährungswelten", "Ernährung außer Haus"],
-    inhalteWi: ["Nachhaltiges wirtschaftliches Handeln in der Region", "Regionale Produkte und Direktvermarktung", "Globale Lieferketten und fairer Handel", "Nachhaltiges Handeln in Unternehmen"],
-    mkrText: ["Internetrecherche zu Fair-Trade-Produkten", "digitale Informationen zu regionalen und globalen Lebensmitteln vergleichen", "Erkundung (Wochenmarkt) dokumentieren und präsentieren"], mkr: ["2.1", "2.3", "4.1"],
-    sequenzen: [{ titel: "Nachhaltigkeit – Was bedeutet der Begriff und welche Ziele werden verfolgt?", std: "2–5" }, { titel: "So geht’s nachhaltig! Von der Ernährung bis zum fairen Handel", std: "25–30" }],
-    bo: "Erkundung Wochenmarkt/Verkaufsstelle, regionale Erzeuger", bne: "planetare Grenzen, fairer Handel, regionale Produkte", sdg: [2, 12, 13] },
-  { jg: 10, nr: "I", id: "hw10-1", titel: "Vom Acker auf den Teller! Ernährungssysteme und der Schutz der natürlichen Ressourcen",
-    hwIF: [3, 5], wiIF: [5, 1], zeit: "ca. 25–30 Std.",
-    kompetenzen: ["SK1", "SK4", "MK1", "MK6", "UK1", "UK3", "HK1", "HK5"],
-    wi: ["beschreiben regionale Ernährungssysteme und ihre Bedeutung für nachhaltiges Wirtschaften (SK)", "erläutern Zusammenhänge zwischen Lieferketten, Direktvermarktung, Ressourcenverbrauch und Konsum (SK)", "erklären Fälle von Marktversagen, z. B. Umweltbelastungen (SK)", "beurteilen nachhaltige Konsumentscheidungen und regionale Wirtschaftsstrukturen (UK)"],
-    inhalteHW: ["Ernährungssysteme und planetare Grenzen", "Gütesiegel", "Nachhaltiges Handeln in privaten Haushalten", "Konsumentscheidungen", "Wasserverbrauch und Schutz natürlicher Ressourcen"],
-    inhalteWi: ["Regionale Ernährungssysteme und Direktvermarktung", "Globale Lieferketten", "Marktversagen am Beispiel von Umwelt- und Ressourcenbelastungen", "Verantwortung von Konsumierenden, Betrieben und Staat"],
-    mkrText: ["Informationsvideo „Wasserverbrauch und Tipps zum Wassersparen“", "Online-Recherche zu Tafel, Containern, Sattmacher-Rezepten", "digitale Informationen zu Ernährungssystemen vergleichen"], mkr: ["4.1", "2.1", "2.3"],
-    sequenzen: [{ titel: "Ernährungssysteme gegen Ausfälle stärken", std: "5–10" }, { titel: "Internationaler Lebensmittelhandel", std: "5–10" }, { titel: "Zugang zu sauberem Wasser – ein Menschenrecht", std: "5–10" }, { titel: "Ernährungsarmut und ein Rezept gegen den Welthunger", std: "5–10" }],
-    bo: "", bne: "Ressourcenschutz, Wasser, Welthunger", sdg: [2, 6, 12] },
-  { jg: 10, nr: "II", id: "hw10-2", titel: "„Augen auf beim Online-Kauf!“ – Onlinehandel und Datensicherheit",
-    hwIF: [5], wiIF: [4, 1], zeit: "ca. 25–30 Std.",
-    kompetenzen: ["SK1", "MK1", "MK2", "MK3", "MK7", "UK1", "HK3"],
-    wi: ["beschreiben digitale Zahlungsformen und Finanzdienstleistungen (SK)", "erläutern Chancen und Risiken digitaler Konsum- und Zahlungsformen (SK)", "erklären Auswirkungen digitaler Märkte, Plattformen und Algorithmen auf Preise und Werbung (SK)", "beurteilen Online-Kaufentscheidungen und Schutzmaßnahmen (UK)"],
-    inhalteHW: ["Konsumentscheidungen", "Verbraucherschutz und Datensicherheit", "Onlinehandel und Kundenkarten", "Datenschutz, Cookies, digitale Datenspuren", "Marketing im Onlinehandel"],
-    inhalteWi: ["Finanzielles Handeln beim Onlinekauf", "Digitale Zahlungsformen", "Digitale Märkte, Plattformen und Preisbildung", "Algorithmen und personalisierte Angebote", "Marktmacht und Verbraucherschutz"],
-    mkrText: ["Algorithmen und deren Funktion erkennen", "Recherche „Cookie-Einstellungen verändern“", "Preisentwicklung und Werbung über längeren Zeitraum beobachten"], mkr: ["6.2", "6.4", "1.4", "5.1"],
-    sequenzen: [{ titel: "Augen auf beim Online-Kauf!", std: "–" }, { titel: "Datenspuren im Netz und wie man sich schützen kann!", std: "–" }],
-    bo: "", bne: "Verbraucherschutz, verantwortlicher Konsum", sdg: [12] },
-  { jg: 10, nr: "III", id: "hw10-3", titel: "Leben und Wohnen, neu gedacht! – Lebensgestaltung und Wohnkonzepte",
-    hwIF: [1, 2], wiIF: [3, 5], zeit: "ca. 25–30 Std.",
-    kompetenzen: ["SK1", "SK2", "MK1", "MK6", "UK2"],
-    wi: ["beschreiben Veränderungen der Arbeitswelt durch Digitalisierung und flexible Arbeitsorte (SK)", "erläutern Zusammenhänge zwischen neuen Arbeitsformen, Lebensgestaltung und Wohnkonzepten (SK)", "beurteilen neue Wohn- und Arbeitsformen für Haushalte, Gemeinschaft und Region (UK)", "beurteilen Möglichkeiten nachhaltiger Gestaltung des Wohnumfelds (UK)"],
-    inhalteHW: ["Gender-Care-Gap", "Lebensgestaltung im privaten Haushalt", "Lebensqualität und Wohnen", "Care-Arbeit und Aufgabenverteilung", "Neue Wohnkonzepte"],
-    inhalteWi: ["Wandel der Arbeitswelt und neue Arbeitsformen", "Homeoffice und Co-Working", "Vereinbarkeit von Arbeit, Haushalt und Lebensgestaltung", "Wohnort, Infrastruktur und regionale Entwicklung", "Nachhaltige Wohn- und Lebenskonzepte"],
-    mkrText: ["digitales Vision Board „Mein Leben in 5 Jahren“", "Recherche zu neuen Wohn- und Arbeitskonzepten", "Co-Living und Co-Working digital vergleichen"], mkr: ["4.1", "5.3", "2.1", "2.3"],
-    sequenzen: [{ titel: "Wie gestalte ich mein Leben?", std: "–" }, { titel: "Care-Arbeit und Gender Care Gap", std: "–" }, { titel: "Co-Living und Co-Working – neue Wohn- und Arbeitskonzepte", std: "–" }],
-    bo: "Lebens- und Berufsplanung, neue Arbeitsformen", bne: "nachhaltige Wohn- und Lebenskonzepte", sdg: [5, 11] },
+const RAHMEN = [
+  { titel: "Fachliche Bezüge zum Leitbild der Schule", teile: [
+    { q: "hw", absaetze: ["Die Heinrich-Böll-Gesamtschule hat den Anspruch, eine lebendige Schule für alle zu sein, in der die Freude am Lernen im Mittelpunkt steht. Sie versteht sich als Schule, die neben Bildungsgerechtigkeit und dem gemeinsamen Lernen insbesondere das soziale Miteinander, die Persönlichkeitsentwicklung sowie die Vielfalt fördert. Alle Beteiligten erhalten die Möglichkeit, sich individuell zu entfalten und einzubringen – entsprechend dem Leitgedanken „HBG – eine Schule für alle!“.", "Darüber hinaus sind folgende Ziele des Leitbildes für das fachliche Lernen von besonderer Bedeutung:"],
+      liste: ["Vermittlung und Förderung von Werten wie Respekt, Toleranz, Demokratie, Solidarität und Umweltschutz", "Erziehung zur Selbstständigkeit und Kooperation mit dem Ziel, Lernende zu mündigen und verantwortungsbewussten Bürgerinnen und Bürgern zu entwickeln", "Gestaltung eines eigenverantwortlichen, differenzierenden und digital gestützten Unterrichts, der den Lernenden bestmögliche Bildungs- und Anschlussmöglichkeiten eröffnet (JeKiTa – Jedem Kind ein Tablet)", "Vermittlung einer hauswirtschaftlichen Grundbildung in den Bereichen Konsum, Gesundheit, Umwelt und Haushaltsführung", "Verknüpfung von Theorie und Praxis, um Lerninhalte auf unterschiedlichen Ebenen erfahrbar und anwendungsbezogen zugänglich zu machen."],
+      nach: ["Die Perspektive des Faches Hauswirtschaft trägt dazu bei, dass Lernende vielfältige Aufgaben in Haushalt, Alltag und Beruf selbstständig planen, organisieren, durchführen und reflektieren können. Darüber hinaus leistet das Fach im Zusammenspiel mit den Bereichen Technik und Wirtschaft einen Beitrag zur Entwicklung lebensweltbezogener, ökonomischer und nachhaltigkeitsorientierter Handlungskompetenzen."] },
+    { q: "tc", absaetze: ["Im Sinne dieser Aspekte knüpft das Fach Technik in besonderer Weise an Inhalte und Verfahren an, die Schülerinnen und Schülern in die Lage versetzen, ihre persönlichen Kompetenzen und Stärken so zu fördern, dass sie ihren individuellen Beitrag zur Verwirklichung dieser Ziele leisten können. Hierzu gehören"],
+      liste: ["der Erwerb von Fähigkeiten und Kenntnissen, die dazu befähigen, technische Systeme und Verfahren und deren Einsatz begründet zu bewerten,", "die Möglichkeit technische Systeme kritisch zu hinterfragen und bewusst Strategien und Ziele zu verfolgen, bei denen neben der technischen Funktion auch die Nachhaltigkeit im Vordergrund steht,", "die Berufswahlvorbereitung und Berufsorientierung in einer technisch geprägten Gesellschaft."] },
+  ]},
+  { titel: "Organisation des Wahlpflichtbereichs", teile: [
+    { q: "neu", absaetze: ["Der Wahlpflichtbereich Wirtschaft und Arbeitswelt wird in den Jahrgangsstufen 7 bis 10 dreistündig pro Woche unterrichtet, fächerintegriert in Schwerpunkthalbjahren. In jedem Jahrgang gibt es ein Halbjahr mit Schwerpunkt Hauswirtschaft und ein Halbjahr mit Schwerpunkt Technik; insgesamt haben die Lernenden vier Halbjahre Schwerpunkt Hauswirtschaft und vier Halbjahre Schwerpunkt Technik.", "Die Doppelstunde trägt den fachpraktischen Schwerpunkt (Hauswirtschaft bzw. Technik), die Einzelstunde den Schwerpunkt auf Wirtschaftsthemen, die mit den Unterrichtsvorhaben des jeweiligen Faches verknüpft sind. Es gibt keinen eigenständigen Wirtschaftsunterricht.", "Welches Halbjahr Hauswirtschaft bzw. Technik ist, hängt von der Personalplanung ab."] },
+    { q: "hw", hinweis: "Abweichende Formulierung im HW-Plan (siehe Sitzung, Punkt 1):", absaetze: ["Der fachpraktische Unterricht erfolgt halbjährlich im Wechsel zwischen Hauswirtschaft und Technik. Dabei entfallen zwei Wochenstunden auf den jeweiligen fachpraktischen Bereich Hauswirtschaft bzw. Technik. Eine weitere Wochenstunde ist durchgehend dem Bereich Wirtschaft zugeordnet.", "Die Inhalte des Bereichs Wirtschaft werden fortlaufend unterrichtet und mit den Unterrichtsvorhaben der Fächer Hauswirtschaft und Technik verknüpft. Die wirtschaftlichen Inhaltsfelder und Kompetenzen des Kernlehrplans Wirtschaft und Arbeitswelt wurden von den Fachschaften Hauswirtschaft und Technik gemeinsam analysiert und den bestehenden Unterrichtsvorhaben fachlich angemessen zugeordnet. Dabei wurden die schulischen Rahmenbedingungen, die Lernvoraussetzungen der Lernenden sowie die didaktische Umsetzbarkeit im jeweiligen Fachkontext berücksichtigt."] },
+  ]},
+  { titel: "Schulisches Umfeld und Fachgruppen", teile: [
+    { q: "hw", absaetze: ["Die Heinrich-Böll-Gesamtschule ist eine sechszügige Schule in Lütgendortmund und wird von ca. 1200 Lernenden aus dem Ort und den angrenzenden Gemeinden an fünf Schultagen ganztägig besucht.", "Die Fachgruppe Hauswirtschaft arbeitet kontinuierlich an Fragen der Unterrichtsentwicklung. Diese beziehen sich einerseits auf die Ausgestaltung eines sprachsensiblen Fachunterrichts, andererseits auf das breite Spektrum unterschiedlicher und kulturell vielfältiger Lernausgangslagen der Lernenden. Diese werden produktiv für die Planung von Unterrichtsvorhaben im Sinne einer multiperspektivischen Bildung genutzt."] },
+    { q: "tc", absaetze: ["Die Fachkonferenz tritt mindestens einmal pro Schulhalbjahr zusammen, um z.B. gemeinsame Absprachen zur fachmethodischen und fachdidaktischen Arbeit zu treffen. In der Regel nehmen auch ein Mitglied der Elternpflegschaft sowie die gewählte Schülervertretung an den Sitzungen teil."] },
+  ]},
+  { titel: "Fachräume und Ausstattung", teile: [
+    { q: "hw", absaetze: ["Das Fach Hauswirtschaft verfügt über zwei Fachräume, einen Sammlungs- und Vorratsraum sowie Handwaschräume und eine Waschküche. Für die Durchführung des Unterrichts stehen zwei Lehrküchen mit jeweils vier Kochinseln zur Verfügung, die für jeweils vier Lernende ausgelegt sind. Die Belegung der Räume beträgt in einzelnen Wochenstunden 100 %, sodass in Ausnahmefällen Unterricht auch im Klassenraum stattfinden muss."] },
+    { q: "tc", absaetze: ["Für das Arbeiten stehen drei Fachräume mit Handwerkzeugen und Werkzeugmaschinen zur Verfügung, sowie ein angegliederter Maschinenraum zur Vorbereitung und ein abgetrennter Arbeitsbereich für die Arbeit an 3D-Druckern."] },
+  ]},
+  { titel: "Fachliche Bezüge zu schulischen Standards zum Lehren und Lernen", teile: [
+    { q: "hw", absaetze: ["Auf Grundlage des Leitbildes der Heinrich-Böll-Gesamtschule verfolgt die Fachgruppe Hauswirtschaft das Ziel, Lernende darin zu unterstützen, verantwortungsvoll für sich selbst, für andere sowie für die Gemeinschaft zu handeln und Toleranz gegenüber Vielfalt und unterschiedlichen Lebensweisen zu entwickeln.", "Dem Erziehungsziel der Persönlichkeitsentwicklung wird im Fach Hauswirtschaft insbesondere durch die Förderung von Mündigkeit, Selbstständigkeit und sozialer Verantwortung Rechnung getragen. Dabei stehen lebensweltbezogene Handlungssituationen sowie die Entwicklung fachlicher, sozialer und personaler Kompetenzen im Mittelpunkt des Unterrichts.", "Der Erwerb fachlicher und sozialer Kompetenzen, eigenverantwortliches Lernen sowie das Fordern und Fördern individueller Leistungen finden in einem wertschätzenden und angstfreien Lernumfeld statt, in dem Kreativität und praktische Erfahrungen bewusst gefördert werden.", "Die Lernenden arbeiten im Fach Hauswirtschaft in unterschiedlichen Sozialformen, die den individuellen Lernvoraussetzungen Rechnung tragen. Dabei wechseln Unterrichtsformate, in denen einzeln, mit Partnerinnen und Partnern oder in Gruppen gearbeitet wird. Im Rahmen makromethodisch oder vernetzt angelegter Unterrichtsvorhaben, beispielsweise Fallstudien, Erhebungen oder Projekten, erhalten die Lernenden die Möglichkeit, fachliche Inhalte aus unterschiedlichen Perspektiven zu betrachten und Handlungsmöglichkeiten reflektiert zu erproben.", "Darüber hinaus unterstützt der Unterricht im Wahlpflichtbereich Wirtschaft und Arbeitswelt die Entwicklung ökonomischer, nachhaltigkeitsorientierter und alltagsbezogener Handlungskompetenzen. Die fachübergreifende Verknüpfung von Hauswirtschaft, Technik und wirtschaftlichen Perspektiven ermöglicht den Lernenden einen multiperspektivischen Zugang zu Fragen der Lebens-, Arbeits- und Konsumwelt"] },
+    { q: "tc", absaetze: ["Für den Fachunterricht aller Stufen besteht Konsens darüber, dass durchgängig mit den digitalen Lernmitteln der Schule verbindlich gearbeitet wird. Technische Fachinhalte sollen, wo immer möglich, mit Lebensweltbezug und ohne Unterscheidung zwischen Theorie und Praxis vermittelt werden.", "Ab Jahrgangsstufe 9 ist der Unterricht darauf abgestimmt, dass den Schüler:innen verstärkt Möglichkeiten der Berufswahl aufgezeigt werden und technische Berufe und Ausbildungen thematisch in die Arbeit einbezogen werden."] },
+  ]},
+  { titel: "Zusammenarbeit mit außerschulischen Partnern", teile: [
+    { q: "hw", absaetze: ["Die Fachgruppe Hauswirtschaft arbeitet regelmäßig mit außerschulischen Lernorten und Kooperationspartnern zusammen. So erkunden die Lernenden unter anderem ansässige Verbrauchermärkte, um Konsumprozesse sowie alltagsbezogene Handlungssituationen praxisnah zu erfahren und zu reflektieren.", "Lernende der sechsten Klassen fahren im Rahmen ihrer Klassenfahrt in eine Unterkunft mit Selbstverpflegung. Ziel ist es, den Zusammenhalt der Lerngruppe zu stärken sowie Verantwortung innerhalb gemeinschaftlicher Haushalts- und Versorgungsaufgaben zu übernehmen.", "In der Jahrgangsstufe 9 absolvieren die Lernenden ein dreiwöchiges Betriebspraktikum, in dessen Rahmen auch fachbezogene Berufsfelder erkundet werden können. Die Entwicklung fachbezogener Handlungskompetenz sowie die Verbindung von Theorie und Praxis stehen dabei im Mittelpunkt.", "Langfristig strebt die Fachgruppe Hauswirtschaft an, die Zusammenarbeit mit externen Partnern aus Wirtschaft, Handwerk, Wissenschaft und Gesellschaft weiter auszubauen, um den Lernenden vielfältige Einblicke in berufliche, gesellschaftliche und nachhaltigkeitsorientierte Handlungsfelder zu ermöglichen."] },
+    { q: "tc", absaetze: ["Zur Unterstützung der Kompetenzentwicklung und beruflicher Orientierung im Technikunterricht kooperiert die Schule mit Unternehmen und Bildungspartnern. Hierbei sollen Unterrichtsgänge an Firmenstandorte außerhalb der Schule (z. B. wilo), aber auch an außerschulische Lernorte wie der Deutschen Arbeitsschutzausstellung (DASA) oder dem Freilichtmuseum Hagen ermöglicht und in die unterrichtliche Arbeit eingebunden werden."] },
+  ]},
+  { titel: "Funktionen in den Fachgruppen", teile: [
+    { q: "hw", hinweis: "Im HW-Plan sind die Funktionen namentlich besetzt; Namen werden in dieser öffentlich erreichbaren Arbeitsversion nicht angezeigt.", absaetze: [],
+      liste: ["Fachkonferenzvorsitz", "Stellvertretung", "verantwortlich für Inhalte des Faches auf der Homepage", "verantwortlich für den fachlichen Teil der beruflichen Orientierung", "verantwortlich für den Kontakt zu externen Partnern"] },
+    { q: "tc", absaetze: ["Im SchiLP Technik nicht ausgewiesen."] },
+  ]},
 ];
+
+/* ---------- Grundsätze der fachmethodischen und fachdidaktischen Arbeit (SchiLP Technik, wörtlich) ---------- */
+const GRUNDSAETZE_TC = {
+  einleitung: "Die Grundsätze 1 bis 14 beziehen sich auf fächerübergreifende Aspekte, die auch Gegenstand der Qualitätsanalyse sind, die Grundsätze 15 bis 24 sind fachspezifisch angelegt.",
+  ueberfachlich: ["Geeignete Problemstellungen zeichnen die Ziele des Unterrichts vor und bestimmen die Struktur der Lernprozesse.", "Inhalt und Anforderungsniveau des Unterrichts entsprechen dem Leistungsvermögen der Schülerinnen und Schüler.", "Die Unterrichtsgestaltung ist auf die Ziele und Inhalte abgestimmt.", "Medien und Arbeitsmittel sind schülernah gewählt.", "Die Schülerinnen und Schüler erreichen einen Lernzuwachs.", "Der Unterricht fördert eine aktive Teilnahme der Schülerinnen und Schüler.", "Der Unterricht fördert die Zusammenarbeit zwischen den Schülern/innen und bietet ihnen Möglichkeiten zu eigenen Lösungen.", "Der Unterricht berücksichtigt die individuellen Lernwege der einzelnen Schülerinnen und Schüler.", "Die Schülerinnen und Schüler erhalten Gelegenheit zu selbstständiger Arbeit und werden dabei unterstützt.", "Der Unterricht fördert strukturierte und funktionale Partner- bzw. Gruppenarbeit.", "Der Unterricht fördert strukturierte und funktionale Arbeit im Plenum.", "Die Lernumgebung ist vorbereitet; der Ordnungsrahmen wird eingehalten.", "Die Lehr- und Lernzeit wird intensiv für Unterrichtszwecke genutzt.", "Es herrscht ein positives pädagogisches Klima im Unterricht."],
+  fachlich: ["Der Unterricht ist problemorientiert und soll von realen Problemen ausgehen.", "Der Unterricht ist schülerorientiert und praxisnah, er knüpft dabei an die Interessen und Erfahrungen der Adressaten an.", "Der Unterricht ist anschaulich sowie gegenwarts- und zukunftsorientiert und gewinnt dadurch für die Schülerinnen und Schüler an Bedeutsamkeit.", "Der Unterricht ist handlungsorientiert, d.h. experimentier-, produkt- und projektorientiert angelegt.", "Der Unterricht fördert vernetzendes Denken und sollte deshalb phasenweise fächerübergreifend angelegt sein.", "Der Unterricht folgt dem Prinzip der Exemplarität und soll ermöglichen, Strukturen und Gesetzmäßigkeiten in den ausgewählten Problemen zu erkennen.", "Im Unterricht werden sowohl modellhafte Experimentalumgebungen als auch reale technische Systeme und Geräte aus Berufs- und Lebenswelt eingesetzt.", "Der Unterricht beinhaltet reale Begegnung mit Technik sowohl an inner- als auch an außerschulischen Lernorten.", "Der Unterricht fördert das Sicherheitsbewusstsein der Schülerinnen und Schüler und den sicheren Umgang mit Werkzeugen und Maschinen.", "Der Unterricht unterliegt der Wissenschaftsorientierung und ist dementsprechend eng verzahnt mit seinen Bezugswissenschaften.", "Der Unterricht wird unterstützt durch koordinierte studien- und berufsorientierende Maßnahmen mit Unternehmen und Hochschulen.", "Der Unterricht berücksichtigt Maßnahmen der individuellen Förderung – auch unter geschlechtersensibler Perspektive."],
+};
+
+/* =========================================================================
+   Leistungsbewertung – wörtlich aus SchiLP HW (Kap. 5); Technik-Ergänzungen gekennzeichnet
+   ========================================================================= */
+const LEISTUNG = {
+  einleitung: ["Auf der Grundlage von § 48 SchulG, § 6 APO-S I sowie Kapitel 3 des Kernlehrplans für das Wahlpflichtfach Wirtschaft und Arbeitswelt für die Sekundarstufe I an Gesamtschulen und Sekundarschulen in Nordrhein-Westfalen hat die Fachkonferenz im Einklang mit dem schulbezogenen Leistungskonzept die nachfolgenden Grundsätze zur Leistungsbewertung und Leistungsrückmeldung beschlossen.", "Die Leistungsbewertung im Wahlpflichtbereich Wirtschaft und Arbeitswelt bezieht sich auf die im Unterricht erworbenen Kompetenzen. Dabei werden die Kompetenzbereiche Sachkompetenz, Methodenkompetenz, Urteilskompetenz und Handlungskompetenz angemessen berücksichtigt. Lernerfolgsüberprüfungen sind so anzulegen, dass die Lernenden Gelegenheit erhalten, ihre Kompetenzen wiederholt und in wechselnden Zusammenhängen unter Beweis zu stellen.", "Die Leistungsbewertung erfolgt in den Beurteilungsbereichen „Schriftliche Arbeiten“ sowie „Sonstige Leistungen im Unterricht“. Neben schriftlichen Leistungen werden mündliche, praktische und projektorientierte Beiträge berücksichtigt. Dabei sind Qualität, Quantität und Kontinuität der Beiträge von Bedeutung.", "Die Bewertungskriterien werden den Lernenden sowie den Erziehungsberechtigten transparent gemacht. Die Rückmeldungen zu Leistungen sollen den erreichten Lernstand deutlich machen, Hinweise zum individuellen Lernfortschritt geben und die Lernenden zu weiterem Lernen ermutigen."],
+  grundsaetze: ["Kriterien der Leistungsbewertung werden den Lernenden sowie den Erziehungsberechtigten offengelegt", "Leistungsmaßstäbe werden regelmäßig überprüft und innerhalb der Fachschaft abgestimmt", "Leistungsbewertung erfolgt kompetenzorientiert und berücksichtigt schriftliche, mündliche, praktische und kooperative Leistungen", "Die fördernde Rückmeldung hat Vorrang vor einer rein selektierenden Beurteilung", "Fehler werden als Bestandteil des Lernprozesses verstanden und für individuelle Lernentwicklung genutzt", "Die Bewertung berücksichtigt sowohl den Lernprozess als auch das Lernergebnis"],
+  absprachen: ["Die von allen Lernenden verbindlich zu führende Arbeitsmappe bzw. digitale Dokumentation wird mindestens einmal pro Halbjahr bewertet.", "Alle Lernenden bearbeiten schriftliche Aufgaben in sprachlich angemessener Form und verwenden zentrale Fachbegriffe sachgerecht.", "Alle Lernenden beschreiben in Jahrgangsstufe 7 einfache Handlungsanweisungen, Arbeitsabläufe und fachpraktische Verfahren.", "Alle Lernenden führen im Verlauf der Jahrgangsstufen 8 bis 10 mindestens eine Erkundung, Befragung oder ein Interview durch und stellen die Ergebnisse strukturiert dar.", "Alle Lernenden erstellen im Verlauf der Jahrgangsstufen 9 bis 10 ein fachbezogenes Produkt, z. B. ein Themenmenü, eine Präsentation, ein Erklärvideo, eine digitale Pinnwand, einen Informationsflyer oder ein Portfolio.", "Praktische Arbeitsprozesse werden im Hinblick auf Planung, Durchführung, Zusammenarbeit, Hygiene, sachgerechten Umgang mit Materialien sowie Reflexion bewertet.", "Digitale Medien werden zur Recherche, Dokumentation, Auswertung und Präsentation genutzt und fließen angemessen in die Leistungsbewertung ein."],
+  instrSchriftlich: ["Klassenarbeiten", "schriftliche Aufgabenformate mit materialgebundenen Aufgaben", "Darstellungsaufgaben", "Analyseaufgaben", "Erörterungsaufgaben", "Gestaltungsaufgaben", "handlungsorientierte Aufgaben mit schriftlicher Reflexion"],
+  instrSonstige: ["mündliche Beiträge im Unterricht", "Kurzvorträge und Präsentationen", "Arbeitsmappe, Portfolio oder digitale Dokumentation", "Protokolle, Lerntagebücher und Projektskizzen", "Auswertung von Erkundungen, Befragungen und Interviews", "fachpraktische Leistungen", "Produkte der Nahrungszubereitung", "Medienprodukte, z. B. Erklärvideos, digitale Pinnwände, Präsentationen oder Informationsflyer", "Beiträge in Partner- und Gruppenarbeiten", "Beiträge im Rahmen eigenverantwortlichen, kooperativen und projektorientierten Arbeitens"],
+  schriftlich: ["Schriftliche Arbeiten dienen der Überprüfung von Kompetenzen. Sie sind so anzulegen, dass die Lernenden ihr Wissen sowie ihre Fähigkeiten und Fertigkeiten nachweisen können. Die Aufgabenstellungen müssen klar verständlich sein und die im Unterricht erworbenen Kompetenzen und Arbeitsweisen angemessen berücksichtigen.", "Schriftliche Arbeiten besitzen im Wahlpflichtbereich Wirtschaft und Arbeitswelt eine Gewichtung von 50 % an der Gesamtzensur.", "Es werden in der Regel vier Klassenarbeiten pro Schuljahr geschrieben.", "Die Dauer der schriftlichen Arbeiten umfasst in der Regel 45 bis 60 Minuten.", "Einmal im Schuljahr kann gemäß APO-S I eine schriftliche Arbeit durch eine andere, in der Regel schriftliche, in Ausnahmefällen auch gleichwertige nicht schriftliche Leistungsüberprüfung ersetzt werden.", "Die Bewertung schriftlicher Arbeiten erfolgt kriteriengeleitet. Die Anforderungen orientieren sich an den im Unterricht angebahnten Kompetenzen und Aufgabenformaten."],
+  schluessel: [["100–87 %", "1"], ["86–73 %", "2"], ["72–59 %", "3"], ["58–45 %", "4"], ["44–18 %", "5"], ["17–0 %", "6"]],
+  sonstige: ["Der Beurteilungsbereich „Sonstige Leistungen im Unterricht“ umfasst alle mündlichen, schriftlichen, praktischen und kooperativen Beiträge, die die Kompetenzentwicklung der Lernenden im Unterricht sichtbar machen.", "Die sonstigen Leistungen besitzen im Wahlpflichtbereich Wirtschaft und Arbeitswelt eine Gewichtung von 50 % an der Gesamtzensur."],
+  theoretisch: ["mündliche Mitarbeit", "sachgerechte Verwendung von Fachbegriffen", "Heft-, Mappen- oder Portfolioführung", "digitale Dokumentation von Lern- und Arbeitsprozessen", "schriftliche Übungen", "Referate, Kurzvorträge und Präsentationen", "Auswertung von Materialien, Diagrammen, Tabellen, Rezepten, Bildern und weiteren Medien", "Recherche, Erkundung, Befragung und Interview"],
+  praktisch: ["Verstehen und Ausführen von Arbeitsanweisungen", "sachgerechte Planung von Arbeitsabläufen", "Einhaltung von Hygiene- und Sicherheitsregeln", "sorgfältiger und verantwortungsvoller Umgang mit Lebensmitteln, Geräten und Materialien", "fachgerechte Verarbeitung von Lebensmitteln", "Organisation des Arbeitsplatzes", "Zusammenarbeit in der Gruppe", "Reflexion des Arbeitsprozesses und des Arbeitsergebnisses", "Hinterlassen der Küche und des Arbeitsplatzes in ordnungsgemäßem Zustand"],
+  allgemein: ["sachliche Richtigkeit", "angemessene Verwendung von Fachsprache", "Qualität der Beiträge", "Quantität der Beiträge", "Kontinuität der Mitarbeit", "Komplexität und Grad der Abstraktion", "Selbstständigkeit im Arbeitsprozess", "Strukturierung und Übersichtlichkeit", "Einhaltung gesetzter Fristen", "Ordentlichkeit", "Reflexionsfähigkeit", "Transferfähigkeit auf neue Sachverhalte und Handlungssituationen", "adressatengerechte Darstellung und Präsentation von Ergebnissen"],
+  gruppe: ["Einbringen in die Arbeit der Gruppe", "Übernahme von Verantwortung", "sachgerechte Durchführung fachlicher Arbeitsanteile", "Kooperation mit anderen Lernenden", "Aufnahme und Umsetzung von Beratung", "Zuverlässigkeit im Arbeitsprozess", "Reflexion des eigenen Beitrags", "Beteiligung an der Präsentation oder Auswertung der Ergebnisse"],
+  praxisHW: ["Bereitstellung und sachgerechter Umgang mit Zutaten, Geräten und Materialien", "Planung und Organisation von Arbeitsabläufen", "Einhaltung des Zeitrahmens", "Einhaltung von Hygiene- und Sicherheitsregeln", "fachgerechte Verarbeitung von Lebensmitteln", "sachgerechter Umgang mit Küchengeräten und Arbeitsmitteln", "Arbeitsaufteilung in der Gruppe", "Zusammenarbeit und Kommunikation", "Organisation erforderlicher Nacharbeiten", "Reinigung des Arbeitsplatzes und der Küche", "Bewertung und Reflexion des praktischen Arbeitsergebnisses"],
+  mappe: ["Vollständigkeit der Unterlagen", "nachvollziehbare Ordnung und Struktur", "sachgerechte Bearbeitung von Aufgaben", "eigenständige Anfertigung von Arbeitsergebnissen", "sprachliche Verständlichkeit", "Verwendung fachbezogener Begriffe", "übersichtliche Gestaltung", "Quellenangaben bei recherchierten Materialien", "Pünktlichkeit der Abgabe", "Berücksichtigung von Rechtschreibung, Zeichensetzung und Lesbarkeit", "Reflexion des eigenen Lern- und Arbeitsprozesses"],
+  vortrag: ["sachliche Richtigkeit", "begründete Themenwahl", "angemessene Strukturierung", "Verwendung von Fachbegriffen", "verständliche Erklärung zentraler Inhalte", "adressatengerechte Darstellung", "sinnvoller Medieneinsatz", "freie und verständliche Vortragsweise", "Blickkontakt und Körpersprache", "Einhaltung des Zeitrahmens", "Quellenangaben", "angemessene Beantwortung von Rückfragen", "Reflexion des eigenen Ergebnisses"],
+  rueckmeldung: ["Die Leistungsrückmeldung erfolgt mündlich und schriftlich. Sie kann im Rahmen von Unterrichtsgesprächen, Quartalsfeedbacks, Rückmeldungen zu schriftlichen Arbeiten, praktischen Leistungen, Präsentationen, Portfolios oder Projektergebnissen erfolgen.", "Die Rückmeldungen geben Auskunft über den erreichten Lernstand, zeigen individuelle Stärken auf und benennen konkrete Möglichkeiten zur Weiterarbeit. Sie dienen der Selbsteinschätzung der Lernenden und unterstützen die weitere Kompetenzentwicklung.", "Quartalsübersichten und dokumentierte Leistungsrückmeldungen können als Grundlage für Eltern- und Lernendensprechtage genutzt werden."],
+  /* Technik: aus dem bisherigen SchiLP Technik (Pflichtfach) – Beitragsformen und Kriterien für Beobachtungsbögen */
+  tcBeitraege: ["praktische Beiträge zum Unterricht (z. B. technische Produkte, angefertigte Werkstücke, Entwürfe, Funktionsmodelle)", "mündliche Beiträge zum Unterricht (z. B. Beiträge zum Unterrichtsgespräch, Kurzvorträge und Referate)", "schriftliche Beiträge zum Unterricht (z. B. Protokolle, Materialsammlungen, Hefte/Mappen, Portfolios, Lerntagebücher, Projektskizze, Zeichnungen)", "Beiträge im Rahmen eigenverantwortlichen, schüleraktiven und ggf. kooperativen Handelns (z. B. Recherche, Erkundung, Präsentation, Plakate, Simulation, Projekt)", "kurze schriftliche Übungen"],
+  tcBeobachtung: ["Themenwahl (Begründung, Einordnung, Hintergrundinformationen)", "Grad und Umfang des selbstständigen Erarbeitens", "adressatengerechte Aufbereitung", "sachliche und fachliche Richtigkeit", "Vollständigkeit und Anspruch", "Struktur (Einstieg, Hauptteil, abgerundeter Schluss)", "Erläuterung von Fach- und Fremdwörtern", "Quellennachweis", "Kommunikations-/Präsentationskompetenz", "Medienkompetenz", "Zeitmanagement"],
+  /* Technik: Entwurf für den gemeinsamen Plan */
+  tcPraxisEntwurf: ["Planung und Arbeitsvorbereitung (Skizze, Stückliste, Fertigungsplan)", "Maßhaltigkeit und Qualität des Werkstücks", "sicherer und sachgerechter Umgang mit Werkzeugen und Maschinen", "Selbstständigkeit und Zeitmanagement", "Ordnung am Arbeitsplatz, Hinterlassen des Fachraums", "Zusammenarbeit im Team", "Reflexion des Arbeitsprozesses"],
+};
+
+/* ---------- Lehr- und Lernmittel ---------- */
+const LEHRWERKE = {
+  hw: ["starkeSeiten Wahlpflicht Hauswirtschaft/Wirtschaft und Arbeitswelt, Nordrhein-Westfalen, Klett Verlag", "starkeSeiten Wahlpflicht Wirtschaft und Arbeitswelt – Wirtschaft, Nordrhein-Westfalen, Klett Verlag", "starkeSeiten Hauswirtschaft, Klett Verlag", "starkeSeiten WP-Arbeitslehre Hauswirtschaft/Wirtschaft, Jahrgänge 6/7 und 8–10, Klett Verlag", "SchmExperten 5/6 und 6–8", "aid-Materialien bzw. Materialien zur Ernährungs- und Verbraucherbildung", "Arbeitsblätter Grund- und Aufbauwissen Hauswirtschaft, Verlag an der Ruhr", "Bergedorfer Kopiervorlagen", "schuleigene Arbeitsblätter, Rezepte und fachpraktische Anleitungen der Fachschaft Hauswirtschaft", "Materialien zur Verbraucherbildung, Ernährungsbildung und Berufsorientierung", "digitale Lernmaterialien, Apps und Werkzeuge zur Recherche, Dokumentation, Auswertung und Präsentation"],
+  tc: ["Blickpunkt Technik SI, Westermann 2025 (ISBN 978-3-14-188512-5)", "starkeSeiten Wahlpflicht Wirtschaft und Arbeitswelt – Wirtschaft, Nordrhein-Westfalen, Klett Verlag (für die Wirtschafts-Einzelstunde)", "schuleigene digitale Werkzeuge (u. a. Baumscheibe-App, Schnittplan-Simulator, Messschieber-Simulator, SPS-Werkstatt)", "Calliope mini / Open Roberta Lab"],
+  tcHinweis: "Im bisherigen SchiLP Technik ist Kapitel 2.4 „Lehr- und Lernmittel“ noch nicht ausgefüllt („Fehlt noch“). Die Liste ist ein Entwurf.",
+};
 
 /* =========================================================================
    Diskussionspunkte für die Fachkonferenz
    ========================================================================= */
 const DISKUSSION = [
-  { id: "d1", titel: "Stundenmodell im HW-Plan anpassen",
-    text: "Der SchiLP Hauswirtschaft beschreibt noch eine „durchgehende Wochenstunde Wirtschaft“. Beschlossenes Modell: Einzelstunde mit Wirtschaftsschwerpunkt innerhalb des jeweiligen Schwerpunkthalbjahres, kein eigenständiger Wirtschaftsunterricht. Kapitel 1 des HW-Plans sollte angeglichen werden.", tag: "organisation" },
-  { id: "d2", titel: "Zeitbedarf Hauswirtschaft",
-    text: "Der HW-Plan sieht pro Jahrgang ca. 80 Std. (7–9: zwei Vorhaben à 40 Std.; 10: drei Vorhaben à 25–30 Std.) vor. Ein Schwerpunkthalbjahr umfasst ca. 54 Std. (36 Doppelstunde + 18 Einzelstunde). Kürzung oder Priorisierung in HW nötig.", tag: "organisation" },
-  { id: "d3", titel: "Halbjahre müssen unabhängig funktionieren",
-    text: "Welches Halbjahr Technik bzw. HW ist, hängt von der Personalplanung ab. Vorhaben eines Jahrgangs dürfen daher nicht aufeinander aufbauen; Querbezüge nur als Option („wenn HW schon war …“).", tag: "organisation" },
-  { id: "d4", titel: "Verteilung der Wirtschafts-Inhaltsfelder",
-    text: "Vorschlag: IF 4 (Finanzen/Verbraucher) bleibt bei HW. Doppelungen sind gewollt, aber mit verschiedener Perspektive: IF 2 (TC 7/8 Produktion & Kosten – HW 8 Marketing), IF 3 (TC 9 Automatisierung – HW 9/10 Gesundheitsberufe, neue Arbeitsformen), IF 5 (TC 7/10 Handwerk, Energiewende – HW 7/9/10 Wohnen, Ernährung), IF 1 (TC 8 Preisbildung, TC 10 CO₂ – HW 10 Ernährungssysteme, Onlinehandel).", tag: "wirtschaft" },
-  { id: "d5", titel: "Wirtschafts-Lehrwerk: Seitenüberschneidungen",
-    text: "starkeSeiten WAW Wirtschaft S. 124–129 werden in HW 7.I und TC 10 genutzt. Seitenverweise im Technik-Teil sind aus dem HW-Plan übernommen und noch am Buch zu prüfen.", tag: "wirtschaft" },
-  { id: "d6", titel: "Wegfall Statik und Fahrzeugtechnik",
-    text: "Durch die Halbierung der Technikzeit entfallen Statik (WP 8) und Fahrzeugtechnik (WP 9) als eigene Vorhaben. Optionen: Statik als Expertenaufgabe in Jg. 10 (Papierbrücke, BP S. 69/202), Antriebe/Mobilität als Expertenmodul in Jg. 9 (BP S. 116–131).", tag: "technik" },
-  { id: "d7", titel: "Kompetenzcodes prüfen",
-    text: "Technik-Codes (SK1–5, MK1–9, UK1–6, HK1–6) nach KLP WAW Abschnitt Technik; vor Beschluss gegen die Gesamtschul-Fassung (Heft 31031) abgleichen. HW nutzt eigene HW-Codes (z. B. MK 11) – im Gesamtdokument getrennt ausgewiesen.", tag: "technik" },
-  { id: "d8", titel: "Leistungsbewertung angleichen",
-    text: "HW: 50 % schriftliche Arbeiten / 50 % sonstige Leistungen, vier Klassenarbeiten pro Schuljahr → zwei pro Schwerpunkthalbjahr. Technik-Vorschlag: eine Klassenarbeit + eine Projektarbeit (Werkstück + Dokumentation). Zu klären: Zulässigkeit des Ersatzes einer Klassenarbeit gem. APO-S I, Zusammensetzung der Zeugnisnote aus Doppel- und Einzelstunde.", tag: "leistung" },
-  { id: "d9", titel: "Personal: Doppel- und Einzelstunde in einer Hand",
-    text: "Empfehlung: Die Lehrkraft der Doppelstunde unterrichtet auch die Einzelstunde, damit Wirtschaft wirklich mit dem Fachthema verknüpft ist.", tag: "organisation" },
-  { id: "d10", titel: "KAoA und außerschulische Partner",
-    text: "Abstimmung mit der Berufsorientierung: Berufsfelderkundung Jg. 8 (TC 8), Praktikum Jg. 9 (TC 9, HW 9.I), Anschlussplanung Jg. 10 (TC 10, HW 10.III). Partner: DASA, wilo, Handwerksbetriebe, Freilichtmuseum Hagen.", tag: "bo" },
+  { id: "d1", titel: "Stundenmodell im HW-Plan angleichen", tag: "organisation",
+    text: "Der SchiLP Hauswirtschaft beschreibt eine „durchgehend dem Bereich Wirtschaft zugeordnete“ Wochenstunde. Beschlossenes Modell: Einzelstunde mit Wirtschaftsschwerpunkt innerhalb des jeweiligen Schwerpunkthalbjahres, kein eigenständiger Wirtschaftsunterricht. Formulierung im gemeinsamen Kapitel 1 abstimmen." },
+  { id: "d2", titel: "Zeitbedarf je Schwerpunkthalbjahr", tag: "organisation",
+    text: "Laut HW-Plan: Jg. 7–9 je zwei Vorhaben mit ca. 40 Std. (9.II: 25–30 Std.), Jg. 10 drei Vorhaben mit je 25–30 Std. Ein Schwerpunkthalbjahr umfasst ca. 54 Std. (ca. 36 Doppelstunde + ca. 18 Einzelstunde). Beide Fächer müssen ihre Planung in diesen Rahmen bringen." },
+  { id: "d3", titel: "Halbjahre müssen unabhängig funktionieren", tag: "organisation",
+    text: "Welches Halbjahr Hauswirtschaft bzw. Technik ist, hängt von der Personalplanung ab. Vorhaben eines Jahrgangs dürfen daher nicht fachübergreifend aufeinander aufbauen." },
+  { id: "d4", titel: "Verteilung der Wirtschafts-Inhaltsfelder", tag: "wirtschaft",
+    text: "Siehe Abdeckungsmatrix. HW deckt IF 1–5 ab, IF 4 nur in HW. Doppelungen (IF 2, 3, 5, 1) mit unterschiedlicher Perspektive absprechen; Lehrwerksseiten starkeSeiten Wirtschaft S. 124–129 werden in HW 7.I und im Technik-Entwurf Jg. 10 genutzt." },
+  { id: "d5", titel: "Unterschied Übersicht ↔ konkretisiertes Vorhaben HW 10.III", tag: "wirtschaft",
+    text: "In der Übersichtstabelle des HW-Plans steht für UV 10.3 „IF 2 Leben im Haushalt“ und „IF 3 Wandel in der Arbeitswelt / ggf. zusätzlich IF 5“; im konkretisierten Vorhaben „IF 1 Haushaltsmanagement, IF 2 Leben im Haushalt, Wi IF 3, Wi IF 5“. In dieser Arbeitsversion wird das konkretisierte Vorhaben angezeigt." },
+  { id: "d6", titel: "Gemeinsame Bausteine je Vorhaben", tag: "struktur",
+    text: "Der Technik-Entwurf weist je Vorhaben Berufsorientierung, BNE, SRL-Elemente, Kompetenzraster, Produkte/Leistungsnachweise und Lernorte aus. Der HW-Plan enthält diese Bausteine nicht je Vorhaben (sie sind in dieser Version als „im HW-Plan nicht ausgewiesen“ gekennzeichnet). Entscheidung: Sollen beide Fächer dasselbe Raster verwenden?" },
+  { id: "d7", titel: "Kompetenzcodes", tag: "struktur",
+    text: "HW verwendet die Codes des Abschnitts Hauswirtschaft (z. B. MK 11, HK 5), Technik die des Abschnitts Technik (SK 1–5, MK 1–9, UK 1–6, HK 1–6). Codes gleicher Bezeichnung meinen in beiden Fächern Verschiedenes. Technik-Codes vor Beschluss gegen die Gesamtschul-Fassung des KLP prüfen." },
+  { id: "d8", titel: "Leistungsbewertung gemeinsam beschließen", tag: "leistung",
+    text: "Kapitel 5 des HW-Plans als gemeinsame Grundlage? Offen: Verteilung der vier Klassenarbeiten auf die beiden Schwerpunkthalbjahre (2 + 2), Nutzung der einmaligen Ersetzungsmöglichkeit (APO-S I) für eine Technik-Projektarbeit, Zusammensetzung der Halbjahres- und Jahresnote, Ergänzung praktischer Kriterien für Technik." },
+  { id: "d9", titel: "Wegfall Statik und Fahrzeugtechnik (Technik)", tag: "technik",
+    text: "Durch die Halbierung der Technikzeit entfallen Statik und Fahrzeugtechnik als eigene Vorhaben. Optionen: Statik als Expertenaufgabe in Jg. 10 (Blickpunkt S. 69/202), Antriebe/Mobilität als Expertenmodul in Jg. 9 (S. 116–131)." },
+  { id: "d10", titel: "Personal: Doppel- und Einzelstunde in einer Hand", tag: "organisation",
+    text: "Damit Wirtschaft mit dem Fachthema verknüpft ist, sollte die Lehrkraft der Doppelstunde auch die Einzelstunde unterrichten." },
+  { id: "d11", titel: "KAoA und außerschulische Partner", tag: "bo",
+    text: "Abstimmung mit der Berufsorientierung: Praktikum Jg. 9 (HW 9.I Berufe Gesundheit/Ernährung, Technik 9 Automatisierung), Anschlussplanung Jg. 10. Partner laut Plänen: Verbrauchermärkte (HW), wilo, DASA, Freilichtmuseum Hagen (Technik)." },
 ];
-
-/* =========================================================================
-   Leistungsbewertung (gemeinsame Grundsätze laut HW-Plan + Technik-Ergänzung)
-   ========================================================================= */
-const LEISTUNG = {
-  gewichtung: "Schriftliche Arbeiten 50 % · Sonstige Leistungen 50 %",
-  schluessel: [["100–87 %", "1"], ["86–73 %", "2"], ["72–59 %", "3"], ["58–45 %", "4"], ["44–18 %", "5"], ["17–0 %", "6"]],
-  schriftlich: ["Klassenarbeiten (in der Regel vier pro Schuljahr)", "materialgebundene Aufgaben, Darstellungs-, Analyse-, Erörterungs- und Gestaltungsaufgaben", "handlungsorientierte Aufgaben mit schriftlicher Reflexion"],
-  sonstigeTC: ["fachpraktische Leistungen: Werkstück, technisches System", "Projektdokumentation (digital, z. B. TaskCards), Skizzen, Stücklisten, Fertigungspläne", "Einhaltung der Sicherheitsregeln, Umgang mit Werkzeugen und Maschinen", "Lehrgangsnachweise (z. B. Bohrmaschinenschein)", "Präsentationen, Pitch, Energieberatung", "Erkundungsberichte (Betrieb, Praktikum)", "Selbsteinschätzung und Reflexion im Kompetenzraster (nicht benotet, aber Grundlage für Lerngespräche)"],
-  kriterienPraxisTC: ["Planung und Arbeitsvorbereitung", "Maßhaltigkeit und Qualität des Werkstücks", "sicherer und sachgerechter Umgang mit Werkzeugen und Maschinen", "Selbstständigkeit und Zeitmanagement", "Ordnung am Arbeitsplatz, Hinterlassen des Fachraums", "Zusammenarbeit im Team", "Reflexion des Arbeitsprozesses"],
-};
 
 </script>
 <script>
 /* =========================================================================
-   SchiLP WAW – Rendering, Navigation, Filter, Notizen (localStorage)
+   Gemeinsamer SchiLP WAW – Rendering, Navigation, Filter, Notizen (localStorage)
+   HW-Inhalte stammen wörtlich aus src/hw-data.js (aus dem PDF erzeugt).
    ========================================================================= */
 (function () {
   "use strict";
@@ -787,7 +2294,7 @@ const LEISTUNG = {
   const mem = {};
   const store = {
     get(k) { try { const v = localStorage.getItem(PREFIX + k); return v === null ? (mem[k] ?? "") : v; } catch (e) { return mem[k] ?? ""; } },
-    set(k, v) { mem[k] = v; try { if (v === "" || v == null) localStorage.removeItem(PREFIX + k); else localStorage.setItem(PREFIX + k, v); } catch (e) { /* privat/gesperrt */ } },
+    set(k, v) { mem[k] = v; try { if (v === "" || v == null) localStorage.removeItem(PREFIX + k); else localStorage.setItem(PREFIX + k, v); } catch (e) { /* gesperrt */ } },
     all() {
       const out = {};
       try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith(PREFIX)) out[k.slice(PREFIX.length)] = localStorage.getItem(k); } } catch (e) { Object.assign(out, mem); }
@@ -797,362 +2304,346 @@ const LEISTUNG = {
 
   /* ---------- Hilfen ---------- */
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const ul = (arr, cls = "") => arr && arr.length ? `<ul class="${cls}">${arr.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : `<p class="muted">–</p>`;
+  const ul = (arr) => arr && arr.length ? `<ul>${arr.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : "";
   const sum = (arr, k) => arr.reduce((a, x) => a + (x[k] || 0), 0);
-  const chipTC = (n) => `<span class="chip tc" title="${esc(IF_TC[n].name)}">TC IF ${n} · ${esc(IF_TC[n].name)}</span>`;
-  const chipWI = (n, short) => `<span class="chip wi t-wi" title="${esc(IF_WI[n].name)}">Wi IF ${n}${short ? " · " + esc(IF_WI[n].kurz) : " · " + esc(IF_WI[n].name)}</span>`;
-  const chipHW = (n) => `<span class="chip hw" title="${esc(IF_HW[n])}">HW IF ${n} · ${esc(IF_HW[n])}</span>`;
-  const chipCode = (c, dict) => `<span class="chip code" title="${esc(dict[c] || "")}">${c.replace(/(\D+)(\d+)/, "$1 $2")}</span>`;
-  const chipMKR = (c) => `<span class="chip mkr t-mkr" title="${esc(MKR[c] || "")}">MKR ${c}</span>`;
-  const chipSDG = (n) => `<span class="chip bne" title="${esc(SDG[n] || "")}">SDG ${n}${SDG[n] ? " · " + esc(SDG[n]) : ""}</span>`;
-  const hwLabel = (h) => `HW ${h.jg}.${h.nr}`;
+  const JGS = [7, 8, 9, 10];
+  const FACH = { hw: "Hauswirtschaft", tc: "Technik" };
+  const SRC = { hw: ["SchiLP Hauswirtschaft", "hw"], tc: ["SchiLP Technik (bisher)", "tc"], neu: ["Entwurf / Beschluss neu", "neu"], tcneu: ["Entwurf Technik", "neu"] };
+  const src = (q) => `<span class="src ${SRC[q][1]}">${SRC[q][0]}</span>`;
+  const notGiven = (txt) => `<p class="nicht">${esc(txt || "Im HW-Plan nicht ausgewiesen.")}</p>`;
+  const chipWI = (n, opt) => `<span class="chip wi t-wi" title="${esc(IF_WI[n].name)}">${opt ? "(" : ""}Wi IF ${n} · ${esc(IF_WI[n].kurz)}${opt ? ")" : ""}</span>`;
+  const chipF = (fach, n) => fach === "hw"
+    ? `<span class="chip hw" title="${esc(IF_HW[n])}">HW IF ${n}</span>`
+    : `<span class="chip tc" title="${esc(IF_TC[n].name)}">TC IF ${n}</span>`;
+  const codesOf = (arr) => [...new Set(arr.flatMap((s) => [...s.matchAll(/\((SK|MK|UK|HK)\s?(\d+)\)/g)].map((m) => m[1] + m[2])))];
+
+  /* ---------- Einheitliches Modell für beide Fächer ---------- */
+  function hwModel(h) {
+    const fachIF = [], wiIF = [];
+    h.inhaltsfelder.forEach((s) => {
+      const m = s.match(/(Hauswirtschaft|Wirtschaft):\s*IF\s*(\d)/); if (!m) return;
+      if (m[1] === "Hauswirtschaft") fachIF.push(+m[2]); else wiIF.push({ n: +m[2], opt: s.trim().startsWith("(") });
+    });
+    return {
+      fach: "hw", id: h.id, jg: h.jg, label: `HW ${h.jg}.${h.nr}`, titel: h.titel, zeit: h.zeit,
+      ifText: h.inhaltsfelder, fachIF, wiIF,
+      kompFach: h.kompetenzen, kompWi: h.wirtschaft, inhFach: h.inhalteHW, inhWi: h.inhalteWi, mkr: h.mkr,
+      sequenzen: h.sequenzen.map((s) => ({ nr: s.nr, titel: s.titel, themen: s.themen, zeit: s.zeit,
+        ideen: [{ items: s.ideen }], kompFach: s.kompHW, kompWi: s.kompWI, matFach: s.matHW, matWi: s.matWI })),
+      extras: null, quelle: "hw",
+    };
+  }
+  function tcModel(t) {
+    const ds = sum(t.sequenzen, "ds"), es = sum(t.sequenzen, "es");
+    return {
+      fach: "tc", id: t.id, jg: t.jg, label: `TC ${t.jg}`, titel: t.titel, untertitel: t.untertitel, leitfrage: t.leitfrage,
+      zeit: `ca. ${ds + es} Std. (${ds} Doppelstunde Technik + ${es} Einzelstunde Wirtschaft)`,
+      ifText: [...t.tcIF.map((n) => `Technik: IF ${n} ${IF_TC[n].name}`), ...t.wiIF.map((n) => `Wirtschaft: IF ${n} ${IF_WI[n].name}`)],
+      fachIF: t.tcIF, wiIF: t.wiIF.map((n) => ({ n, opt: false })),
+      kompFach: t.kompetenzen.map((c) => `${KLP_TC[c]} (${c.replace(/(\D+)(\d+)/, "$1 $2")})`),
+      kompWi: t.wiKompetenzen, inhFach: t.tcSP, inhWi: t.wiSP,
+      mkr: t.mkr.map((m) => `${m.text} (MKR ${m.code})`), mkrCodes: t.mkr.map((m) => m.code),
+      sequenzen: t.sequenzen.map((s, i) => ({ nr: i + 1, titel: s.titel, themen: [],
+        zeit: [s.ds ? `${s.ds} Std. Technik` : "", s.es ? `${s.es} Std. Wirtschaft` : ""].filter(Boolean).join(" + "),
+        ideen: [{ label: "Doppelstunde · Technik", items: s.praxis, cls: "" }, { label: "Einzelstunde · Wirtschaft", items: s.wirtschaft, cls: "t-wi wi" }],
+        kompFach: s.k.map((c) => `${KLP_TC[c]} (${c.replace(/(\D+)(\d+)/, "$1 $2")})`), kompWi: s.wk.map((i) => t.wiKompetenzen[i]),
+        matFach: s.bp ? [`Blickpunkt Technik: ${s.bp}`] : [], matWi: s.ss ? [`starkeSeiten Wirtschaft: ${s.ss}`] : [] })),
+      extras: t, quelle: "tcneu",
+    };
+  }
+  const MODELS = [...HW.map(hwModel), ...TC.map(tcModel)];
+  const byJg = (jg, fach) => MODELS.filter((m) => m.jg === jg && m.fach === fach);
+  const zeitText = (jg, fach) => byJg(jg, fach).map((m) => m.zeit.replace(/^ca\.\s*/, "").replace(/\s*\(.*\)/, "").replace(/\s*(Stunden|Std\.?)\s*$/, "")).join(" + ");
 
   const STATI = ["offen", "diskutiert", "beschlossen", "zurückgestellt"];
   function statusSelect(key) {
     const v = store.get("status:" + key) || "offen";
-    return `<select class="status noprint-ok" data-status="${key}" data-v="${v}" title="Bearbeitungsstand (lokal gespeichert)">${STATI.map((s) => `<option ${s === v ? "selected" : ""}>${s}</option>`).join("")}</select>`;
+    return `<select class="status" data-status="${key}" data-v="${v}" title="Bearbeitungsstand (lokal gespeichert)">${STATI.map((s) => `<option ${s === v ? "selected" : ""}>${s}</option>`).join("")}</select>`;
   }
   function noteBox(key, label) {
     const v = store.get("note:" + key);
     return `<div class="note ${v ? "has" : ""}"><label><span>✎ ${esc(label || "Notizen")}</span><span class="saved">gespeichert ✓</span></label><textarea data-note="${key}" data-label="${esc(label || "")}" placeholder="Eigene Notizen, Änderungswünsche, Fragen … (werden nur in diesem Browser gespeichert)">${esc(v)}</textarea></div>`;
   }
 
+  /* ---------- Unterrichtsvorhaben (gleiches Raster für beide Fächer) ---------- */
+  function renderUV(m) {
+    const f = m.fach, F = FACH[f];
+    const seqRows = m.sequenzen.map((s) => `<tr>
+      <td class="s1"><b>${s.nr}. Sequenz</b><div class="stitle">${esc(s.titel)}</div>
+        ${s.themen.length ? `<span class="h">Themen</span>${ul(s.themen)}` : ""}
+        ${s.zeit ? `<span class="chip time ${f}">${esc(s.zeit)}</span>` : ""}</td>
+      <td>${s.ideen.map((g) => `<div class="${g.cls || ""}">${g.label ? `<span class="h">${esc(g.label)}</span>` : ""}${ul(g.items)}</div>`).join("")}</td>
+      <td><span class="h ${f}">${F}</span>${ul(s.kompFach) || '<p class="muted">–</p>'}
+        ${s.kompWi.length ? `<div class="t-wi wi"><span class="h wi">Wirtschaft</span>${ul(s.kompWi)}</div>` : ""}</td>
+      <td>${s.matFach.length ? `<span class="h ${f}">${F}</span>${ul(s.matFach)}` : ""}
+        ${s.matWi.length ? `<div class="t-wi"><span class="h wi">Wirtschaft</span>${ul(s.matWi)}</div>` : ""}</td>
+    </tr>`).join("");
+
+    const x = m.extras;
+    const extras = `
+      <h4 class="sec">Querschnittsaufgaben und Lernorganisation</h4>
+      <div class="grid g3">
+        <div class="box bo t-bo"><h5>Berufsorientierung</h5>${x ? `<p><b>Berufe</b></p>${ul(x.bo.berufe)}<p><b>Elemente</b></p>${ul(x.bo.elemente)}` : notGiven()}</div>
+        <div class="box bne t-bne"><h5>Bildung für nachhaltige Entwicklung</h5>${x ? `<div>${x.bne.sdg.map((n) => `<span class="chip bne">SDG ${n} · ${esc(SDG[n])}</span>`).join(" ")}</div>${ul(x.bne.punkte)}` : notGiven()}</div>
+        <div class="box"><h5>Produkte und Leistungsnachweise</h5>${x ? ul(x.produkte) + `<p class="muted">${esc(x.leistung)}</p>` : notGiven()}</div>
+      </div>
+      <div class="grid g2" style="margin-top:12px">
+        <div class="box srl t-srl"><h5>Selbstreguliertes Lernen</h5>${x ? `<div class="grid g3 tight"><div><b>Planung</b>${ul(x.srl.planung)}</div><div><b>Durchführung</b>${ul(x.srl.durchfuehrung)}</div><div><b>Reflexion</b>${ul(x.srl.reflexion)}</div></div>` : notGiven()}</div>
+        <div class="box"><h5>Außerschulische Lernorte</h5>${x ? ul(x.lernorte) : notGiven()}</div>
+      </div>
+      <div class="card inner t-srl"><h5>Kompetenzraster <small class="muted">„Ich kann …“ – Mindest-, Regel-, Expertenstandard</small></h5>
+        ${x ? `<div class="tablewrap"><table class="raster"><thead><tr><th>Bereich</th><th class="m">Mindeststandard</th><th class="r">Regelstandard</th><th class="e">Expertenstandard</th></tr></thead><tbody>
+          ${x.raster.map((r) => `<tr class="${r.wi ? "wi t-wi" : ""}${r.bo ? " bo t-bo" : ""}${r.bne ? " bne t-bne" : ""}"><td class="b">${esc(r.bereich)}<small>${esc(r.codes)}</small></td><td>${esc(r.m)}</td><td>${esc(r.r)}</td><td>${esc(r.e)}</td></tr>`).join("")}
+        </tbody></table></div>` : notGiven("Im HW-Plan ist kein Kompetenzraster ausgewiesen.")}
+      </div>
+      ${x ? `<div class="grid g2"><div class="box"><h5>Bezug zum anderen Fach</h5><p>${esc(x.hwBezug)}</p></div><div class="box"><h5>Bezug zum bisherigen SchiLP Technik</h5><p>${esc(x.bisher)}</p></div></div>` : ""}`;
+
+    return `<details class="uv ${f}" id="uv-${m.id}" data-fach="${f}">
+      <summary>
+        <span class="fbadge ${f}">${F}</span>
+        <span class="sumt"><b>${esc(m.label)}</b> ${esc(m.titel)}${m.untertitel ? ` <small>– ${esc(m.untertitel)}</small>` : ""}</span>
+        <span class="sumchips">${m.fachIF.map((n) => chipF(f, n)).join("")}${m.wiIF.map((w) => chipWI(w.n, w.opt)).join("")}<span class="chip time ${f}">${esc(m.zeit.replace(/\s*\(.*\)/, ""))}</span></span>
+      </summary>
+      <div class="body">
+        <div class="uvhead">
+          <div>${src(m.quelle)} ${m.leitfrage ? `<div class="leitfrage">Leitfrage: ${esc(m.leitfrage)}</div>` : ""}</div>
+          <div class="noprint">${statusSelect(m.id)}</div>
+        </div>
+        <div class="grid g2">
+          <div class="box ${f}"><h5>Inhaltsfelder</h5>${ul(m.ifText)}<p class="muted">Zeitbedarf: ${esc(m.zeit)}</p></div>
+          <div class="box mkr t-mkr"><h5>Einbindung in den MKR</h5>${ul(m.mkr)}</div>
+        </div>
+        <div class="grid g2">
+          <div class="box ${f}"><h5>Schwerpunkte der Kompetenzentwicklung</h5><p class="muted">Die Lernenden …</p>${ul(m.kompFach)}</div>
+          <div class="box wi t-wi"><h5>Ergänzend Wirtschaft</h5>${m.kompWi.length ? `<p class="muted">Die Lernenden …</p>${ul(m.kompWi)}` : notGiven("Kein Wirtschaftsbezug ausgewiesen.")}</div>
+        </div>
+        <div class="grid g2">
+          <div class="box ${f}"><h5>Inhaltliche Schwerpunkte · Bereich ${F}</h5>${ul(m.inhFach)}</div>
+          <div class="box wi t-wi"><h5>Inhaltliche Schwerpunkte · Bereich Wirtschaft</h5>${m.inhWi.length ? ul(m.inhWi) : notGiven("–")}</div>
+        </div>
+        <h4 class="sec">Sequenzen</h4>
+        <div class="tablewrap"><table class="seq ${f}">
+          <thead><tr><th>Sequenz / Themen / Zeitumfang</th><th>Fachdidaktische Ideen / Inhalte des Lern- und Arbeitsprozesses</th><th>Konkretisierte Kompetenzerwartungen</th><th>Materialvorschläge</th></tr></thead>
+          <tbody>${seqRows}</tbody></table></div>
+        ${extras}
+        ${noteBox(m.id, `Notizen ${m.label}`)}
+      </div></details>`;
+  }
+
   /* ---------- Ansichten ---------- */
-  function viewUebersicht() {
-    const modell = [7, 8, 9, 10].map((jg) => `
-      <div class="jgl">Jg. ${jg}</div>
-      <div class="hj tc"><b>Schwerpunkt Technik</b><div class="row"><span class="bar ds tc">2 Std. Technik (Fachraum)</span><span class="bar es">1 Std. Wirtschaft</span></div></div>
-      <div class="hj hw"><b>Schwerpunkt Hauswirtschaft</b><div class="row"><span class="bar ds hw">2 Std. HW (Lehrküche)</span><span class="bar es">1 Std. Wirtschaft</span></div></div>`).join("");
-
-    const rows = [7, 8, 9, 10].map((jg) => {
-      const t = TC.find((x) => x.jg === jg);
-      const hws = HW.filter((x) => x.jg === jg);
-      return `<tr>
-        <td>${jg}</td>
-        <td>
-          <a class="t" href="#jg${jg}">${esc(t.titel)}</a><small>${esc(t.untertitel)}</small><br>
-          ${t.tcIF.map((n) => `<span class="chip tc">TC IF ${n}</span>`).join("")}
-          ${t.wiIF.map((n) => chipWI(n, true)).join("")}<br>
-          <span class="chip bo t-bo">BO: ${esc(t.bo.berufe[0])} …</span>
-          ${t.bne.sdg.map((n) => `<span class="chip bne t-bne">SDG ${n}</span>`).join("")}
-          ${t.mkr.map((m) => chipMKR(m.code)).join("")}
-        </td>
-        <td>${hws.map((h) => `<div class="hwitem"><b>${hwLabel(h)}</b> ${esc(h.titel)}<br>${h.hwIF.map((n) => `<span class="chip hw">HW IF ${n}</span>`).join("")}${h.wiIF.map((n) => chipWI(n, true)).join("") || '<span class="chip">ohne Wi-Bezug</span>'} <small>${esc(h.zeit)}</small></div>`).join("")}</td>
-      </tr>`;
+  function viewRahmen() {
+    const sec = RAHMEN.map((r, i) => {
+      const neu = r.teile.filter((t) => t.q === "neu");
+      const hw = r.teile.find((t) => t.q === "hw"), tc = r.teile.find((t) => t.q === "tc");
+      const part = (t) => t ? `${src(t.q)}${t.hinweis ? `<p class="hinweis">${esc(t.hinweis)}</p>` : ""}${(t.absaetze || []).map((a) => `<p>${esc(a)}</p>`).join("")}${ul(t.liste)}${(t.nach || []).map((a) => `<p>${esc(a)}</p>`).join("")}` : notGiven("In diesem Plan nicht ausgewiesen.");
+      return `<div class="card"><h3>1.${i + 1} ${esc(r.titel)}</h3>
+        ${neu.map((t) => `<div class="box neu">${src("neu")}${t.absaetze.map((a) => `<p>${esc(a)}</p>`).join("")}</div>`).join("")}
+        ${hw || tc ? `<div class="grid g2" style="margin-top:${neu.length ? 12 : 0}px"><div class="col hw">${part(hw)}</div><div class="col tc">${part(tc)}</div></div>` : ""}
+        ${noteBox("rahmen-" + i, "Notizen " + r.titel)}</div>`;
     }).join("");
-
+    const g = GRUNDSAETZE_TC;
     return `
-    <div class="card">
-      <h2>Organisationsmodell</h2>
-      <p>Das Wahlpflichtfach <b>Wirtschaft und Arbeitswelt</b> wird in den Jahrgängen 7–10 mit <b>drei Wochenstunden</b> unterrichtet – fächerintegriert in <b>Schwerpunkthalbjahren</b>. Jeder Jahrgang hat ein Halbjahr Schwerpunkt Technik und ein Halbjahr Schwerpunkt Hauswirtschaft (insgesamt je vier Halbjahre). Die <b>Doppelstunde</b> trägt den fachpraktischen Schwerpunkt, die <b>Einzelstunde</b> den Wirtschaftsschwerpunkt, der mit dem Fachthema verknüpft ist. <b>Es gibt keinen eigenständigen Wirtschaftsunterricht.</b></p>
-      <div class="box warn"><b>Reihenfolge variabel:</b> Welches Halbjahr Technik bzw. Hauswirtschaft ist, hängt von der Personalplanung ab. Jedes Vorhaben ist deshalb in sich geschlossen geplant.</div>
-      <div class="modell" style="margin-top:14px">${modell}</div>
-      <p class="muted" style="margin-top:10px">Zeitrahmen pro Schwerpunkthalbjahr (ca. 18 Unterrichtswochen): ca. 36 Std. fachpraktisch + ca. 18 Std. Wirtschaft.</p>
-    </div>
+    <div class="card"><h2>1 Rahmenbedingungen der fachlichen Arbeit</h2>
+      <p>Die Texte beider bisherigen Pläne stehen nebeneinander und sind nach Quelle gekennzeichnet: ${src("hw")} ${src("tc")} ${src("neu")}. Für den gemeinsamen Plan ist je Abschnitt eine gemeinsame Fassung zu beschließen.</p></div>
+    ${sec}
+    <div class="card"><h3>1.${RAHMEN.length + 1} Grundsätze der fachmethodischen und fachdidaktischen Arbeit</h3>
+      <div class="grid g2"><div class="col hw">${src("hw")}${notGiven("Im HW-Plan kein eigenes Kapitel; Grundsätze sind in Abschnitt 1.5 „Fachliche Bezüge zu schulischen Standards“ enthalten.")}</div>
+      <div class="col tc">${src("tc")}<p>${esc(g.einleitung)}</p><p><b>Überfachliche Grundsätze</b></p><ol>${g.ueberfachlich.map((x) => `<li>${esc(x)}</li>`).join("")}</ol><p><b>Fachliche Grundsätze</b></p><ol start="15">${g.fachlich.map((x) => `<li>${esc(x)}</li>`).join("")}</ol></div></div>
+      ${noteBox("grundsaetze", "Notizen Grundsätze")}</div>`;
+  }
 
+  function viewUebersicht() {
+    const modell = JGS.map((jg) => `
+      <div class="jgl">Jg. ${jg}</div>
+      <div class="hj hw"><b>Schwerpunkthalbjahr Hauswirtschaft</b><div class="row"><span class="bar ds hw">2 Std. Hauswirtschaft</span><span class="bar es">1 Std. Wirtschaft</span></div></div>
+      <div class="hj tc"><b>Schwerpunkthalbjahr Technik</b><div class="row"><span class="bar ds tc">2 Std. Technik</span><span class="bar es">1 Std. Wirtschaft</span></div></div>`).join("");
+    const cell = (jg, f) => byJg(jg, f).map((m) => `<div class="ovitem"><a class="t" href="#jg${jg}" data-open="uv-${m.id}"><b>${esc(m.label)}</b> ${esc(m.titel)}</a>
+        <div>${m.fachIF.map((n) => chipF(f, n)).join("")}${m.wiIF.map((w) => chipWI(w.n, w.opt)).join("") || '<span class="chip">ohne Wi-IF</span>'}<small class="muted"> ${esc(m.zeit.replace(/\s*\(.*\)/, ""))}</small></div></div>`).join("");
+    const rows = JGS.map((jg) => `<tr><td>${jg}</td><td class="fcol hw">${cell(jg, "hw")}</td><td class="fcol tc">${cell(jg, "tc")}</td></tr>`).join("");
+    return `
+    <div class="card"><h2>2 Übersicht über die Unterrichtsvorhaben</h2>
+      <p>Wirtschaft und Arbeitswelt wird in den Jahrgängen 7–10 dreistündig in <b>Schwerpunkthalbjahren</b> unterrichtet: je Jahrgang ein Halbjahr Hauswirtschaft und ein Halbjahr Technik. Die <b>Doppelstunde</b> trägt den fachpraktischen Schwerpunkt, die <b>Einzelstunde</b> Wirtschaftsthemen, die mit dem Fach verknüpft sind. Die Reihenfolge der Halbjahre hängt von der Personalplanung ab.</p>
+      <div class="modell">${modell}</div>
+    </div>
     <div class="card">
-      <h2>Übersicht der Unterrichtsvorhaben</h2>
-      <div class="legend" style="margin-bottom:8px"><span><i class="sw" style="background:var(--tc)"></i>Technik</span><span><i class="sw" style="background:var(--hw)"></i>Hauswirtschaft</span><span><i class="sw" style="background:var(--wi)"></i>Wirtschaft</span><span><i class="sw" style="background:var(--bo)"></i>Berufsorientierung</span><span><i class="sw" style="background:var(--bne)"></i>BNE</span><span><i class="sw" style="background:var(--mkr)"></i>Medienkompetenz</span></div>
+      <div class="legend" style="margin-bottom:8px"><span><i class="sw" style="background:var(--hw)"></i>Hauswirtschaft</span><span><i class="sw" style="background:var(--tc)"></i>Technik</span><span><i class="sw" style="background:var(--wi)"></i>Wirtschaft</span></div>
       <div class="tablewrap"><table class="ov">
-        <thead><tr><th>Jg.</th><th>Schwerpunkthalbjahr Technik (Entwurf)</th><th>Schwerpunkthalbjahr Hauswirtschaft (Planung HW)</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table></div>
-    </div>
-
-    <div class="grid g2">
-      <div class="card">
-        <h3>Grundlagen</h3>
-        <ul>
-          <li>Kernlehrplan Wahlpflichtfach Wirtschaft und Arbeitswelt, Gesamtschule NRW (Heft 31031) – Abschnitte Wirtschaft, Hauswirtschaft, Technik</li>
-          <li>Medienkompetenzrahmen NRW · Leitlinie BNE · Rahmenvorgabe Verbraucherbildung · KAoA</li>
-          <li>Technik: <i>${esc(META.lehrwerkTC)}</i></li>
-          <li>Wirtschaft: <i>${esc(META.lehrwerkWI)}</i></li>
-          <li>Hauswirtschaft: <i>${esc(META.lehrwerkHW)}</i></li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Leitideen für den Technik-Teil</h3>
-        <ul>
-          <li><b>Progression:</b> Einzelfertigung (7) → Serienfertigung (8) → Automatisierung (9) → vernetzte Systeme (10)</li>
-          <li><b>Selbstreguliertes Lernen:</b> Kompetenzraster mit Mindest-, Regel- und Expertenstandard; Phasen Planung – Durchführung – Reflexion</li>
-          <li><b>Wirtschaft eingebunden:</b> jede Einzelstunde greift das Technikthema auf (Betrieb, Kosten, Markt, Arbeit, Region)</li>
-          <li><b>IF 1 „Zukunftsgestaltung durch Technik“</b> als Querschnitt in allen vier Halbjahren</li>
-        </ul>
-      </div>
+        <thead><tr><th>Jg.</th><th class="hw">Schwerpunkthalbjahr Hauswirtschaft ${src("hw")}</th><th class="tc">Schwerpunkthalbjahr Technik ${src("tcneu")}</th></tr></thead>
+        <tbody>${rows}</tbody></table></div>
     </div>
     ${noteBox("uebersicht", "Notizen zur Gesamtstruktur")}`;
   }
 
-  function viewTC(t) {
-    const ds = sum(t.sequenzen, "ds"), es = sum(t.sequenzen, "es");
-    const seqRows = t.sequenzen.map((s, i) => `<tr>
-        <td>${i + 1}. ${esc(s.titel)}</td>
-        <td>${s.ds ? `<span class="chip time">${s.ds} Std.</span>` : '<span class="muted">–</span>'}${ul(s.praxis)}</td>
-        <td class="wi t-wi">${s.es ? `<span class="chip time es">${s.es} Std.</span>` : ""}${ul(s.wirtschaft)}</td>
-        <td>${s.bp ? `<span class="h">Blickpunkt Technik</span>${esc(s.bp)}` : ""}${s.ss ? `<span class="h" style="margin-top:6px">starkeSeiten Wirtschaft</span>${esc(s.ss)}` : ""}</td>
-      </tr>`).join("");
-
-    const raster = t.raster.map((r) => `<tr class="${r.wi ? "wi t-wi" : ""}${r.bo ? " bo t-bo" : ""}${r.bne ? " bne t-bne" : ""}">
-        <td class="b">${esc(r.bereich)}<small>${esc(r.codes)}</small></td><td>${esc(r.m)}</td><td>${esc(r.r)}</td><td>${esc(r.e)}</td></tr>`).join("");
-
-    const hws = HW.filter((h) => h.jg === t.jg);
-
+  function viewJahrgang(jg) {
+    const card = (f) => {
+      const ms = byJg(jg, f);
+      return `<div class="jgcard ${f}"><div class="jgct"><span class="fbadge ${f}">${FACH[f]}</span> Schwerpunkthalbjahr</div>
+        ${ms.map((m) => `<a href="#uv-${m.id}" data-open="uv-${m.id}" class="jgitem"><b>${esc(m.label)}</b> ${esc(m.titel)}</a>`).join("")}
+        <div class="muted" style="margin-top:6px">Zeitbedarf: ${esc(zeitText(jg, f))} Std. · Rahmen: ca. 54 Std.</div></div>`;
+    };
     return `
-    <div class="card">
-      <div class="hero">
-        <div class="jg"><small>Jg.</small><b>${t.jg}</b></div>
-        <div class="ttl">
-          <h2>${esc(t.titel)}</h2>
-          <div class="sub">Schwerpunkthalbjahr Technik · ${esc(t.untertitel)}</div>
-          <div><span class="chip time">${ds} Std. Doppelstunde Technik</span> <span class="chip time es">${es} Std. Einzelstunde Wirtschaft</span></div>
-          <div class="leitfrage">Leitfrage: ${esc(t.leitfrage)}</div>
-        </div>
-        <div class="noprint">${statusSelect(t.id)}</div>
-      </div>
+    <div class="card"><h2>Jahrgang ${jg}</h2>
+      <div class="grid g2">${card("hw")}${card("tc")}</div>
+      <div class="noprint" style="margin-top:12px;display:flex;gap:8px"><button class="btn" data-act="openall">Alle Vorhaben aufklappen</button><button class="btn" data-act="closeall">Alle zuklappen</button></div>
     </div>
-
-    <div class="grid g2">
-      <div class="box tc"><h4>Inhaltsfelder Technik</h4>
-        ${t.tcIF.map(chipTC).join("<br>")}
-        <p style="margin-top:8px"><b>Inhaltliche Schwerpunkte</b></p>${ul(t.tcSP)}
-        <p><b>Schwerpunkte der Kompetenzentwicklung</b></p>
-        <div>${t.kompetenzen.map((c) => chipCode(c, KLP_TC)).join("")}</div>
-        <details class="noprint" style="margin-top:6px"><summary class="muted" style="cursor:pointer">Kompetenzen ausformuliert</summary>
-          <ul>${t.kompetenzen.map((c) => `<li><b>${c}</b> – ${esc(KLP_TC[c])}</li>`).join("")}</ul></details>
-      </div>
-      <div class="box wi t-wi"><h4>Ergänzend Wirtschaft (Einzelstunde)</h4>
-        ${t.wiIF.map((n) => chipWI(n)).join("<br>")}
-        <p style="margin-top:8px"><b>Inhaltliche Schwerpunkte</b></p>${ul(t.wiSP)}
-        <p><b>Die Lernenden …</b></p>${ul(t.wiKompetenzen)}
-      </div>
-    </div>
-
-    <div class="card" style="margin-top:18px">
-      <h3>Sequenzplanung</h3>
-      <div class="tablewrap"><table class="seq">
-        <thead><tr><th>Sequenz</th><th>Doppelstunde: Technik</th><th>Einzelstunde: Wirtschaft</th><th>Lehrwerk</th></tr></thead>
-        <tbody>${seqRows}</tbody>
-        <tfoot><tr><td>Summe</td><td>${ds} Std.</td><td>${es} Std.</td><td></td></tr></tfoot>
-      </table></div>
-    </div>
-
-    <div class="grid g3">
-      <div class="box bo t-bo"><h4>Berufsorientierung</h4>
-        <p><b>Berufe</b></p>${ul(t.bo.berufe)}<p><b>Elemente</b></p>${ul(t.bo.elemente)}</div>
-      <div class="box bne t-bne"><h4>Bildung für nachhaltige Entwicklung</h4>
-        <div>${t.bne.sdg.map(chipSDG).join("<br>")}</div>${ul(t.bne.punkte)}</div>
-      <div class="box mkr t-mkr"><h4>Medienkompetenzrahmen</h4>
-        <ul>${t.mkr.map((m) => `<li><b>${m.code} ${esc(MKR[m.code])}</b><br><small>${esc(m.text)}</small></li>`).join("")}</ul></div>
-    </div>
-
-    <div class="card t-srl" style="margin-top:18px">
-      <h3>Selbstreguliertes Lernen</h3>
-      <div class="grid g3">
-        <div class="box srl"><h4>Planung</h4>${ul(t.srl.planung)}</div>
-        <div class="box srl"><h4>Durchführung</h4>${ul(t.srl.durchfuehrung)}</div>
-        <div class="box srl"><h4>Reflexion</h4>${ul(t.srl.reflexion)}</div>
-      </div>
-    </div>
-
-    <div class="card t-srl">
-      <h3>Kompetenzraster <small class="muted">– „Ich kann …“ für Selbsteinschätzung und Lerngespräche</small></h3>
-      <div class="tablewrap"><table class="raster">
-        <thead><tr><th>Bereich</th><th class="m">Mindeststandard</th><th class="r">Regelstandard</th><th class="e">Expertenstandard</th></tr></thead>
-        <tbody>${raster}</tbody>
-      </table></div>
-    </div>
-
-    <div class="grid g2">
-      <div class="card tight"><h3>Produkte und Leistungsnachweise</h3>${ul(t.produkte)}<p class="muted">${esc(t.leistung)}</p></div>
-      <div class="card tight"><h3>Außerschulische Lernorte</h3>${ul(t.lernorte)}</div>
-    </div>
-    <div class="grid g2">
-      <div class="box hw"><h4>Bezug zur Hauswirtschaft</h4><p>${esc(t.hwBezug)}</p></div>
-      <div class="box"><h4>Bezug zum bisherigen Plan</h4><p>${esc(t.bisher)}</p></div>
-    </div>
-    ${noteBox(t.id, `Notizen Technik Jg. ${t.jg}`)}
-
-    <h2 style="margin-top:34px">Schwerpunkthalbjahr Hauswirtschaft · Jg. ${t.jg}</h2>
-    <p class="muted">Planung der Fachschaft Hauswirtschaft (SchiLP, Stand 31.08.2026), hier zusammengefasst. Kompetenzcodes = HW-Codes.</p>
-    ${hws.map(viewHW).join("")}`;
-  }
-
-  function viewHW(h) {
-    return `<details class="hwuv" id="${h.id}">
-      <summary><span class="chip hw">${hwLabel(h)}</span> ${esc(h.titel)} <small class="muted">${esc(h.zeit)}</small></summary>
-      <div class="body">
-        <div class="grid g2">
-          <div class="box hw"><h4>Inhaltsfelder Hauswirtschaft</h4>${h.hwIF.map(chipHW).join("<br>")}
-            <p style="margin-top:8px"><b>Inhaltliche Schwerpunkte</b></p>${ul(h.inhalteHW)}
-            <p><b>Kompetenzschwerpunkte</b></p><div>${h.kompetenzen.map((c) => chipCode(c, KLP_HW)).join("")}</div></div>
-          <div class="box wi t-wi"><h4>Ergänzend Wirtschaft</h4>${h.wiIF.length ? h.wiIF.map((n) => chipWI(n)).join("<br>") : '<p class="muted">kein Wirtschaftsbezug ausgewiesen</p>'}
-            ${h.inhalteWi.length ? `<p style="margin-top:8px"><b>Inhaltliche Schwerpunkte</b></p>${ul(h.inhalteWi)}` : ""}
-            ${h.wi.length ? `<p><b>Die Lernenden …</b></p>${ul(h.wi)}` : ""}</div>
-        </div>
-        <div class="grid g3" style="margin-top:12px">
-          <div class="box"><h4>Sequenzen</h4><ul>${h.sequenzen.map((s) => `<li>${esc(s.titel)} <small class="muted">${s.std !== "–" ? "(" + esc(s.std) + " Std.)" : ""}</small></li>`).join("")}</ul></div>
-          <div class="box mkr t-mkr"><h4>Medienkompetenz</h4>${ul(h.mkrText)}<div>${h.mkr.map(chipMKR).join("")}</div><small class="muted">Codes: Zuordnung als Vorschlag</small></div>
-          <div class="box bne"><h4>BO · BNE</h4>
-            <div class="t-bo"><b>BO:</b> ${h.bo ? esc(h.bo) : '<span class="muted">nicht explizit</span>'}</div>
-            <div class="t-bne" style="margin-top:6px"><b>BNE:</b> ${esc(h.bne)}<br>${h.sdg.map((n) => `<span class="chip bne">SDG ${n}</span>`).join("")}</div>
-            <small class="muted">abgeleitet aus dem HW-Plan</small></div>
-        </div>
-        ${noteBox(h.id, `Notizen ${hwLabel(h)}`)}
-      </div></details>`;
+    <div class="fachblock hw"><h3 class="fh hw">Hauswirtschaft · Jahrgang ${jg}</h3>${byJg(jg, "hw").map(renderUV).join("")}</div>
+    <div class="fachblock tc"><h3 class="fh tc">Technik · Jahrgang ${jg}</h3>${byJg(jg, "tc").map(renderUV).join("")}</div>
+    ${noteBox("jg" + jg, `Notizen Jahrgang ${jg} (fachübergreifend)`)}`;
   }
 
   function viewAbdeckung() {
-    const jgs = [7, 8, 9, 10];
-    // Technik-Kompetenzen
-    const kRows = Object.keys(KLP_TC).map((c) => {
-      const hits = jgs.map((jg) => TC.find((t) => t.jg === jg).kompetenzen.includes(c));
-      const n = hits.filter(Boolean).length;
-      return `<tr><td><b>${c}</b> <small>${esc(KLP_TC[c])}</small></td>${hits.map((h) => `<td>${h ? '<span class="dot"></span>' : ""}</td>`).join("")}<td class="${n ? "" : "zero"}">${n}</td></tr>`;
-    }).join("");
-    // Technik-IF
-    const ifRows = Object.keys(IF_TC).map((k) => {
-      const n = +k;
-      return `<tr><td><b>IF ${n}</b> ${esc(IF_TC[n].name)}</td>${jgs.map((jg) => { const t = TC.find((x) => x.jg === jg); const i = t.tcIF.indexOf(n); return `<td>${i === 0 ? '<span class="dot" title="Schwerpunkt"></span>' : i > 0 ? '<span class="dot q" title="Querschnitt"></span>' : ""}</td>`; }).join("")}</tr>`;
-    }).join("");
-    // Wirtschaft-IF
+    const head = `<th>Jg. 7</th><th>Jg. 8</th><th>Jg. 9</th><th>Jg. 10</th>`;
     const wiRows = Object.keys(IF_WI).map((k) => {
       const n = +k;
-      const cells = jgs.map((jg) => {
-        const t = TC.find((x) => x.jg === jg);
-        const tc = t.wiIF.includes(n) ? `<span class="chip tc">TC ${jg}</span>` : "";
-        const hw = HW.filter((h) => h.jg === jg && h.wiIF.includes(n)).map((h) => `<span class="chip hw">${hwLabel(h)}</span>`).join("");
-        return `<td>${tc}${hw}</td>`;
-      }).join("");
-      return `<tr><td><b>IF ${n}</b> ${esc(IF_WI[n].name)}</td>${cells}</tr>`;
+      return `<tr><td><b>IF ${n}</b> ${esc(IF_WI[n].name)}</td>${JGS.map((jg) => `<td>${["hw", "tc"].flatMap((f) => byJg(jg, f).filter((m) => m.wiIF.some((w) => w.n === n)).map((m) => `<span class="chip ${f}">${esc(m.label)}${m.wiIF.find((w) => w.n === n).opt ? " (erg.)" : ""}</span>`)).join("")}</td>`).join("")}</tr>`;
     }).join("");
-    // MKR
-    const mkrCodes = Object.keys(MKR).filter((c) => c.includes("."));
-    const mkrRows = mkrCodes.map((c) => {
-      const cells = jgs.map((jg) => {
-        const t = TC.find((x) => x.jg === jg);
-        const tc = t.mkr.some((m) => m.code === c) ? `<span class="chip tc">TC</span>` : "";
-        const hw = HW.filter((h) => h.jg === jg && h.mkr.includes(c)).map((h) => `<span class="chip hw">${h.jg}.${h.nr}</span>`).join("");
-        return `<td>${tc}${hw}</td>`;
-      }).join("");
-      const any = /chip/.test(cells);
-      return `<tr><td><b>${c}</b> ${esc(MKR[c])}</td>${cells}<td class="${any ? "" : "muted"}">${any ? "✓" : "–"}</td></tr>`;
+    const fachIF = (f, dict) => Object.keys(dict).map((k) => {
+      const n = +k, name = f === "hw" ? dict[n] : dict[n].name;
+      return `<tr><td><b>IF ${n}</b> ${esc(name)}</td>${JGS.map((jg) => `<td>${byJg(jg, f).filter((m) => m.fachIF.includes(n)).map((m) => `<span class="chip ${f}">${esc(m.label)}</span>`).join("")}</td>`).join("")}</tr>`;
     }).join("");
-    // Stundenbilanz
-    const bil = jgs.map((jg) => {
-      const t = TC.find((x) => x.jg === jg);
-      const hws = HW.filter((h) => h.jg === jg);
-      const hwStd = hws.map((h) => h.zeit.replace("ca. ", "")).join(" + ");
-      return `<tr><td><b>${jg}</b></td><td>${sum(t.sequenzen, "ds")} + ${sum(t.sequenzen, "es")} = <b>${sum(t.sequenzen, "ds") + sum(t.sequenzen, "es")} Std.</b></td><td>${esc(hwStd)}</td><td>ca. 54 Std.</td></tr>`;
-    }).join("");
-    // BO/BNE
-    const bobne = jgs.map((jg) => {
-      const t = TC.find((x) => x.jg === jg);
-      const hws = HW.filter((h) => h.jg === jg);
+    const kompRows = (f) => {
+      const all = {};
+      JGS.forEach((jg) => byJg(jg, f).forEach((m) => codesOf(m.kompFach).forEach((c) => { (all[c] = all[c] || new Set()).add(jg); })));
+      const order = (c) => ["SK", "MK", "UK", "HK"].indexOf(c.slice(0, 2)) * 100 + +c.slice(2);
+      const codes = f === "tc" ? Object.keys(KLP_TC) : Object.keys(all).sort((a, b) => order(a) - order(b));
+      return codes.map((c) => `<tr><td><b>${c.replace(/(\D+)(\d+)/, "$1 $2")}</b>${f === "tc" ? ` <small>${esc(KLP_TC[c])}</small>` : ""}</td>${JGS.map((jg) => `<td>${all[c] && all[c].has(jg) ? `<span class="dot ${f}"></span>` : ""}</td>`).join("")}<td class="${all[c] ? "" : "zero"}">${all[c] ? all[c].size : 0}</td></tr>`).join("");
+    };
+    const mkrRows = JGS.map((jg) => `<tr><td><b>${jg}</b></td>${["hw", "tc"].map((f) => `<td class="fcol ${f}">${byJg(jg, f).map((m) => `<div><b>${esc(m.label)}</b>${ul(m.mkr)}</div>`).join("")}</td>`).join("")}</tr>`).join("");
+    const kw = (re) => (m) => [...new Set(m.sequenzen.flatMap((s) => [...s.themen, ...s.ideen.flatMap((g) => g.items)]).filter((t) => re.test(t)))];
+    const boHW = kw(/Beruf/i), bneHW = kw(/nachhaltig|klima|Ressourc|fair/i);
+    const qRows = JGS.map((jg) => {
+      const h = byJg(jg, "hw"), t = byJg(jg, "tc")[0].extras;
       return `<tr><td><b>${jg}</b></td>
-        <td class="t-bo">${esc(t.bo.berufe.join(", "))}<br><small>${esc(t.bo.elemente[0])}</small></td>
-        <td class="t-bo">${hws.map((h) => h.bo ? `<b>${hwLabel(h)}:</b> ${esc(h.bo)}` : "").filter(Boolean).join("<br>") || '<span class="muted">–</span>'}</td>
-        <td class="t-bne">${t.bne.sdg.map((n) => `<span class="chip tc">SDG ${n}</span>`).join("")} ${hws.flatMap((h) => h.sdg).filter((v, i, a) => a.indexOf(v) === i).map((n) => `<span class="chip hw">SDG ${n}</span>`).join("")}</td></tr>`;
+        <td class="fcol hw t-bo">${h.map((m) => { const l = boHW(m); return l.length ? `<div><b>${esc(m.label)}</b>${ul(l)}</div>` : ""; }).join("") || '<span class="muted">keine Fundstelle</span>'}</td>
+        <td class="fcol tc t-bo">${esc(t.bo.berufe.join(", "))}${ul(t.bo.elemente)}</td>
+        <td class="fcol hw t-bne">${h.map((m) => { const l = bneHW(m); return l.length ? `<div><b>${esc(m.label)}</b>${ul(l)}</div>` : ""; }).join("") || '<span class="muted">keine Fundstelle</span>'}</td>
+        <td class="fcol tc t-bne">${t.bne.sdg.map((n) => `<span class="chip bne">SDG ${n}</span>`).join("")}${ul(t.bne.punkte)}</td></tr>`;
     }).join("");
+    const bil = JGS.map((jg) => `<tr><td><b>${jg}</b></td><td>${esc(zeitText(jg, "hw"))} Std.</td><td>${esc(zeitText(jg, "tc"))} Std.</td><td>ca. 54 Std.</td></tr>`).join("");
 
     return `
     <div class="card"><h2>Abdeckung des Kernlehrplans</h2>
-      <p class="muted">Wird automatisch aus den Planungsdaten berechnet. Rote „0“ = Kompetenz in keinem Technik-Halbjahr ausgewiesen.</p></div>
-    <div class="grid g2">
-      <div class="card"><h3>Technik: übergeordnete Kompetenzen</h3><div class="tablewrap"><table class="matrix">
-        <thead><tr><th>Kompetenz</th>${jgs.map((j) => `<th>Jg. ${j}</th>`).join("")}<th>Σ</th></tr></thead><tbody>${kRows}</tbody></table></div>
-        <small class="muted">Kurzfassungen; Wortlaut und Nummerierung gegen KLP Gesamtschule prüfen.</small></div>
-      <div>
-        <div class="card"><h3>Technik: Inhaltsfelder</h3><div class="tablewrap"><table class="matrix">
-          <thead><tr><th>Inhaltsfeld</th>${jgs.map((j) => `<th>Jg. ${j}</th>`).join("")}</tr></thead><tbody>${ifRows}</tbody></table></div>
-          <div class="legend" style="margin-top:6px"><span><span class="dot"></span> Schwerpunkt</span><span><span class="dot q"></span> Querschnitt</span></div></div>
-        <div class="card"><h3>Stundenbilanz pro Schwerpunkthalbjahr</h3><div class="tablewrap"><table>
-          <thead><tr><th>Jg.</th><th>Technik (DS + ES)</th><th>HW geplant</th><th>verfügbar</th></tr></thead><tbody>${bil}</tbody></table></div>
-          <small class="muted">HW-Planung übersteigt den Zeitrahmen eines Halbjahres → siehe Sitzung, Punkt 2.</small></div>
-      </div>
-    </div>
+      <p class="muted">Automatisch aus den Planungsdaten berechnet. HW-Werte stammen aus den Angaben des HW-Plans (Inhaltsfelder, Kompetenzcodes in „Schwerpunkte der Kompetenzentwicklung“).</p></div>
     <div class="card t-wi"><h3>Wirtschaft: Inhaltsfelder nach Jahrgang und Fach</h3><div class="tablewrap"><table class="matrix">
-      <thead><tr><th>Inhaltsfeld Wirtschaft</th>${jgs.map((j) => `<th>Jg. ${j}</th>`).join("")}</tr></thead><tbody>${wiRows}</tbody></table></div></div>
-    <div class="card t-mkr"><h3>Medienkompetenzrahmen nach Jahrgang und Fach</h3><div class="tablewrap"><table class="matrix">
-      <thead><tr><th>Teilkompetenz</th>${jgs.map((j) => `<th>Jg. ${j}</th>`).join("")}<th></th></tr></thead><tbody>${mkrRows}</tbody></table></div></div>
-    <div class="card"><h3>Berufsorientierung und BNE</h3><div class="tablewrap"><table>
-      <thead><tr><th>Jg.</th><th>BO Technik</th><th>BO Hauswirtschaft</th><th>BNE (SDG) – <span class="chip tc">TC</span><span class="chip hw">HW</span></th></tr></thead><tbody>${bobne}</tbody></table></div></div>
+      <thead><tr><th>Inhaltsfeld Wirtschaft</th>${head}</tr></thead><tbody>${wiRows}</tbody></table></div>
+      <small class="muted">„(erg.)“ = im HW-Plan in Klammern als ergänzend angegeben.</small></div>
+    <div class="grid g2">
+      <div class="card"><h3>Hauswirtschaft: Inhaltsfelder</h3><div class="tablewrap"><table class="matrix"><thead><tr><th>Inhaltsfeld</th>${head}</tr></thead><tbody>${fachIF("hw", IF_HW)}</tbody></table></div></div>
+      <div class="card"><h3>Technik: Inhaltsfelder</h3><div class="tablewrap"><table class="matrix"><thead><tr><th>Inhaltsfeld</th>${head}</tr></thead><tbody>${fachIF("tc", IF_TC)}</tbody></table></div></div>
+    </div>
+    <div class="grid g2">
+      <div class="card"><h3>Hauswirtschaft: Kompetenzschwerpunkte</h3><div class="tablewrap"><table class="matrix"><thead><tr><th>Code</th>${head}<th>Σ</th></tr></thead><tbody>${kompRows("hw")}</tbody></table></div>
+        <small class="muted">Nur Codes, die im HW-Plan genannt sind (Abschnitt Hauswirtschaft des KLP).</small></div>
+      <div class="card"><h3>Technik: Kompetenzschwerpunkte</h3><div class="tablewrap"><table class="matrix"><thead><tr><th>Code</th>${head}<th>Σ</th></tr></thead><tbody>${kompRows("tc")}</tbody></table></div>
+        <small class="muted">Alle Codes des Abschnitts Technik (Kurzfassung); rote 0 = nicht abgedeckt.</small></div>
+    </div>
+    <div class="card"><h3>Stundenbilanz pro Schwerpunkthalbjahr</h3><table><thead><tr><th>Jg.</th><th class="hw">Hauswirtschaft (laut HW-Plan)</th><th class="tc">Technik (Entwurf)</th><th>Rahmen</th></tr></thead><tbody>${bil}</tbody></table></div>
+    <div class="card t-mkr"><h3>Einbindung in den Medienkompetenzrahmen</h3><div class="tablewrap"><table><thead><tr><th>Jg.</th><th class="hw">Hauswirtschaft</th><th class="tc">Technik</th></tr></thead><tbody>${mkrRows}</tbody></table></div></div>
+    <div class="card"><h3>Berufsorientierung und BNE</h3>
+      <p class="muted">Der HW-Plan weist BO und BNE nicht gesondert aus. Angezeigt werden wörtliche Fundstellen aus den HW-Sequenzen (Suche nach „Beruf“ bzw. „nachhaltig / Klima / Ressourcen / fair“).</p>
+      <div class="tablewrap"><table><thead><tr><th>Jg.</th><th class="hw">BO · HW (Fundstellen)</th><th class="tc">BO · Technik</th><th class="hw">BNE · HW (Fundstellen)</th><th class="tc">BNE · Technik</th></tr></thead><tbody>${qRows}</tbody></table></div></div>
     ${noteBox("abdeckung", "Notizen zur Abdeckung")}`;
   }
 
   function viewLeistung() {
+    const L = LEISTUNG;
     return `
-    <div class="card"><h2>Grundsätze der Leistungsbewertung</h2>
-      <p>Gemeinsame Grundsätze für den Wahlpflichtbereich Wirtschaft und Arbeitswelt (aus dem SchiLP Hauswirtschaft übernommen), ergänzt um technikspezifische Formen.</p>
-      <div class="box wi"><b>Gewichtung:</b> ${esc(LEISTUNG.gewichtung)}</div></div>
-    <div class="grid g3">
-      <div class="card"><h3>Schriftliche Arbeiten</h3>${ul(LEISTUNG.schriftlich)}
-        <div class="box warn"><b>Vorschlag Technik:</b> pro Schwerpunkthalbjahr eine Klassenarbeit und eine Projektarbeit (Werkstück + Dokumentation). Rechtliche Prüfung des Ersatzes nötig.</div></div>
-      <div class="card"><h3>Sonstige Leistungen Technik</h3>${ul(LEISTUNG.sonstigeTC)}</div>
-      <div class="card"><h3>Kriterien fachpraktischer Arbeit</h3>${ul(LEISTUNG.kriterienPraxisTC)}</div>
+    <div class="card"><h2>5 Grundsätze der Leistungsbewertung und Rückmeldung</h2>
+      <div class="box neu">${src("hw")} <b>Vorschlag:</b> Kapitel 5 des HW-Plans ist bereits für den gesamten Wahlpflichtbereich formuliert und wird hier als gemeinsame Grundlage angezeigt. Technikspezifische Ergänzungen stehen am Ende und sind gekennzeichnet.</div>
+      ${L.einleitung.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
+    <div class="grid g2">
+      <div class="card"><h3>Grundsätze</h3>${ul(L.grundsaetze)}</div>
+      <div class="card"><h3>Verbindliche Absprachen</h3><ol>${L.absprachen.map((x) => `<li>${esc(x)}</li>`).join("")}</ol></div>
     </div>
     <div class="grid g2">
-      <div class="card"><h3>Notenschlüssel</h3><table><thead><tr><th>Prozent</th><th>Note</th></tr></thead>
-        <tbody>${LEISTUNG.schluessel.map(([p, n]) => `<tr><td>${p}</td><td>${n}</td></tr>`).join("")}</tbody></table></div>
-      <div class="card"><h3>Leistungsnachweise je Technik-Halbjahr</h3>
-        <table><tbody>${TC.map((t) => `<tr><td><b>Jg. ${t.jg}</b></td><td>${esc(t.leistung)}</td></tr>`).join("")}</tbody></table></div>
+      <div class="card"><h3>Verbindliche Instrumente: Schriftliche Arbeiten</h3>${ul(L.instrSchriftlich)}</div>
+      <div class="card"><h3>Verbindliche Instrumente: Sonstige Leistungen</h3>${ul(L.instrSonstige)}</div>
     </div>
+    <div class="grid g2">
+      <div class="card"><h3>Schriftliche Arbeiten</h3>${L.schriftlich.map((p) => `<p>${esc(p)}</p>`).join("")}
+        <table><thead><tr><th>Prozentpunkte</th><th>Note</th></tr></thead><tbody>${L.schluessel.map(([p, n]) => `<tr><td>${p}</td><td>${n}</td></tr>`).join("")}</tbody></table></div>
+      <div class="card"><h3>Sonstige Leistungen im Unterricht</h3>${L.sonstige.map((p) => `<p>${esc(p)}</p>`).join("")}
+        <div class="grid g2 tight"><div><b>Theoretische Arbeit</b>${ul(L.theoretisch)}</div><div><b>Praktische Arbeit</b>${ul(L.praktisch)}</div></div></div>
+    </div>
+    <div class="grid g2">
+      <div class="card"><h3>Allgemeine Kriterien</h3><p>Die folgenden allgemeinen Kriterien gelten für schriftliche, mündliche, praktische und projektorientierte Formen der Leistungsbewertung:</p>${ul(L.allgemein)}</div>
+      <div class="card"><h3>Kriterien bei Partner- und Gruppenarbeiten</h3><p>Bei Partner- und Gruppenarbeiten kann der individuelle Beitrag zum Ergebnis der Partner- bzw. Gruppenarbeit in die Bewertung einbezogen werden. Bewertet werden insbesondere:</p>${ul(L.gruppe)}</div>
+    </div>
+    <div class="card"><h3>Konkretisierte Kriterien für praktische Leistungen</h3>
+      <div class="grid g2"><div class="col hw">${src("hw")}<p>Für praktische Leistungen, insbesondere im fachpraktischen Unterricht der Hauswirtschaft, gelten folgende Kriterien:</p>${ul(L.praxisHW)}</div>
+      <div class="col tc">${src("tcneu")}<p>Entwurf für den fachpraktischen Unterricht in Technik:</p>${ul(L.tcPraxisEntwurf)}</div></div></div>
+    <div class="grid g2">
+      <div class="card"><h3>Arbeitsmappe, Portfolio oder digitale Dokumentation</h3><p>Bewertet werden insbesondere:</p>${ul(L.mappe)}</div>
+      <div class="card"><h3>Kurzvortrag, Referat oder Präsentation</h3><p>Bewertet werden insbesondere:</p>${ul(L.vortrag)}</div>
+    </div>
+    <div class="card"><h3>Grundsätze der Leistungsrückmeldung und Beratung</h3>${L.rueckmeldung.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
+    <div class="card"><h3>Technik: Ergänzungen</h3>
+      <div class="grid g2"><div class="col tc">${src("tc")}<p><b>Beitragsformen im Fach Technik</b> (bisheriger Plan, Pflichtfach)</p>${ul(L.tcBeitraege)}<p><b>Kriterien für Beobachtungsbögen</b></p>${ul(L.tcBeobachtung)}</div>
+      <div class="col tc">${src("tcneu")}<p><b>Leistungsnachweise je Technik-Halbjahr</b></p><table><tbody>${TC.map((t) => `<tr><td><b>Jg. ${t.jg}</b></td><td>${esc(t.leistung)}</td></tr>`).join("")}</tbody></table></div></div></div>
     ${noteBox("leistung", "Notizen zur Leistungsbewertung")}`;
   }
 
+  function viewLehrwerke() {
+    return `
+    <div class="card"><h2>6 Lehr- und Lernmittel</h2>
+      <div class="grid g2">
+        <div class="col hw"><h3>Hauswirtschaft</h3>${src("hw")}${ul(LEHRWERKE.hw)}</div>
+        <div class="col tc"><h3>Technik</h3>${src("tcneu")}<p class="hinweis">${esc(LEHRWERKE.tcHinweis)}</p>${ul(LEHRWERKE.tc)}</div>
+      </div></div>
+    ${noteBox("lehrwerke", "Notizen Lehrwerke")}`;
+  }
+
   function viewSitzung() {
-    const tags = { organisation: ["Organisation", "tc"], wirtschaft: ["Wirtschaft", "wi"], technik: ["Technik", "tc"], leistung: ["Leistung", "srl"], bo: ["Berufsorientierung", "bo"] };
+    const tags = { organisation: ["Organisation", "neu"], wirtschaft: ["Wirtschaft", "wi"], technik: ["Technik", "tc"], struktur: ["Struktur", "neu"], leistung: ["Leistung", "srl"], bo: ["Berufsorientierung", "bo"] };
     return `
     <div class="card"><h2>Gesprächsgrundlage für die Sitzung</h2>
-      <p>Offene Punkte, die sich aus dem Abgleich von Technik-Entwurf und HW-Planung ergeben. Status und Notizen werden lokal in diesem Browser gespeichert – vor der Sitzung ggf. exportieren.</p></div>
+      <p>Offene Punkte aus dem Abgleich beider Planungen. Status und Notizen werden lokal in diesem Browser gespeichert – vor der Sitzung ggf. exportieren.</p></div>
     ${DISKUSSION.map((d, i) => `<div class="card tight disc">
         <div><h3>${i + 1}. ${esc(d.titel)} <span class="chip ${tags[d.tag][1]}">${tags[d.tag][0]}</span></h3><p>${esc(d.text)}</p></div>
         <div class="noprint">${statusSelect(d.id)}</div>
-        <div class="tagline">${noteBox(d.id, "Ergebnis / Notiz")}</div>
-      </div>`).join("")}
+        <div class="tagline">${noteBox(d.id, "Ergebnis / Notiz")}</div></div>`).join("")}
     <div class="card">${noteBox("protokoll", "Protokoll / weitere Punkte")}</div>`;
   }
 
   function collectNotes() {
-    const all = store.all();
-    const labels = {};
+    const all = store.all(), labels = {};
     document.querySelectorAll("textarea[data-note]").forEach((t) => { labels[t.dataset.note] = t.dataset.label; });
     return Object.keys(all).filter((k) => k.startsWith("note:") && all[k]).map((k) => {
-      const id = k.slice(5);
-      return { id, label: labels[id] || id, text: all[k], status: all["status:" + id] || "" };
+      const id = k.slice(5); return { id, label: labels[id] || id, text: all[k], status: all["status:" + id] || "" };
     });
   }
-
   function viewNotizen() {
     return `
     <div class="card"><h2>Meine Notizen</h2>
-      <p>Alle Notizen und Bearbeitungsstände werden <b>nur lokal in diesem Browser</b> gespeichert (localStorage). Sie gehen verloren, wenn der Browserspeicher gelöscht wird. Zum Teilen oder Sichern exportieren.</p>
+      <p>Alle Notizen und Bearbeitungsstände werden <b>nur lokal in diesem Browser</b> gespeichert (localStorage). Zum Teilen oder Sichern exportieren.</p>
       <div class="noprint" style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn primary" data-act="export-md">Notizen als Markdown herunterladen</button>
         <button class="btn" data-act="export-json">Sicherung (JSON) herunterladen</button>
         <button class="btn" data-act="import-json">Sicherung einlesen</button>
-        <button class="btn" data-act="clear" style="border-color:var(--color-error);color:var(--color-error)">Alle Notizen löschen</button>
+        <button class="btn danger" data-act="clear">Alle Notizen löschen</button>
       </div></div>
     <div class="card notelist" id="notelist"></div>`;
   }
   function fillNotelist() {
-    const el = document.getElementById("notelist");
-    if (!el) return;
+    const el = document.getElementById("notelist"); if (!el) return;
     const notes = collectNotes();
     el.innerHTML = notes.length ? notes.map((n) => `<div class="item"><b>${esc(n.label)}</b> ${n.status ? `<span class="chip srl">${esc(n.status)}</span>` : ""}<pre>${esc(n.text)}</pre></div>`).join("") : `<p class="muted">Noch keine Notizen. Notizfelder gibt es in jedem Abschnitt.</p>`;
   }
 
   /* ---------- Aufbau ---------- */
   const VIEWS = [
-    { id: "uebersicht", label: "Übersicht", render: viewUebersicht },
-    ...TC.map((t) => ({ id: "jg" + t.jg, label: "Jahrgang " + t.jg, render: () => viewTC(t) })),
+    { id: "rahmen", label: "1 Rahmen", render: viewRahmen },
+    { id: "uebersicht", label: "2 Übersicht", render: viewUebersicht },
+    ...JGS.map((jg) => ({ id: "jg" + jg, label: "Jg. " + jg, render: () => viewJahrgang(jg) })),
     { id: "abdeckung", label: "Abdeckung KLP", render: viewAbdeckung },
-    { id: "leistung", label: "Leistungsbewertung", render: viewLeistung },
+    { id: "leistung", label: "5 Leistung", render: viewLeistung },
+    { id: "lehrwerke", label: "6 Lehrwerke", render: viewLehrwerke },
     { id: "sitzung", label: "Sitzung", render: viewSitzung },
-    { id: "notizen", label: "Meine Notizen", render: viewNotizen },
+    { id: "notizen", label: "Notizen", render: viewNotizen },
   ];
 
   function build() {
-    document.title = `${META.titel} – SchiLP Arbeitsversion`;
+    document.title = `${META.titel} – gemeinsamer SchiLP (Arbeitsversion)`;
     document.getElementById("app").innerHTML = `
       <header class="topbar">
         <div class="brand"><b>${esc(META.titel)}</b><span>${esc(META.untertitel)} · ${esc(META.schule)}</span></div>
@@ -1163,7 +2654,10 @@ const LEISTUNG = {
         <button data-act="printall">Gesamt drucken</button>
       </header>
       <nav class="tabs"><div class="inner">${VIEWS.map((v) => `<a href="#${v.id}" data-view="${v.id}">${v.label}</a>`).join("")}</div>
-        <div class="filterbar"><span class="lbl">Hervorheben:</span>
+        <div class="filterbar">
+          <span class="lbl">Fach:</span>
+          <span class="seg"><button data-fach="beide">Beide</button><button data-fach="hw">Hauswirtschaft</button><button data-fach="tc">Technik</button></span>
+          <span class="lbl" style="margin-left:12px">Hervorheben:</span>
           <button class="fchip" data-f="wi">Wirtschaft</button>
           <button class="fchip" data-f="bo">Berufsorientierung</button>
           <button class="fchip" data-f="bne">BNE</button>
@@ -1171,19 +2665,31 @@ const LEISTUNG = {
           <button class="fchip" data-f="srl">SRL</button>
         </div></nav>
       <main>${VIEWS.map((v) => `<section class="view" id="view-${v.id}">${v.render()}</section>`).join("")}</main>
-      <div class="foot">${esc(META.schule)} · SchiLP WP Wirtschaft und Arbeitswelt · ${esc(META.version)} · Notizen werden nur lokal gespeichert</div>
+      <div class="foot">${esc(META.schule)} · Gemeinsamer SchiLP Wirtschaft und Arbeitswelt · ${esc(META.version)} · HW-Inhalte wörtlich aus dem SchiLP Hauswirtschaft (Stand 31.08.2026) · Notizen nur lokal gespeichert</div>
       <div class="toast" id="toast"></div>
       <input type="file" id="importfile" accept="application/json" hidden>`;
   }
 
   function show(id) {
-    if (!VIEWS.some((v) => v.id === id)) id = "uebersicht";
+    let target = null;
+    if (id && id.startsWith("uv-")) { target = id; const m = MODELS.find((x) => "uv-" + x.id === id); id = m ? "jg" + m.jg : "uebersicht"; }
+    if (!VIEWS.some((v) => v.id === id)) id = "rahmen";
     document.querySelectorAll("section.view").forEach((s) => s.classList.toggle("active", s.id === "view-" + id));
     document.querySelectorAll("nav.tabs a").forEach((a) => a.classList.toggle("active", a.dataset.view === id));
     if (id === "notizen") fillNotelist();
     store.set("ui:view", id);
+    if (target) openUV(target);
   }
-
+  function openUV(domId) {
+    const d = document.getElementById(domId); if (!d) return;
+    d.open = true; setTimeout(() => d.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+  }
+  function setFach(f) {
+    document.body.classList.remove("only-hw", "only-tc");
+    if (f === "hw" || f === "tc") document.body.classList.add("only-" + f);
+    document.querySelectorAll(".seg button").forEach((b) => b.classList.toggle("on", b.dataset.fach === (f || "beide")));
+    store.set("ui:fach", f === "beide" ? "" : f);
+  }
   function toast(msg) {
     const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show");
     clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2200);
@@ -1197,16 +2703,12 @@ const LEISTUNG = {
   function bind() {
     const timers = {};
     document.addEventListener("input", (e) => {
-      const ta = e.target.closest("textarea[data-note]");
-      if (!ta) return;
-      const key = ta.dataset.note;
-      clearTimeout(timers[key]);
+      const ta = e.target.closest("textarea[data-note]"); if (!ta) return;
+      const key = ta.dataset.note; clearTimeout(timers[key]);
       timers[key] = setTimeout(() => {
         store.set("note:" + key, ta.value);
         const box = ta.closest(".note"); box.classList.toggle("has", !!ta.value);
         const s = box.querySelector(".saved"); s.classList.add("show"); setTimeout(() => s.classList.remove("show"), 1200);
-        // gleiche Notiz an anderer Stelle (Druckansicht) synchron halten
-        document.querySelectorAll(`textarea[data-note="${key}"]`).forEach((o) => { if (o !== ta) o.value = ta.value; });
       }, 400);
     });
     document.addEventListener("change", (e) => {
@@ -1217,17 +2719,19 @@ const LEISTUNG = {
       const f = e.target.closest(".fchip");
       if (f) {
         f.classList.toggle("on"); document.body.classList.toggle("hl-" + f.dataset.f, f.classList.contains("on"));
-        const on = [...document.querySelectorAll(".fchip.on")].map((x) => x.dataset.f).join(",");
-        store.set("ui:filter", on); return;
+        store.set("ui:filter", [...document.querySelectorAll(".fchip.on")].map((x) => x.dataset.f).join(",")); return;
       }
-      const b = e.target.closest("[data-act]");
-      if (!b) return;
+      const sg = e.target.closest(".seg button"); if (sg) { setFach(sg.dataset.fach); return; }
+      const op = e.target.closest("[data-open]");
+      if (op) { e.preventDefault(); const id = op.dataset.open; history.replaceState(null, "", "#" + id); show(id); return; }
+      const b = e.target.closest("[data-act]"); if (!b) return;
       const act = b.dataset.act;
-      if (act === "print") { document.body.classList.remove("printall"); document.querySelectorAll("section.view.active details.hwuv").forEach((d) => d.open = true); window.print(); }
-      if (act === "printall") { document.body.classList.add("printall"); document.querySelectorAll("details.hwuv").forEach((d) => d.open = true); window.print(); setTimeout(() => document.body.classList.remove("printall"), 500); }
+      if (act === "openall" || act === "closeall") document.querySelectorAll("section.view.active details.uv").forEach((d) => d.open = act === "openall");
+      if (act === "print") { document.body.classList.remove("printall"); document.querySelectorAll("section.view.active details.uv").forEach((d) => d.open = true); window.print(); }
+      if (act === "printall") { document.body.classList.add("printall"); document.querySelectorAll("details.uv").forEach((d) => d.open = true); window.print(); setTimeout(() => document.body.classList.remove("printall"), 500); }
       if (act === "export-md") {
         const notes = collectNotes();
-        const md = `# Notizen SchiLP WAW (${new Date().toLocaleDateString("de-DE")})\n\n` + (notes.map((n) => `## ${n.label}${n.status ? ` _(Status: ${n.status})_` : ""}\n\n${n.text}\n`).join("\n") || "_keine Notizen_\n");
+        const md = `# Notizen gemeinsamer SchiLP WAW (${new Date().toLocaleDateString("de-DE")})\n\n` + (notes.map((n) => `## ${n.label}${n.status ? ` _(Status: ${n.status})_` : ""}\n\n${n.text}\n`).join("\n") || "_keine Notizen_\n");
         download(`schilp-waw-notizen-${new Date().toISOString().slice(0, 10)}.md`, md, "text/markdown");
       }
       if (act === "export-json") download(`schilp-waw-sicherung-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(store.all(), null, 2), "application/json");
@@ -1248,25 +2752,25 @@ const LEISTUNG = {
     });
     window.addEventListener("hashchange", () => show(location.hash.slice(1)));
   }
-  // Sicherheitsabfrage ohne blockierenden Browser-Dialog: zweimal klicken
   let clearArmed = 0;
   function confirmClear() {
     if (Date.now() - clearArmed < 4000) { clearArmed = 0; return true; }
     clearArmed = Date.now(); toast("Zum Löschen innerhalb von 4 Sekunden erneut klicken"); return false;
   }
   function rerender() {
-    const cur = location.hash.slice(1) || store.get("ui:view") || "uebersicht";
+    const cur = location.hash.slice(1) || store.get("ui:view") || "rahmen";
     VIEWS.forEach((v) => { document.getElementById("view-" + v.id).innerHTML = v.render(); });
     show(cur);
   }
-  function restoreFilters() {
+  function restoreUI() {
     (store.get("ui:filter") || "").split(",").filter(Boolean).forEach((f) => {
       const b = document.querySelector(`.fchip[data-f="${f}"]`); if (b) { b.classList.add("on"); document.body.classList.add("hl-" + f); }
     });
+    setFach(store.get("ui:fach") || "beide");
   }
 
-  build(); bind(); restoreFilters();
-  show(location.hash.slice(1) || store.get("ui:view") || "uebersicht");
+  build(); bind(); restoreUI();
+  show(location.hash.slice(1) || store.get("ui:view") || "rahmen");
 })();
 
 </script>
