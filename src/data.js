@@ -9,7 +9,7 @@ const META = {
   untertitel: "Gemeinsamer schulinterner Lehrplan Hauswirtschaft · Technik · Wirtschaft",
   schule: "Heinrich-Böll-Gesamtschule Dortmund",
   stand: "09.11.2026",
-  version: "Arbeitsversion 0.2 – Gesprächsgrundlage",
+  version: "Arbeitsversion 0.3 – Gesprächsgrundlage",
   lehrwerkTC: "Blickpunkt Technik SI, Westermann 2025 (ISBN 978-3-14-188512-5)",
   lehrwerkWI: "starkeSeiten Wahlpflicht Wirtschaft und Arbeitswelt – Wirtschaft, NRW, Klett",
   lehrwerkHW: "starkeSeiten Hauswirtschaft / WP-Arbeitslehre Hauswirtschaft/Wirtschaft, Klett",

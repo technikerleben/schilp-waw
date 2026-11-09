@@ -41,3 +41,13 @@ python3 tools/build.py
 
 Notizen und Bearbeitungsstände werden nur lokal im Browser gespeichert (localStorage)
 und lassen sich als Markdown oder JSON exportieren bzw. importieren.
+
+## Bedienung (Arbeitsversion 0.3)
+
+- **Suche:** `Strg+K` oder `/` – durchsucht Vorhaben, Sequenzen, Kompetenzen, Materialien und Kapitel
+- **Codes und Inhaltsfelder anklicken:** Seitenleiste mit Bedeutung und allen Fundstellen (funktioniert auch auf dem iPad)
+- **Jahrgangsseiten:** Ansicht „Vorhaben“ mit mitlaufender Seitennavigation oder „Gegenüberstellung“ HW/Technik; Stundenbalken gegen den Rahmen von ca. 54 Std.
+- **Kompakt/Detail**, Fachfilter, Hervorhebungen (Wirtschaft, BO, BNE, MKR, SRL)
+- **Sitzungsmodus** (Reiter Sitzung): ein Punkt pro Bildschirm, Status per Klick, Zeitnahme, Protokoll als Markdown
+- **Notizen:** pro Abschnitt und pro Sequenz; Name eintragen → Datei exportieren; Dateien anderer einlesen → deren Notizen erscheinen mit Namen an den passenden Stellen
+- **🔗** kopiert einen Link auf Vorhaben, Sequenz oder Abschnitt; **←/→** wechselt die Reiter; **Drucken …** mit Kapitel- und Fachauswahl
